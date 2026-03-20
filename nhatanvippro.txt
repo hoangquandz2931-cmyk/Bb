@@ -1,0 +1,169 @@
+--// Services
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+local Camera = workspace.CurrentCamera
+
+--// RED BLACK THEME
+local THEME = {
+    BG_BLACK  = Color3.fromRGB(14,14,14),
+    BG_DARK   = Color3.fromRGB(22,22,22),
+
+    RED_MAIN  = Color3.fromRGB(160,35,35),
+    RED_DARK  = Color3.fromRGB(120,25,25),
+    RED_HOVER = Color3.fromRGB(200,55,55),
+
+    STROKE    = Color3.fromRGB(220,70,70),
+    TEXT      = Color3.fromRGB(255,210,210)
+}
+
+--// UI LIB
+local UILibrary = loadstring(game:HttpGet(
+    "https://raw.githubusercontent.com/khoavipok/UI-strongest-/refs/heads/main/Ui%20new"
+))()
+
+local Window = UILibrary:CreateWindow("🩸 HoangQuan(nhatan)", UDim2.new(0,250,0,350))
+
+--// Vars
+local SelectedPlayer = nil
+local Locked = false
+local FollowDistance = 3.5
+local HeightOffset = 1.8
+local PredictPower = 5
+
+--// ESP Folder
+local ESPFolder = Instance.new("Folder", game.CoreGui)
+ESPFolder.Name = "BehindLockESP"
+
+local CurrentHighlight
+
+--// Highlight
+local function highlight(plr)
+    if CurrentHighlight then CurrentHighlight:Destroy() end
+    if not (plr and plr.Character) then return end
+
+    local h = Instance.new("Highlight")
+    h.FillColor = THEME.RED_DARK
+    h.FillTransparency = 0.35
+    h.OutlineColor = THEME.STROKE
+    h.OutlineTransparency = 0
+    h.Adornee = plr.Character
+    h.Parent = ESPFolder
+    CurrentHighlight = h
+end
+
+--// Labels
+local Info = Window:CreateLabel("Selected: None")
+local State = Window:CreateLabel("State: Idle")
+
+task.wait(0.1)
+local Container = Window:GetContainer()
+
+--// PLAYER LIST
+if Container then
+    local Scroll = Instance.new("ScrollingFrame", Container)
+    Scroll.Size = UDim2.new(1,-20,0,160)
+    Scroll.CanvasSize = UDim2.new(0,0,0,0)
+    Scroll.ScrollBarThickness = 6
+    Scroll.BackgroundColor3 = THEME.BG_DARK
+    Scroll.BorderSizePixel = 0
+
+    Instance.new("UICorner",Scroll).CornerRadius = UDim.new(0,8)
+    local Stroke = Instance.new("UIStroke",Scroll)
+    Stroke.Color = THEME.RED_DARK
+    Stroke.Transparency = 0.15
+
+    local Layout = Instance.new("UIListLayout",Scroll)
+    Layout.Padding = UDim.new(0,5)
+    Layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+
+    Instance.new("UIPadding",Scroll).PaddingTop = UDim.new(0,5)
+
+    Layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+        Scroll.CanvasSize = UDim2.new(0,0,0,Layout.AbsoluteContentSize.Y + 10)
+    end)
+
+    local function RefreshList()
+        for _,v in pairs(Scroll:GetChildren()) do
+            if v:IsA("TextButton") then v:Destroy() end
+        end
+
+        for _,plr in ipairs(Players:GetPlayers()) do
+            if plr ~= LocalPlayer then
+                local B = Instance.new("TextButton",Scroll)
+                B.Size = UDim2.new(1,-10,0,28)
+                B.Text = plr.Name
+                B.Font = Enum.Font.GothamSemibold
+                B.TextSize = 13
+                B.BackgroundColor3 = THEME.BG_BLACK
+                B.TextColor3 = THEME.TEXT
+                B.AutoButtonColor = false
+
+                Instance.new("UICorner",B).CornerRadius = UDim.new(0,6)
+                local S = Instance.new("UIStroke",B)
+                S.Color = THEME.RED_MAIN
+                S.Transparency = 0.15
+
+                B.MouseEnter:Connect(function()
+                    B.BackgroundColor3 = THEME.RED_DARK
+                    S.Color = THEME.RED_HOVER
+                end)
+
+                B.MouseLeave:Connect(function()
+                    B.BackgroundColor3 = THEME.BG_BLACK
+                    S.Color = THEME.RED_MAIN
+                end)
+
+                B.MouseButton1Click:Connect(function()
+                    SelectedPlayer = plr
+                    Info.Text = "Selected: "..plr.Name
+                    highlight(plr)
+                end)
+            end
+        end
+    end
+
+    Window:CreateButton("🔁 Refresh List", RefreshList)
+
+    Window:CreateToggle("Behind Lock", function(v)
+        Locked = v
+        State.Text = v and "State: LOCKED" or "State: Idle"
+
+        if not v then
+            Camera.CameraType = Enum.CameraType.Custom
+            if CurrentHighlight then CurrentHighlight:Destroy() end
+        elseif SelectedPlayer then
+            highlight(SelectedPlayer)
+        end
+    end)
+
+    task.delay(0.2, RefreshList)
+end
+
+--// BEHIND LOCK LOGIC
+RunService.Heartbeat:Connect(function(dt)
+    if not Locked or not SelectedPlayer then return end
+
+    local t = SelectedPlayer.Character
+    local m = LocalPlayer.Character
+    if not (t and m) then return end
+
+    local tHRP = t:FindFirstChild("HumanoidRootPart")
+    local mHRP = m:FindFirstChild("HumanoidRootPart")
+    if not (tHRP and mHRP) then return end
+
+    local predicted = tHRP.Position + (tHRP.AssemblyLinearVelocity * dt * PredictPower)
+    local behind = predicted - (tHRP.CFrame.LookVector * FollowDistance)
+        + Vector3.new(0,HeightOffset,0)
+
+    mHRP.CFrame = CFrame.new(mHRP.Position:Lerp(behind,0.6), predicted)
+
+    Camera.CameraType = Enum.CameraType.Scriptable
+    Camera.CFrame = Camera.CFrame:Lerp(
+        CFrame.lookAt(mHRP.Position + Vector3.new(13,5,3), predicted),
+        0.15
+    )
+end)
+
+--// FOOTER
+Window:CreateLabel("🩸 HoangQuan(nhatan)")
