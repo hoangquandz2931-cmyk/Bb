@@ -1,0 +1,285 @@
+if game.Players.LocalPlayer.PlayerGui.Main:FindFirstChild("ChooseTeam") then
+    for i, v in pairs(
+        getconnections(
+            game:GetService("Players").LocalPlayer.PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.TextButton.Activated
+        )
+    ) do
+        for a, b in pairs(getconnections(game:GetService("UserInputService").TouchTapInWorld)) do
+            b:Fire()
+        end
+        v.Function()
+    end
+end
+spawn(
+    function()
+        while wait() do
+            if _G.Ken then
+                repeat
+                    task.wait()
+                    if not game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui:FindFirstChild("ImageLabel") then
+                        game:GetService("VirtualUser"):CaptureController()
+                        game:GetService("VirtualUser"):SetKeyDown("0x65")
+                        wait(2)
+                        game:GetService("VirtualUser"):SetKeyUp("0x65")
+                    end
+                until game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui:FindFirstChild("ImageLabel") or
+                    not _G.Ken
+            end
+        end
+    end
+)
+
+spawn(function()
+    pcall(function()
+        if _G.PlayersAura then
+            while wait() do
+                if game.Players.LocalPlayer.Character.Humanoid.Health > 0 then
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("SetSpawnPoint")
+                end
+            end
+        end
+    end)
+end)
+
+_G.PlayersAura = true
+
+spawn(function()
+    while task.wait() do
+        pcall(function()
+            if NoClip == true then
+                if not game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
+                    local Noclip = Instance.new("BodyVelocity")
+                    Noclip.Name = "BodyClip"
+                    Noclip.Parent = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+                    Noclip.MaxForce = Vector3.new(100000,100000,100000)
+                    Noclip.Velocity = Vector3.new(0,0,0)
+                end
+            else
+                game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip"):Destroy()
+            end
+        end)
+    end
+end)
+
+spawn(function()
+    pcall(function()
+        game:GetService("RunService").Stepped:Connect(function()
+            if NoClip == true then
+                for i, v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+                    if v:IsA("BasePart") then
+                        v.CanCollide = false
+                    end
+                end
+            end
+        end)
+    end)
+end)
+
+spawn(function()
+    while wait() do
+        if _G.PlayersAura then
+            pcall(function()
+                if game:GetService("Players").LocalPlayer.PlayerGui.Main.InCombat.Visible then
+                    BypassTP = false
+                elseif not game:GetService("Players").LocalPlayer.PlayerGui.Main.InCombat.Visible then
+                    BypassTP = true
+                end
+            end)
+        end
+    end
+end)
+
+spawn(function()
+    while wait() do
+        if _G.PlayersAura then
+            pcall(function()
+                for i, v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.Notifications:GetChildren()) do
+                    if v.Name == "NotificationTemplate" then
+                        if string.find(v.Text, "Players") or string.find(v.Text, "SafeZone") then
+                            NextplySelect = true
+                            wait(0.5)
+                            NextplySelect = false
+                        end
+                    end
+                end
+            end)
+        end
+    end
+end)
+
+spawn(function()
+    while wait() do
+        pcall(function()
+            if _G.PlayersAura then
+                if not game:GetService("Players").LocalPlayer.Character:FindFirstChild("HasBuso") then
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Buso")
+                end
+            end
+        end)
+    end
+end)
+
+function Tween(Pos)
+    Distance = (Pos.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+    if Distance < 25 then
+        Speed = 5000
+    elseif Distance < 50 then
+        Speed = 2000
+    elseif Distance < 150 then
+        Speed = 800
+    elseif Distance < 250 then
+        Speed = 600
+    elseif Distance < 500 then
+        Speed = 300
+    elseif Distance < 750 then
+        Speed = 275
+    elseif Distance >= 1000 then
+        Speed = 250
+    end
+    game:GetService("TweenService"):Create(
+        game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+        TweenInfo.new(Distance / Speed, Enum.EasingStyle.Linear),
+        {CFrame = Pos}
+    ):Play()
+    NoClip = true
+    wait(Distance/Speed)
+    NoClip = false
+end
+
+function BTP(P)
+	repeat wait(1)
+		game.Players.LocalPlayer.Character.Humanoid:ChangeState(15)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = P
+		task.wait()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = P
+	until (P.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 1500
+end
+
+spawn(function()
+    game:GetService("RunService").RenderStepped:Connect(function()
+        if _G.AutoClick or Fastattack then
+            game:GetService "VirtualUser":CaptureController()
+            game:GetService "VirtualUser":Button1Down(Vector2.new(0, 1, 0, 1))
+        end
+    end)
+end)
+
+BypassTP = true
+_G.Ken = true
+join = game.Players.localPlayer.Neutral == false
+CastlePostoMansion = CFrame.new(-5084.8447265625, 316.48101806641, -3145.3752441406)
+MansiontoCastlePos = CFrame.new(-12464.596679688, 376.30590820312, -7567.2626953125)
+Castletophydra = CFrame.new(-5095.33984375, 316.48101806641, -3168.3134765625)
+HydratoCastle = CFrame.new(5741.869140625, 611.94750976562, -282.61154174805)
+
+function Z()
+game:GetService("VirtualInputManager"):SendKeyEvent(true,"Z",false,game)
+game:GetService("VirtualInputManager"):SendKeyEvent(false,"Z",false,game)
+end
+
+function X()
+game:GetService("VirtualInputManager"):SendKeyEvent(true,"X",false,game)
+game:GetService("VirtualInputManager"):SendKeyEvent(false,"X",false,game)
+end
+
+function C()
+game:GetService("VirtualInputManager"):SendKeyEvent(true,"C",false,game)
+game:GetService("VirtualInputManager"):SendKeyEvent(false,"C",false,game)
+end
+
+spawn(function()
+    while wait() do
+        for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+            if v.ToolTip == "Melee" and game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
+                SelectWP = v.Name
+            end
+        end
+    end
+end
+
+function EquipTool(Toolse)
+    local tool = game.Players.LocalPlayer.Backpack:FindFirstChild(Toolse)
+    if tool then
+        wait(0.5)
+        game.Players.LocalPlayer.Character.Humanoid:EquipTool(tool)
+    end
+end
+
+spawn(function()
+    while wait() do
+        pcall(function()
+            if _G.PlayersAura then
+                if join == true then
+                    for i, v in pairs(game:GetService("Workspace").Characters:GetChildren()) do
+                        if v.Name ~= game.Players.LocalPlayer.Name then
+                            if v.Humanoid.Health > 0 and (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).Magnitude <= 17000 then
+                                plyselecthunthelpold = v.Humanoid.Health
+                                repeat
+                                    task.wait()
+                                    TietCanh = v.Humanoid.Health
+                                    NameTarget = v.Name
+                                    Tween(v.HumanoidRootPart.CFrame * CFrame.new(0, 0, 0))
+                                    spawn(function()
+                                        if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 150 then
+                                            spawn(function()
+                                                Z()
+                                                X()
+                                                C()
+                                                _G.AutoClick = true
+                                                EquipTool(SelectWP)
+                                            end)
+                                        end
+                                    end)
+                                    v.HumanoidRootPart.CanCollide = false
+                                    TargetSelectHunt = v.Humanoid
+                                until _G.PlayersAura == false or v.Humanoid.Health == 0 or not v:FindFirstChild("HumanoidRootPart") or not v:FindFirstChild("Humanoid") or not v.Parent or NextplySelect == true
+                                NextplySelect = false
+                                StartCheckTarget = false
+                            end
+                        end
+                    end
+                end
+            end
+        end)
+    end
+end)
+
+spawn(function()
+    while wait() do
+        if TietCanh <= 0 then
+            NextplySelect = true
+            wait(0.5)
+            NextplySelect = false
+        end
+    end
+end)
+
+spawn(function()
+    pcall(function()
+        while wait() do
+            if _G.PlayersAura then
+                if TargetSelectHunt ~= nil then
+                    if StartCheckTarget then
+                        wait(6.5)
+                        if TargetSelectHunt.Health == TargetSelectHunt.MaxHealth or TargetSelectHunt.Health >= plyselecthunthelpold then
+                            NextplySelect = true
+                            TargetSelectHunt = nil
+                        end
+                    end
+                end
+            end
+        end
+    end)
+end)
+
+spawn(function()
+    pcall(function()
+        while wait(.1) do
+            if _G.PlayersAura then
+                if game:GetService("Players").LocalPlayer.PlayerGui.Main.PvpDisabled.Visible == true then
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("EnablePvp")
+                end
+            end
+        end
+    end)
+end)
