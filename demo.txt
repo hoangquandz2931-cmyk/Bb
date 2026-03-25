@@ -1,0 +1,233 @@
+local CoreGui = game:GetService("StarterGui")
+
+CoreGui:SetCore("SendNotification", {
+    Title = "Loading Script",
+    Text = "Nhatanvip",
+    Icon = "rbxassetid://121471149924300",
+    Duration = 6
+})
+--  Cinematic Intro
+local CoreGui = game:GetService("CoreGui")
+
+-- Giao diện chính
+local ScreenGui = Instance.new("ScreenGui", CoreGui)
+ScreenGui.IgnoreGuiInset = true
+ScreenGui.ResetOnSpawn = true
+
+-- Lớp làm mờ nền
+local BlurFrame = Instance.new("Frame", ScreenGui)
+BlurFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+BlurFrame.BackgroundTransparency = 0.4 -- Độ mờ nền
+BlurFrame.Size = UDim2.new(1, 0, 1, 0)
+
+-- Hiệu ứng chữ
+local TextLabel = Instance.new("TextLabel", ScreenGui)
+TextLabel.Size = UDim2.new(1, 0, 1, 0)
+TextLabel.BackgroundTransparency = 1
+TextLabel.Text = ""
+TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.TextStrokeTransparency = 0.2
+TextLabel.TextStrokeColor3 = Color3.fromRGB(0, 170, 255)
+TextLabel.Font = Enum.Font.GothamBlack
+TextLabel.TextScaled = true
+TextLabel.TextTransparency = 1 -- Bắt đầu ẩn
+
+-- Hiệu ứng fade in/out
+local TweenService = game:GetService("TweenService")
+
+local fadeIn = TweenService:Create(TextLabel, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency = 0})
+local fadeOut = TweenService:Create(TextLabel, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {TextTransparency = 1})
+local fadeBg = TweenService:Create(BlurFrame, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {BackgroundTransparency = 1})
+
+-- Chạy hiệu ứng
+fadeIn:Play()
+task.wait(5) -- hiển thị chữ trong 2 giây
+fadeOut:Play()
+fadeBg:Play()
+
+-- Xoá sau 3.5s
+task.wait(3.5)
+ScreenGui:Destroy()
+local WindUI =
+loadstring(game:HttpGet("https://raw.githubusercontent.com/teoscrvn/T-ng-h-p-/refs/heads/main/Script%20test%20(1).txt"))()
+
+--🔹 Tạo Window
+local Window = WindUI:CreateWindow({
+    Title = "Zylos Hub",
+    Size = UDim2.fromOffset(580, 340),
+    Theme = "Dark",
+    Transparent = true
+})
+Window:EditOpenButton({
+    Title = "Zylos Hub",
+    Icon = "monitor", -- hoặc icon khác
+    CornerRadius = UDim.new(0,16),
+    StrokeThickness = 2,
+    Color = ColorSequence.new(
+        Color3.fromHex("FF0F7B"),
+        Color3.fromHex("F89B29")
+    ),
+    Draggable = true,
+})
+
+local Tabs = {}
+
+Tabs.Home0 = Window:Tab({Title = "the forge"})
+Tabs.Home1 = Window:Tab({Title = "blox fruit"})
+Tabs.Home2 = Window:Tab({Title = "steal branrot"})
+Tabs.Home3 = Window:Tab({Title = "99 đêm"})
+Tabs.Home4 = Window:Tab({Title = "grow gaden"})
+Tabs.Home5 = Window:Tab({Title = "trang mạng xã hội"})
+Tabs.Home6 = Window:Tab({Title = "1 số script do(1 số ng trong nhóm làm) "})
+
+-- Nút chung
+Tabs.Home0:Button({
+    Title = "Rimage hub (nokey)",
+    Callback = function()
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/2075c39b9a5a2e4414c59c93fe8a5f06.lua"))()
+    end
+})
+Tabs.Home0:Button({
+    Title = "Mirage-Hub (nokey)",
+    Callback = function()
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/280c3c5ae0ed18010fea0d86c424fdb5.lua"))()    
+    end
+})
+
+Tabs.Home1:Button({
+    Title = "Redhub v5 của trẩu roblox",
+    Callback = function(state)
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/trungdao2k4/trauroblox/refs/heads/main/traurobloxv5.lua"))()
+    end
+})
+
+Tabs.Home1:Button({
+    Title = "script tạo sv VIp ",
+    Callback = function(state)
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/anuragaming1/Meow_gaming/refs/heads/main/Servervip.lua.txt"))()
+    end
+})
+
+Tabs.Home1:Button({
+    Title = "blueX-Hub",
+    Callback = function(state)
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Dev-BlueX/BlueX-Hub/refs/heads/main/Main.lua"))()
+    end
+})
+Tabs.Home1:Button({
+    Title = "redhub",
+    Callback = function()
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/20f318386e3fbf069ee3fa797cfc9f34.lua"))()
+    end
+})
+Tabs.Home1:Button({
+    Title = "Gravity-Hub",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Dev-GravityHub/BloxFruit/refs/heads/main/Main.lua"))()
+    end
+})
+
+Tabs.Home4:Button({
+    Title = "Seep-Hub",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
+    end
+})
+Tabs.Home4:Button({
+    Title = "ThunderX",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ThundeZ/GrowAGardenScript/refs/heads/main/ThunderZHub.lua"))()
+    end
+})
+Tabs.Home4:Button({
+    Title = "Nat-Hub",
+    Callback = function()
+        loadstring(game:HttpGet("https://get.nathub.xyz/loader"))()
+    end
+})
+Tabs.Home3:Button({
+    Title = "Foxname-Hub (nokey)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/caomod2077/Script/refs/heads/main/FoxnameHub.lua"))()
+    end
+})
+Tabs.Home3:Button({
+    Title = "H4xScript(ngon đầy đủ)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/H4xScripts/Loader/refs/heads/main/loader.lua", true))()
+    end
+})
+Tabs.Home3:Button({
+    Title = "Thunder-Hub",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/NAVAAI098/Thunder-Hub/main/Kaitun.lua"))()
+    end
+})
+Tabs.Home3:Button({
+    Title = "combo",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/checkurasshole/Trt/refs/heads/main/999NIGH"))()
+    end
+})
+Tabs.Home3:Button({
+    Title = "VoidWare (nokey)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/VapeVoidware/VW-Add/main/nightsintheforest.lua", true))()
+    end
+})
+Tabs.Home3:Button({
+    Title = "hok bt tên =)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GEC0/gec/refs/heads/main/Gec.Loader", true))()
+    end
+    })
+Tabs.Home3:Button({
+    Title = "FoxNam-Hub/Fram'Candy",
+    Callback = function()
+        getgenv().autoexecuter = true
+loadstring(game:HttpGet("https://raw.githubusercontent.com/caomod2077/Script/refs/heads/main/Candy_Farm_Christmas.lua"))()
+    end
+    })
+    Tabs.Home3:Button({
+    Title = "XEPHEX-HUB",
+    Callback = function()
+        loadstring(game:HttpGet("https://api.junkie-development.de/api/v1/luascripts/public/d649d6814b8489e7abd4f0646c1445019f10c4eefe8d77e7ce84336f33ad4263/download"))()
+    end
+    })
+    Tabs.Home3:Button({
+    Title = "Foxname-Hub",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/caomod2077/Script/refs/heads/main/FoxnameHub.lua"))()
+    end
+    })
+    
+    Tabs.Home3:Button({
+    Title = "Voiware 99",
+    Callback = function()
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/VapeVoidware/VW-Add/main/nightsintheforest.lua", true))()
+    end
+    })
+    Tabs.Home3:Button({
+    Title = "Ugly steal",
+    Callback = function()
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/53325754de16c11fbf8bf78101c1c881.lua"))()
+    end
+    })
+    Tabs.Home3:Button({
+    Title = "Fram Day vaf kc 🤑",
+    Callback = function()
+        loadstring(game:HttpGet("https://api.junkie-development.de/api/v1/luascripts/public/d649d6814b8489e7abd4f0646c1445019f10c4eefe8d77e7ce84336f33ad4263/download"))()
+    end
+    })
+Tabs.Home6:Button({
+    Title = "Bomdev[Khánh(Script troll)",
+    Callback = function()
+        loadstring(game:HttpGet("https://pastefy.app/zR85Ybcp/raw", true))()
+    end
+})
+Tabs.Home6:Button({
+    Title = "THG2Premium[Thành Đạt(tổng hợp )]",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/thanhdatdang87-lab/C-a-thg/refs/heads/main/ScriptTHG", true))()
+    end
+})
