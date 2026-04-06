@@ -1,0 +1,789 @@
+#crack by HoangQuan(nhatan)
+
+local _RunService = game:GetService('RunService')
+local _UserInputService = game:GetService('UserInputService')
+local _LocalPlayer = game.Players.LocalPlayer
+local _PlayerGui = _LocalPlayer:WaitForChild('PlayerGui')
+local _CurrentCamera = workspace.CurrentCamera
+local u6 = 0.016
+local u7 = false
+local u8 = nil
+local u9 = nil
+local u10 = tick()
+local u11 = nil
+
+_LocalPlayer:WaitForChild('DataLoaded', 60)
+
+if not _LocalPlayer.Character then
+    game:GetService('ReplicatedStorage').Remotes.CommF_:InvokeServer('SetTeam', 'Pirates')
+end
+
+local u13 = (function()
+    local _TouchEnabled = _UserInputService.TouchEnabled
+
+    if _TouchEnabled then
+        if _UserInputService.MouseEnabled then
+            _TouchEnabled = false
+        else
+            _TouchEnabled = not _UserInputService.KeyboardEnabled
+        end
+    end
+
+    return _TouchEnabled
+end)()
+
+task.wait(1)
+
+local _ScreenGui = Instance.new('ScreenGui')
+
+_ScreenGui.Name = 'LockOnGUI'
+_ScreenGui.ResetOnSpawn = false
+_ScreenGui.Parent = _PlayerGui
+
+local _TextButton = Instance.new('TextButton')
+
+_TextButton.Size = UDim2.new(0, 200, 0, 70)
+_TextButton.AnchorPoint = Vector2.new(0.5, 0.5)
+_TextButton.Position = UDim2.new(0.5, 0, 0, 20)
+_TextButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+_TextButton.Text = ''
+_TextButton.AutoButtonColor = false
+_TextButton.Active = true
+_TextButton.Draggable = true
+
+local _UICorner = Instance.new('UICorner')
+
+_UICorner.CornerRadius = UDim.new(0, 14)
+_UICorner.Parent = _TextButton
+_TextButton.Parent = _ScreenGui
+
+local _TextButton2 = Instance.new('TextButton')
+
+_TextButton2.Size = UDim2.new(0, 55, 0, 55)
+_TextButton2.Position = UDim2.new(1, -60, 0.5, -27.5)
+_TextButton2.BackgroundTransparency = 1
+_TextButton2.Text = '\u{2699}\u{fe0f}'
+_TextButton2.TextColor3 = Color3.fromRGB(255, 255, 255)
+_TextButton2.Font = Enum.Font.SourceSansBold
+_TextButton2.TextSize = 30
+_TextButton2.AutoButtonColor = false
+
+local _UICorner2 = Instance.new('UICorner')
+
+_UICorner2.CornerRadius = UDim.new(0, 12)
+_UICorner2.Parent = _TextButton2
+_TextButton2.Parent = _TextButton
+
+local _TextLabel = Instance.new('TextLabel')
+
+_TextLabel.Size = UDim2.new(1, -80, 1, 0)
+_TextLabel.Position = UDim2.new(0, 35, 0, 0)
+_TextLabel.BackgroundTransparency = 1
+_TextLabel.Text = 'Run OFF'
+_TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+_TextLabel.Font = Enum.Font.SourceSansBold
+_TextLabel.TextSize = 28
+_TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+_TextLabel.Parent = _TextButton
+
+local _TextLabel2 = Instance.new('TextLabel')
+
+_TextLabel2.Size = UDim2.new(0.9, 0, 0.2, 0)
+_TextLabel2.Position = UDim2.new(0.05, 0, 0.75, 0)
+_TextLabel2.BackgroundTransparency = 1
+_TextLabel2.TextColor3 = Color3.fromRGB(255, 0, 0)
+_TextLabel2.TextTransparency = 0.3
+_TextLabel2.Font = Enum.Font.SourceSansBold
+_TextLabel2.TextSize = 16
+_TextLabel2.Text = ''
+_TextLabel2.Visible = false
+_TextLabel2.Parent = _TextButton
+
+local _UICorner3 = Instance.new('UICorner')
+
+_UICorner3.CornerRadius = UDim.new(0, 12)
+_UICorner3.Parent = _TextLabel2
+
+local _Frame = Instance.new('Frame')
+
+_Frame.Size = UDim2.new(0, 260, 0, 340)
+_Frame.Position = UDim2.new(0.5, -180, 0.5, -100)
+_Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
+_Frame.Visible = false
+_Frame.Active = true
+_Frame.Draggable = true
+
+local _UICorner4 = Instance.new('UICorner')
+
+_UICorner4.CornerRadius = UDim.new(0, 16)
+_UICorner4.Parent = _Frame
+_Frame.Parent = _ScreenGui
+
+local _ScrollingFrame = Instance.new('ScrollingFrame')
+
+_ScrollingFrame.Size = UDim2.new(0.9, 0, 0.75, 0)
+_ScrollingFrame.Position = UDim2.new(0.05, 0, 0.15, 0)
+_ScrollingFrame.BackgroundTransparency = 1
+_ScrollingFrame.ScrollingDirection = Enum.ScrollingDirection.Y
+_ScrollingFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
+_ScrollingFrame.ScrollBarThickness = 6
+_ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
+_ScrollingFrame.Parent = _Frame
+
+local _UIListLayout = Instance.new('UIListLayout')
+
+_UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+_UIListLayout.Padding = UDim.new(0, 10)
+_UIListLayout.Parent = _ScrollingFrame
+
+local _TextLabel3 = Instance.new('TextLabel')
+
+_TextLabel3.Size = UDim2.new(1, 0, 0, 45)
+_TextLabel3.BackgroundTransparency = 1
+_TextLabel3.Text = 'Nhatan Hub'
+_TextLabel3.TextColor3 = Color3.fromRGB(255, 0, 0)
+_TextLabel3.TextTransparency = 0
+_TextLabel3.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
+_TextLabel3.TextStrokeTransparency = 0
+_TextLabel3.Font = Enum.Font.SourceSansBold
+_TextLabel3.TextSize = 32
+_TextLabel3.Parent = _Frame
+
+local _TextButton3 = Instance.new('TextButton')
+
+_TextButton3.Size = UDim2.new(0, 38, 0, 38)
+_TextButton3.Position = UDim2.new(1, -45, 0, 4)
+_TextButton3.BackgroundTransparency = 1
+_TextButton3.Text = 'X'
+_TextButton3.TextColor3 = Color3.fromRGB(255, 100, 100)
+_TextButton3.Font = Enum.Font.SourceSansBold
+_TextButton3.TextSize = 24
+_TextButton3.Parent = _Frame
+
+local function v39(p28, p29, p30, p31)
+    local _Frame2 = Instance.new('Frame', p28)
+
+    _Frame2.Size = UDim2.new(1, -10, 0, 30)
+    _Frame2.BackgroundTransparency = 0.5
+    _Frame2.BackgroundColor3 = Color3.new(0, 0, 0)
+    Instance.new('UICorner', _Frame2).CornerRadius = UDim.new(0, 13)
+
+    local _TextLabel4 = Instance.new('TextLabel', _Frame2)
+
+    _TextLabel4.Size = UDim2.new(0.6, 0, 1, 0)
+    _TextLabel4.Position = UDim2.new(0, 0, 0, 0)
+    _TextLabel4.BackgroundTransparency = 1
+    _TextLabel4.Text = p29
+    _TextLabel4.TextXAlignment = Enum.TextXAlignment.Left
+    _TextLabel4.Font = Enum.Font.GothamBold
+    _TextLabel4.TextSize = 14
+    _TextLabel4.TextColor3 = Color3.new(1, 1, 1)
+
+    local _Frame3 = Instance.new('Frame', _Frame2)
+
+    _Frame3.Size = UDim2.new(0, 50, 0, 24)
+    _Frame3.Position = UDim2.new(1, -60, 0.5, -12)
+    _Frame3.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    _Frame3.BackgroundTransparency = 0.3
+    _Frame3.Name = 'SwitchBase'
+    Instance.new('UICorner', _Frame3).CornerRadius = UDim.new(1, 0)
+
+    local _Frame4 = Instance.new('Frame', _Frame3)
+
+    _Frame4.Size = UDim2.new(0, 20, 0, 20)
+    _Frame4.Position = UDim2.new(0, 2, 0.5, -10)
+    _Frame4.BackgroundColor3 = Color3.new(1, 1, 1)
+    Instance.new('UICorner', _Frame4).CornerRadius = UDim.new(1, 0)
+
+    local u36 = p30 or false
+
+    local function u37()
+        if u36 then
+            _Frame3.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+
+            _Frame4:TweenPosition(UDim2.new(1, -22, 0.5, -10), 'Out', 'Quad', 0.2, true)
+        else
+            _Frame3.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+
+            _Frame4:TweenPosition(UDim2.new(0, 2, 0.5, -10), 'Out', 'Quad', 0.2, true)
+        end
+    end
+
+    _Frame3.InputBegan:Connect(function(p38)
+        if p38.UserInputType == Enum.UserInputType.MouseButton1 or p38.UserInputType == Enum.UserInputType.Touch then
+            u36 = not u36
+
+            u37()
+
+            if p31 then
+                p31(u36)
+            end
+        end
+    end)
+    u37()
+
+    return _Frame2
+end
+local function v47(p40, p41, p42, p43)
+    local _Frame5 = Instance.new('Frame', p40)
+
+    _Frame5.Size = UDim2.new(1, -10, 0, 30)
+    _Frame5.BackgroundTransparency = 0.5
+    _Frame5.BackgroundColor3 = Color3.new(0, 0, 0)
+    Instance.new('UICorner', _Frame5).CornerRadius = UDim.new(0, 13)
+
+    local _TextLabel5 = Instance.new('TextLabel', _Frame5)
+
+    _TextLabel5.Size = UDim2.new(0.6, 0, 1, 0)
+    _TextLabel5.Position = UDim2.new(0, 0, 0, 0)
+    _TextLabel5.BackgroundTransparency = 1
+    _TextLabel5.Text = p41
+    _TextLabel5.TextXAlignment = Enum.TextXAlignment.Left
+    _TextLabel5.Font = Enum.Font.GothamBold
+    _TextLabel5.TextSize = 14
+    _TextLabel5.TextColor3 = Color3.new(1, 1, 1)
+
+    local _TextBox = Instance.new('TextBox', _Frame5)
+
+    _TextBox.Size = UDim2.new(0, 50, 0, 24)
+    _TextBox.Position = UDim2.new(1, -60, 0.5, -12)
+    _TextBox.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    _TextBox.BackgroundTransparency = 0.3
+    _TextBox.Text = p42 or ''
+    _TextBox.Font = Enum.Font.GothamBold
+    _TextBox.TextSize = 14
+    _TextBox.TextColor3 = Color3.new(1, 1, 1)
+    _TextBox.PlaceholderText = 'enter...'
+    _TextBox.ClearTextOnFocus = false
+    Instance.new('UICorner', _TextBox).CornerRadius = UDim.new(1, 0)
+
+    _TextBox.FocusLost:Connect(function()
+        if p43 then
+            p43(_TextBox.Text)
+        end
+    end)
+
+    return _Frame5
+end
+
+local u48 = true
+
+v39(_ScrollingFrame, 'Cam Lock', true, function(p49)
+    u48 = p49
+end)
+v47(_ScrollingFrame, 'Prediction Strength', '0.016', function(p50)
+    u6 = p50
+end)
+
+local u51 = nil
+
+v39(_ScrollingFrame, 'Box ESP V1', false, function(p52)
+    u51 = p52
+end)
+
+local function u56(p53)
+    if _LocalPlayer.Character and _LocalPlayer.Character:FindFirstChild('HumanoidRootPart') then
+        local _HumanoidRootPart = p53.Character.HumanoidRootPart
+
+        if not _HumanoidRootPart:FindFirstChild('BoxESP') then
+            local _BoxHandleAdornment = Instance.new('BoxHandleAdornment')
+
+            _BoxHandleAdornment.Name = 'BoxESP'
+            _BoxHandleAdornment.Size = Vector3.new(4, 7, 2)
+            _BoxHandleAdornment.Color3 = Color3.new(1, 0, 0)
+            _BoxHandleAdornment.Transparency = 0.5
+            _BoxHandleAdornment.AlwaysOnTop = true
+            _BoxHandleAdornment.ZIndex = 5
+            _BoxHandleAdornment.Adornee = _HumanoidRootPart
+            _BoxHandleAdornment.Parent = _HumanoidRootPart
+        end
+    else
+        return
+    end
+end
+
+task.spawn(function()
+    while task.wait(0.1) do
+        if u51 then
+            local v57, v58, v59 = ipairs(game.Players:GetPlayers())
+
+            while true do
+                local v60
+
+                v59, v60 = v57(v58, v59)
+
+                if v59 == nil then
+                    break
+                end
+                if v60 ~= _LocalPlayer and v60.Character then
+                    local _HumanoidRootPart2 = v60.Character:FindFirstChild('HumanoidRootPart')
+
+                    if _HumanoidRootPart2 then
+                        u56(v60, _HumanoidRootPart2)
+                    end
+                end
+            end
+        else
+            local v62, v63, v64 = ipairs(game.Players:GetPlayers())
+
+            while true do
+                local v65
+
+                v64, v65 = v62(v63, v64)
+
+                if v64 == nil then
+                    break
+                end
+                if v65.Character then
+                    local _HumanoidRootPart3 = v65.Character:FindFirstChild('HumanoidRootPart')
+
+                    if _HumanoidRootPart3 and _HumanoidRootPart3:FindFirstChild('BoxESP') then
+                        _HumanoidRootPart3.BoxESP:Destroy()
+                    end
+                end
+            end
+        end
+    end
+end)
+
+local u67 = false
+
+v39(_ScrollingFrame, 'Fast Attack', false, function(p68)
+    u67 = p68
+end)
+
+local function u71(p69)
+    if not p69 then
+        return false
+    end
+
+    local _Humanoid = p69:FindFirstChild('Humanoid')
+
+    if _Humanoid then
+        _Humanoid = _Humanoid.Health > 0
+    end
+
+    return _Humanoid
+end
+local function u88(p72, p73)
+    local v74 = game:GetService('Workspace').Enemies:GetChildren()
+    local v75 = game.Players:GetPlayers()
+    local _Position = p72:GetPivot().Position
+    local v77, v78, v79 = ipairs(v74)
+    local v80 = {}
+
+    while true do
+        local v81
+
+        v79, v81 = v77(v78, v79)
+
+        if v79 == nil then
+            break
+        end
+
+        local _HumanoidRootPart4 = v81:FindFirstChild('HumanoidRootPart')
+
+        if _HumanoidRootPart4 and (u71(v81) and (_HumanoidRootPart4.Position - _Position).Magnitude <= p73) then
+            table.insert(v80, v81)
+        end
+    end
+
+    local v83, v84, v85 = ipairs(v75)
+
+    while true do
+        local v86
+
+        v85, v86 = v83(v84, v85)
+
+        if v85 == nil then
+            break
+        end
+        if v86 ~= _LocalPlayer and v86.Character then
+            local _HumanoidRootPart5 = v86.Character:FindFirstChild('HumanoidRootPart')
+
+            if _HumanoidRootPart5 and (u71(v86.Character) and (_HumanoidRootPart5.Position - _Position).Magnitude <= p73) then
+                table.insert(v80, v86.Character)
+            end
+        end
+    end
+
+    return v80
+end
+
+local u89 = 60
+
+local function u114()
+    local _Character = _LocalPlayer.Character
+
+    if not _Character:FindFirstChild('HumanoidRootPart') then
+        return
+    end
+
+    local v91, v92, v93 = ipairs(_Character:GetChildren())
+    local v94 = nil
+
+    while true do
+        local v95
+
+        v93, v95 = v91(v92, v93)
+
+        if v93 == nil then
+            v95 = v94
+
+            break
+        end
+        if v95:IsA('Tool') then
+            break
+        end
+    end
+
+    if v95 then
+        local v96 = u88(_Character, u89)
+
+        if v95:FindFirstChild('LeftClickRemote') then
+            local v97, v98, v99 = ipairs(v96)
+            local v100 = 1
+
+            while true do
+                local v101, v102 = v97(v98, v99)
+
+                if v101 == nil then
+                    break
+                end
+
+                v99 = v101
+
+                local _HumanoidRootPart6 = v102:FindFirstChild('HumanoidRootPart')
+
+                if _HumanoidRootPart6 then
+                    local _Unit = (_HumanoidRootPart6.Position - _Character:GetPivot().Position).Unit
+
+                    v95.LeftClickRemote:FireServer(_Unit, v100)
+
+                    v100 = v100 + 1
+                end
+            end
+        else
+            local v105, v106, v107 = ipairs(v96)
+            local u108 = {}
+            local u109 = nil
+
+            while true do
+                local v110
+
+                v107, v110 = v105(v106, v107)
+
+                if v107 == nil then
+                    break
+                end
+                if not v110:GetAttribute('IsBoat') then
+                    local _Head = v110:FindFirstChild('Head')
+
+                    if _Head then
+                        table.insert(u108, {v110, _Head})
+
+                        u109 = _Head
+                    end
+                end
+            end
+
+            if u109 then
+                local _RERegisterAttack = game:GetService('ReplicatedStorage'):WaitForChild('Modules'):WaitForChild('Net'):WaitForChild('RE/RegisterAttack')
+                local _RERegisterHit = game:GetService('ReplicatedStorage'):WaitForChild('Modules'):WaitForChild('Net'):WaitForChild('RE/RegisterHit')
+
+                pcall(function()
+                    _RERegisterAttack:FireServer(0.1)
+                    _RERegisterHit:FireServer(u109, u108)
+                end)
+            end
+        end
+    end
+end
+
+task.spawn(function()
+    while task.wait(0.1) do
+        if u67 and u7 then
+            u114()
+        end
+    end
+end)
+
+local u115 = true
+
+v39(_ScrollingFrame, 'Auto v3', true, function(p116)
+    u115 = p116
+end)
+task.spawn(function()
+    while task.wait(0.5) do
+        pcall(function()
+            if u115 and u7 then
+                game:GetService('ReplicatedStorage').Remotes.CommE:FireServer('ActivateAbility')
+            end
+        end)
+    end
+end)
+
+local u117 = true
+
+v39(_ScrollingFrame, 'Auto v4', true, function(p118)
+    u117 = p118
+end)
+task.spawn(function()
+    while true do
+        repeat
+            task.wait(0.5)
+        until u117 and u7
+
+        local _Character2 = game.Players.LocalPlayer.Character
+
+        if _Character2 and (_Character2:FindFirstChild('RaceEnergy') and (_Character2.RaceEnergy.Value >= 1 and not _Character2.RaceTransformed.Value)) then
+            local _VirtualInputManager = game:GetService('VirtualInputManager')
+
+            _VirtualInputManager:SendKeyEvent(true, 'Y', false, game)
+            task.wait(0.1)
+            _VirtualInputManager:SendKeyEvent(false, 'Y', false, game)
+        end
+    end
+end)
+
+local u121 = nil
+
+local function u124()
+    local _Character3 = _LocalPlayer.Character
+    local u123 = _Character3 and _Character3:FindFirstChildOfClass('Humanoid')
+
+    if u123 then
+        if speedHack and walkSpeed then
+            if u121 then
+                u121:Disconnect()
+            end
+
+            u123.WalkSpeed = walkSpeed
+            u121 = u123:GetPropertyChangedSignal('WalkSpeed'):Connect(function()
+                if speedHack then
+                    u123.WalkSpeed = walkSpeed
+                end
+            end)
+        else
+            u123.WalkSpeed = 16
+
+            if u121 then
+                u121:Disconnect()
+            end
+        end
+    end
+end
+
+v39(_ScrollingFrame, 'Speed Hack', false, function(p125)
+    speedHack = p125
+
+    u124()
+end)
+v47(_ScrollingFrame, 'Speed Value', '16', function(p126)
+    local v127 = tonumber(p126)
+
+    if v127 and 0 <= v127 then
+        walkSpeed = v127
+
+        u124()
+    end
+end)
+
+local u128 = nil
+
+local function u131()
+    local _Character4 = _LocalPlayer.Character
+    local u130 = _Character4 and _Character4:FindFirstChildOfClass('Humanoid')
+
+    if u130 then
+        if jumpHack and jumpPower then
+            if u128 then
+                u128:Disconnect()
+            end
+
+            u130.UseJumpPower = true
+            u130.JumpPower = jumpPower
+
+            print(jumpPower)
+
+            u128 = u130:GetPropertyChangedSignal('JumpPower'):Connect(function()
+                if jumpHack then
+                    u130.JumpPower = jumpPower
+                end
+            end)
+        else
+            u130.JumpPower = 50
+
+            if u128 then
+                u128:Disconnect()
+            end
+        end
+    end
+end
+
+v39(_ScrollingFrame, 'Jump Hack', false, function(p132)
+    jumpHack = p132
+
+    u131()
+end)
+v47(_ScrollingFrame, 'Jump Value', '50', function(p133)
+    local v134 = tonumber(p133)
+
+    if v134 and 0 <= v134 then
+        jumpPower = v134
+
+        u131()
+    end
+end);
+(function(p135, p136)
+    local _TextButton4 = Instance.new('TextButton')
+
+    _TextButton4.Size = UDim2.new(1, -10, 0, 30)
+    _TextButton4.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    _TextButton4.BackgroundTransparency = 0.3
+    _TextButton4.TextColor3 = Color3.new(1, 1, 1)
+    _TextButton4.Text = p136
+    _TextButton4.Font = Enum.Font.GothamBold
+    _TextButton4.TextSize = 14
+    _TextButton4.Parent = p135
+    Instance.new('UICorner', _TextButton4).CornerRadius = UDim.new(0, 13)
+
+    return _TextButton4
+end)(_ScrollingFrame, 'Fix CameraShake').MouseButton1Click:Connect(function()
+    local _Util = game:GetService('ReplicatedStorage'):WaitForChild('Util', 5)
+    local v139 = _Util and _Util:FindFirstChild('CameraShaker')
+
+    if v139 then
+        require(v139):Stop()
+    end
+end)
+
+local function u140()
+    if u8 and u7 then
+        _TextLabel2.Text = 'target:  ' .. u8.Name
+        _TextLabel2.Visible = true
+    else
+        _TextLabel2.Text = ''
+        _TextLabel2.Visible = false
+    end
+end
+local function u153()
+    local _huge = math.huge
+    local _Position2 = _CurrentCamera.CFrame.Position
+    local _LookVector = _CurrentCamera.CFrame.LookVector
+    local v144, v145, v146 = ipairs(game.Players:GetPlayers())
+    local v147 = nil
+
+    while true do
+        local v148
+
+        v146, v148 = v144(v145, v146)
+
+        if v146 == nil then
+            break
+        end
+        if v148 ~= _LocalPlayer and v148.Character then
+            local _HumanoidRootPart7 = v148.Character:FindFirstChild('HumanoidRootPart')
+            local _Humanoid2 = v148.Character:FindFirstChild('Humanoid')
+
+            if _HumanoidRootPart7 and (_Humanoid2 and _Humanoid2.Health > 0) then
+                local v151 = _HumanoidRootPart7.Position - _Position2
+                local _Magnitude = v151.Magnitude
+
+                if _LookVector:Dot(v151.Unit) > 0.6 then
+                    if _Magnitude < _huge then
+                        v147 = v148
+                        _huge = _Magnitude
+                    end
+                end
+            end
+        end
+    end
+
+    return v147
+end
+local function u162()
+    if u7 and (u8 and (u8.Character and u48)) then
+        local _HumanoidRootPart8 = u8.Character:FindFirstChild('HumanoidRootPart')
+
+        if _HumanoidRootPart8 then
+            local v155 = tick()
+            local v156 = v155 - u10
+
+            u10 = v155
+
+            local _Position3 = _HumanoidRootPart8.Position
+            local v158 = u9 and (_Position3 - u9) / v156 or Vector3.new()
+
+            u9 = _Position3
+
+            local v159 = 5 * ((_CurrentCamera.CFrame.Position - _HumanoidRootPart8.Position).Magnitude / 100)
+            local v160 = _Position3 + v158 * u6
+
+            if u13 then
+                v160 = v160 - Vector3.new(0, v159, 0)
+            end
+
+            local v161 = CFrame.new(_CurrentCamera.CFrame.Position, v160)
+
+            _CurrentCamera.CFrame = _CurrentCamera.CFrame:Lerp(v161, 1)
+        else
+            u140()
+        end
+    else
+        if _LocalPlayer.Character and _LocalPlayer.Character:FindFirstChild('Humanoid') then
+            _CurrentCamera.CameraSubject = _LocalPlayer.Character.Humanoid
+            _CurrentCamera.CameraType = Enum.CameraType.Custom
+        end
+
+        return
+    end
+end
+local function v163()
+    u7 = not u7
+
+    if u7 then
+        _TextLabel.Text = 'Run ON'
+        u8 = u153()
+
+        if not u8 then
+            u7 = false
+            _TextLabel.Text = 'Run OFF'
+
+            u140()
+
+            return
+        end
+
+        u9 = u8.Character.HumanoidRootPart.Position
+        u10 = tick()
+
+        u140()
+
+        u11 = _RunService.RenderStepped:Connect(u162)
+    else
+        _TextLabel.Text = 'Run OFF'
+
+        if u11 then
+            u11:Disconnect()
+        end
+
+        u8 = nil
+        u9 = nil
+
+        u140()
+
+        _CurrentCamera.CameraType = Enum.CameraType.Custom
+    end
+end
+
+_TextButton.MouseButton1Click:Connect(v163)
+_TextButton2.MouseButton1Click:Connect(function()
+    _Frame.Visible = not _Frame.Visible
+end)
+_TextButton3.MouseButton1Click:Connect(function()
+    _Frame.Visible = false
+end)
+
+_CurrentCamera.CameraType = Enum.CameraType.Custom
+meraType.Custom
