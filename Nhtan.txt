@@ -1,0 +1,1350 @@
+local genv = getgenv()
+local fenv = getfenv()
+
+game:IsLoaded()
+task.wait()
+
+local _ = game.Players.LocalPlayer
+
+task.wait()
+game.Players.LocalPlayer:FindFirstChild('PlayerGui')
+task.wait()
+game:IsLoaded()
+
+local _ = game:GetService('Players').LocalPlayer.Team
+local _call17 = game:GetService('HttpService')
+
+makefolder('Night Mystic')
+
+_G.SaveData = {}
+fenv.SaveSettings = function(...)
+    local _call21 = _call17:JSONEncode({})
+
+    writefile('Night Mystic/Settings.json', _call21)
+end
+fenv.LoadSettings = function(...)
+    _call17:JSONDecode(_call21)
+end
+fenv.GetSetting = function(...)
+    local _26_vararg1 = ...
+    local _ = _call25[_26_vararg1]
+
+    return _call25[_26_vararg1]
+end
+
+local _call31 = _call17:JSONDecode(_call21)
+local _LocalPlayer34 = game:GetService('Players').LocalPlayer
+local _ = _LocalPlayer34.Team
+local _ = _LocalPlayer34.Team.Name
+
+game:GetService('ReplicatedStorage').Remotes.CommF_:InvokeServer('SetTeam', 'Marines')
+
+local _call45 = game:GetService('Lighting')
+
+_call45.Ambient = Color3.new(0.695, 0.695, 0.695)
+_call45.ColorShift_Bottom = Color3.new(0.695, 0.695, 0.695)
+_call45.ColorShift_Top = Color3.new(0.695, 0.695, 0.695)
+
+local _gamePlayers52 = game.Players
+
+fenv.ply = _gamePlayers52
+
+local _LocalPlayer53 = _gamePlayers52.LocalPlayer
+
+fenv.plr = _LocalPlayer53
+fenv.Root = _LocalPlayer53.Character.HumanoidRootPart
+
+local _call57 = game:GetService('ReplicatedStorage')
+
+fenv.replicated = _call57
+fenv.Lv = game.Players.LocalPlayer.Data.Level.Value
+fenv.TeleportService = game:GetService('TeleportService')
+fenv.TW = game:GetService('TweenService')
+
+game:GetService('Lighting')
+
+fenv.Enemies = workspace.Enemies
+fenv.vim1 = game:GetService('VirtualInputManager')
+fenv.vim2 = game:GetService('VirtualUser')
+fenv.TeamSelf = _LocalPlayer53.Team
+fenv.RunSer = game:GetService('RunService')
+fenv.Stats = game:GetService('Stats')
+fenv.Energy = _LocalPlayer53.Character.Energy.Value
+fenv.Boss = {}
+fenv.BringConnections = {}
+fenv.MaterialList = {}
+fenv.NPCList = {}
+fenv.shouldTween = false
+fenv.SoulGuitar = false
+fenv.KenTest = true
+fenv.debug = false
+fenv.Brazier1 = false
+fenv.Brazier2 = false
+fenv.Brazier3 = false
+fenv.Sec = 0.1
+fenv.ClickState = 0
+fenv.Num_self = 25
+
+_LocalPlayer53.PlayerGui:WaitForChild('Main'):WaitForChild('Loading')
+game:IsLoaded()
+wait()
+
+local _ = game.PlaceId
+local _ = game.PlaceId
+local _ = game.PlaceId
+local _ = game.PlaceId
+local _ = game.PlaceId
+local _ = game.PlaceId
+local _ = fenv.World1
+local _ = fenv.World2
+local _ = fenv.World3
+
+fenv.Sea = _LocalPlayer53:Kick('\u{274c} Error : A[12]Blox Fruits \u{274c}')
+fenv.Marines = function(...)
+    _call57.Remotes.CommF_:InvokeServer('SetTeam', 'Marines')
+end
+fenv.Pirates = function(...)
+    _call57.Remotes.CommF_:InvokeServer('SetTeam', 'Pirates')
+end
+
+local _113 = loadstring(game:HttpGet('https://raw.githubusercontent.com/hoangquandz2931-cmyk/Bb/refs/heads/main/raw.txt'))()
+
+CFrame.new(-712.82727050781, 98.577049255371, 5711.9541015625)
+CFrame.new(-723.43316650391, 147.42906188965, 5931.9931640625)
+CFrame.new(7021.5043945312, 55.762702941895, -730.12908935547)
+CFrame.new(6625, 378, 244)
+CFrame.new(4692.7939453125, 797.97668457031, 858.84802246094)
+CFrame.new(4902, 670, 39)
+CFrame.new(2401, 123, -7589)
+CFrame.new(3588, 229, -7085)
+CFrame.new(-10941, 332, -8760)
+CFrame.new(-11035, 332, -9087)
+CFrame.new(-13446, 413, -7760)
+CFrame.new(-13510, 584, -6987)
+CFrame.new(-11778, 426, -10592)
+CFrame.new(-13282, 496, -9565)
+CFrame.new(-8764, 142, 5963)
+CFrame.new(-10227, 421, 6161)
+CFrame.new(-9579, 6, 6194)
+CFrame.new(-9579, 6, 6194)
+CFrame.new(-1993, 187, -10103)
+CFrame.new(-2215, 159, -10474)
+CFrame.new(-877, 118, -11032)
+CFrame.new(-877, 118, -11032)
+CFrame.new(-2021, 38, -12028)
+CFrame.new(-2024, 38, -12026)
+CFrame.new(-1932, 38, -12848)
+CFrame.new(-1932, 38, -12848)
+CFrame.new(95, 73, -12309)
+CFrame.new(647, 42, -12401)
+CFrame.new(116, 36, -12478)
+CFrame.new(47, 61, -12889)
+CFrame.new(5251, 5, 1111)
+
+fenv.EquipWeapon = function(...)
+    local _176_vararg1 = ...
+
+    _LocalPlayer53.Backpack:FindFirstChild(_176_vararg1)
+
+    local _Humanoid181 = _LocalPlayer53.Character.Humanoid
+
+    _Humanoid181:EquipTool(_LocalPlayer53.Backpack:FindFirstChild(_176_vararg1))
+end
+fenv.weaponSc = function(...)
+    local _187_vararg1 = ...
+
+    for _191, _191_2 in pairs(_LocalPlayer53.Backpack:GetChildren())do
+        _191_2:IsA('Tool')
+
+        local _ = _191_2.ToolTip == _187_vararg1
+    end
+end
+
+hookfunction(require(game:GetService('ReplicatedStorage'):WaitForChild('GuideModule')).ChangeDisplayedNPC, function(...) end)
+hookfunction(function(...)
+    error("invalid argument #2 to 'error' (number expected, got table)")
+end, function(...) end)
+hookfunction(warn, function(...) end)
+workspace:FindFirstChild('Rocks'):Destroy()
+game:GetService('Lighting'):FindFirstChild('LightingLayers')
+
+local _workspace_WorldOrigin217 = workspace._WorldOrigin
+local _Foam218 = _workspace_WorldOrigin217['Foam;']
+local _workspace_WorldOrigin219 = workspace._WorldOrigin
+local _ = _workspace_WorldOrigin219['Foam;']
+
+_Foam218:Destroy()
+
+fenv.gay = nil
+_G.FruitSkills = {
+    X = false,
+    C = false,
+    Z = false,
+    F = false,
+    V = false,
+}
+fenv.UseFruitSkills = function(...)
+    for _227, _227_2 in pairs(_LocalPlayer53.Backpack:GetChildren())do
+        _227_2:IsA('Tool')
+
+        local _ = _227_2.ToolTip
+    end
+end
+fenv.statsSetings = function(...) end
+
+game:GetService('TweenService')
+
+fenv.BringEnemy = function(...)
+    local _ = fenv._B
+end
+
+spawn(function(...)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    task.wait(1)
+    error('internal 579: <25ms: infinitelooperror>')
+end)
+
+fenv.Useskills = function(...) end
+
+local _callgetrawmetatable239 = getrawmetatable(game)
+local __namecall240 = _callgetrawmetatable239.__namecall
+
+setreadonly(_callgetrawmetatable239, false)
+newcclosure(function(...)
+    tostring(getnamecallmethod())
+
+    local _call245 = __namecall240(...)
+
+    return _call245
+end)
+
+_callgetrawmetatable239.__namecall = function(...)
+    tostring(getnamecallmethod())
+
+    local _call249 = __namecall240(...)
+
+    return _call249
+end
+fenv.GetConnectionEnemies = function(...)
+    local _250_vararg1 = ...
+
+    for _253, _253_2 in pairs(_call57:GetChildren())do
+        _253_2:IsA('Model')
+        type(_250_vararg1)
+        table.find(_250_vararg1, _253_2.Name)
+        _253_2:FindFirstChild('Humanoid')
+
+        local _ = _253_2.Humanoid.Health
+
+        error('line 2: attempt to compare number < table')
+    end
+end
+fenv.LowCpu = function(...)
+    local _gameLighting264 = game.Lighting
+    local _Terrain265 = game.Workspace.Terrain
+
+    _Terrain265.WaterWaveSize = 0
+    _Terrain265.WaterWaveSpeed = 0
+    _Terrain265.WaterReflectance = 0
+    _Terrain265.WaterTransparency = 0
+    _gameLighting264.GlobalShadows = false
+    _gameLighting264.FogEnd = 9000000000
+    _gameLighting264.Brightness = 1
+
+    local _ = fenv.settings
+
+    error('line 2: attempt to call a nil value')
+end
+fenv.CheckF = function(...)
+    local _ = fenv.GetBP
+
+    error('line 2: attempt to call a nil value')
+end
+fenv.CheckBoat = function(...)
+    for _273, _273_2 in pairs(workspace.Boats:GetChildren())do
+        local _ = tostring(_273_2.Owner.Value) == tostring(_LocalPlayer53.Name)
+    end
+
+    return false
+end
+fenv.CheckEnemiesBoat = function(...)
+    for _284, _284_2 in pairs(workspace.Enemies:GetChildren())do
+        local _ = _284_2.Name
+    end
+
+    return false
+end
+fenv.CheckPirateGrandBrigade = function(...)
+    for _290, _290_2 in pairs(workspace.Enemies:GetChildren())do
+        local _ = _290_2.Name
+        local _ = _290_2.Name
+    end
+
+    return false
+end
+fenv.CheckShark = function(...)
+    for _297, _297_2 in pairs(workspace.Enemies:GetChildren())do
+        local _ = _297_2.Name
+    end
+
+    return false
+end
+fenv.CheckTerrorShark = function(...)
+    for _303, _303_2 in pairs(workspace.Enemies:GetChildren())do
+        local _ = _303_2.Name
+    end
+
+    return false
+end
+fenv.CheckPiranha = function(...)
+    for _309, _309_2 in pairs(workspace.Enemies:GetChildren())do
+        local _ = _309_2.Name
+    end
+
+    return false
+end
+fenv.CheckFishCrew = function(...)
+    for _315, _315_2 in pairs(workspace.Enemies:GetChildren())do
+        local _ = _315_2.Name
+        local _ = _315_2.Name
+    end
+
+    return false
+end
+fenv.CheckHauntedCrew = function(...)
+    for _322, _322_2 in pairs(workspace.Enemies:GetChildren())do
+        local _ = _322_2.Name
+    end
+
+    return false
+end
+fenv.CheckSeaBeast = function(...)
+    workspace.SeaBeasts:FindFirstChild('SeaBeast1')
+
+    return true
+end
+fenv.CheckLeviathan = function(...)
+    workspace.SeaBeasts:FindFirstChild('Leviathan')
+
+    return true
+end
+_G.AttemptedFruits = {}
+fenv.UpdStFruit = function(...)
+    local _LocalPlayer334 = game.Players.LocalPlayer
+    local _Backpack335 = _LocalPlayer334.Backpack
+    local _Character336 = _LocalPlayer334.Character
+
+    for _339, _339_2 in pairs(_Character336:GetChildren())do
+        _339_2:IsA('Tool')
+        _339_2:FindFirstChild('EatRemote', true)
+
+        local _ = _Character336 == _Character336
+
+        _Character336.Humanoid:UnequipTools()
+        task.wait(0.1)
+
+        local _CommF_353 = game:GetService('ReplicatedStorage').Remotes.CommF_
+
+        _CommF_353:InvokeServer('StoreFruit', _339_2:GetAttribute('OriginalName'), _339_2)
+    end
+    for _358, _358_2 in pairs(_Backpack335:GetChildren())do
+        _358_2:IsA('Tool')
+        _358_2:FindFirstChild('EatRemote', true)
+
+        local _ = _Backpack335 == _Character336
+    end
+end
+fenv.collectFruits = function(...) end
+fenv.Getmoon = function(...) end
+fenv.DropFruits = function(...) end
+fenv.GetBP = function(...) end
+fenv.GetIn = function(...) end
+fenv.GetM = function(...) end
+fenv.GetWP = function(...) end
+fenv.getInfinity_Ability = function(...) end
+fenv.Hop = function(...) end
+genv.PMT_DATA = {
+    Worlds = {
+        World1 = {
+            [1] = 'WindMill',
+            [2] = 'Marine',
+            [3] = 'Middle Town',
+            [4] = 'Jungle',
+            [5] = 'Pirate Village',
+            [6] = 'Desert',
+            [7] = 'Snow Island',
+            [8] = 'MarineFord',
+            [9] = 'Colosseum',
+            [10] = 'Sky Island 1',
+            [11] = 'Sky Island 2',
+            [12] = 'Sky Island 3',
+            [13] = 'Prison',
+            [14] = 'Magma Village',
+            [15] = 'Under Water Island',
+            [16] = 'Fountain City',
+        },
+        World2 = {
+            [1] = 'The Cafe',
+            [2] = 'Frist Spot',
+            [3] = 'Dark Area',
+            [4] = 'Flamingo Mansion',
+            [5] = 'Flamingo Room',
+            [6] = 'Green Zone',
+            [7] = 'Factory',
+            [8] = 'Colossuim',
+            [9] = 'Zombie Island',
+            [10] = 'Two Snow Mountain',
+            [11] = 'Punk Hazard',
+            [12] = 'Cursed Ship',
+            [13] = 'Ice Castle',
+            [14] = 'Forgotten Island',
+        },
+        World3 = {
+            [1] = 'Sea castle',
+            [2] = 'Mini Sky Island',
+            [3] = 'Great Tree',
+            [4] = 'Port Town',
+            [5] = 'Hydra Island',
+            [6] = 'Mansion',
+            [7] = 'Haunted Castle',
+            [8] = 'Ice Cream Island',
+            [9] = 'Peanut Island',
+            [10] = 'Cake Island',
+            [11] = 'Cocoa Island',
+            [12] = 'Candy Island',
+            [13] = 'Tiki Outpost',
+            [14] = 'Dragon Dojo',
+        },
+    },
+    Islands = {
+        ['Flamingo Mansion'] = CFrame.new(-3032.764, 317.897, -10075.373),
+        ['Pirate Village'] = CFrame.new(-1181.309, 4.751, 3803.546),
+        ['Sky Island 3'] = CFrame.new(-483.734, 332.038, 595.327),
+        Desert = CFrame.new(944.158, 20.92, 4373.3),
+        ['Flamingo Room'] = CFrame.new(2284.414, 15.152, 875.725),
+        ['Cake Island'] = CFrame.new(-1884.775, 19.328, -11666.897),
+        ['Punk Hazard'] = CFrame.new(-6127.654, 15.952, -5040.286),
+        Colossuim = CFrame.new(-1503.622, 219.796, 1369.31),
+        ['Cursed Ship'] = CFrame.new(923.402, 125.057, 32885.875),
+        ['Dark Area'] = CFrame.new(3780.03, 22.652, -3498.586),
+        ['Ice Castle'] = CFrame.new(6148.412, 294.387, -6741.117),
+        ['The Cafe'] = CFrame.new(-380.479, 77.22, 255.826),
+        ['Two Snow Mountain'] = CFrame.new(753.143, 408.236, -5274.615),
+        MarineFord = CFrame.new(-4914.821, 50.964, 4281.028),
+        ['Haunted Castle'] = CFrame.new(-9366.803, 141.366, 5443.941),
+        ['Hydra Island'] = CFrame.new(5291.249, 1005.443, 393.762),
+        ['Forgotten Island'] = CFrame.new(2681.274, 1682.809, -7190.985),
+        Marine = CFrame.new(-2566.43, 6.856, 2045.256),
+        Jungle = CFrame.new(-1612.796, 36.852, 149.128),
+        ['Cocoa Island'] = CFrame.new(87.943, 73.555, -12319.465),
+        ['Under Water Island'] = CFrame.new(61163.852, 11.68, 1819.784),
+        ['Frist Spot'] = CFrame.new(-9515.372, 164.006, 5786.061),
+        ['Green Zone'] = CFrame.new(-2448.53, 73.016, -3210.631),
+        ['Fountain City'] = CFrame.new(5127.128, 59.501, 4105.446),
+        ['Port Town'] = CFrame.new(-226.751, 20.603, 5538.34),
+        ['Dragon Dojo'] = CFrame.new(5743.319, 1206.91, 936.011),
+        ['Tiki Outpost'] = CFrame.new(-16218.683, 9.086, 445.618),
+        ['Sky Island 2'] = CFrame.new(-11.311, 29.277, 2771.522),
+        ['Zombie Island'] = CFrame.new(-5622.033, 492.196, -781.786),
+        ['Peanut Island'] = CFrame.new(-2062.748, 50.474, -10232.568),
+        ['Ice Cream Island'] = CFrame.new(-902.568, 79.932, -10988.848),
+        ['Snow Island'] = CFrame.new(1347.807, 104.668, -1319.737),
+        WindMill = CFrame.new(979.799, 16.516, 1429.047),
+        ['Great Tree'] = CFrame.new(2681.274, 1682.809, -7190.985),
+        ['Mini Sky Island'] = CFrame.new(-288.741, 49326.316, -35248.594),
+        ['Middle Town'] = CFrame.new(-690.331, 15.094, 1582.238),
+        ['Sea castle'] = CFrame.new(-5496.452, 313.809, -2857.703),
+        Mansion = CFrame.new(-12633.672, 459.521, -7425.463),
+        ['Magma Village'] = CFrame.new(-5247.716, 12.884, 8504.969),
+        ['Sky Island 1'] = CFrame.new(-4869.103, 733.461, -2667.018),
+        Colosseum = CFrame.new(-1427.62, 7.288, -2792.772),
+        Prison = CFrame.new(4875.33, 5.652, 734.85),
+        Factory = CFrame.new(424.127, 211.162, -427.54),
+        ['Candy Island'] = CFrame.new(-1014.424, 149.111, -14555.963),
+    },
+}
+fenv.CheckNearestTeleporter = function(...) end
+fenv.requestEntrance = function(...) end
+fenv.BTP = function(...) end
+genv.OnFarm = false
+genv.currentTween = nil
+genv.currentTarget = nil
+
+game:GetService('TweenService')
+game:GetService('Players')
+
+fenv._tp = function(...) end
+fenv.TeleportToTarget = function(...) end
+fenv.notween = function(...) end
+
+game:GetService('RunService').Stepped:Connect(function(...) end)
+task.spawn(function(...) end)
+loadstring(game:HttpGet('https://pastefy.app/k1C6hFtW/raw'))()
+task.spawn(function(...) end)
+loadstring(game:HttpGet('https://pastefy.app/flmuGt2t/raw'))()
+task.spawn(function(...) end)
+loadstring(game:HttpGet('https://pastefy.app/xB4aNrS1/raw'))()
+task.spawn(function(...) end)
+
+local _call503 = _113:NewWindow()
+local _call505 = _call503:T('Home')
+local _call507 = _call503:T('Status And Server')
+local _call509 = _call503:T('Shop')
+local _call511 = _call503:T('Main Farm')
+local _call513 = _call503:T('Stack Farm')
+local _call515 = _call503:T('Fishing')
+local _call517 = _call503:T('Sea Events')
+local _call519 = _call503:T('Race Upgrade')
+local _call521 = _call503:T('Dragon Quests')
+local _call523 = _call503:T('Visuals And Esp')
+local _call525 = _call503:T('Local Player')
+local _call527 = _call503:T('Teleport')
+local _call529 = _call503:T('Get Items And Upgrade')
+local _call531 = _call503:T('Raid And Fruit')
+local _call533 = _call503:T('Settings And Misc')
+local _call535 = _call511:AddSection('Auto Farm main')
+local _call537 = _call507:AddSection('Server Options')
+
+_call509:AddSection('Shop, Styles & Accessories')
+_call513:AddSection('Farm events')
+_call513:AddSection('Farm others')
+_call515:AddSection('Fish Farm')
+_call517:AddSection('Sea Events')
+_call517:AddSection('maritime islands')
+_call517:AddSection('Configure skills for Sea events')
+_call519:AddSection('Race V2/ V3 / V4')
+_call519:AddSection('Upgrade V4')
+
+local _call557 = _call529:AddSection('Swords & accessories')
+
+_call521:AddSection('Dojo Quest')
+
+local _call561 = _call523:AddSection('ESP & World Visuals')
+
+_call525:AddSection('PVP, Movement & Aimbot')
+_call527:AddSection('Teleports')
+
+local _call567 = _call533:AddSection('Script Settings')
+local _call569 = _call533:AddSection('Misc & Codes')
+
+_call531:AddSection('Raid & Fruits')
+
+local _call573 = _call505:AddSection('discord server And information')
+
+_call573:AddDiscord('Night Mystic', 'https://discord.gg/QXYMyxMTDU')
+_call573:AddSeperator('information')
+_call573:AddParagraph({
+    Title = 'Script Information',
+    Content = "Credits to Astral Hub for the reference to \nthe base structure, used with the developer's permission.\nThe project has been extensively modified, reworked, and expanded with new systems.",
+})
+_call573:AddParagraph({
+    Title = 'Thank you X2Velaric and x2Moodz',
+    Content = '',
+})
+
+local _call583 = _call533:AddSection('Manual Save')
+
+_call583:AddButton({
+    Callback = function(...) end,
+    Description = 'Creates a manual backup of your current options',
+    Title = 'Save Settings Now',
+})
+_call583:AddButton({
+    Callback = function(...) end,
+    Description = 'Deletes the save file and restores defaults',
+    Title = 'Reset Settings',
+})
+_call537:AddSeperator('Server - Function')
+_call537:AddButton({
+    Callback = function(...) end,
+    Description = '',
+    Title = 'Rejoin Server',
+})
+_call537:AddButton({
+    Callback = function(...) end,
+    Description = '',
+    Title = 'Hop Server',
+})
+_call537:AddButton({
+    Callback = function(...) end,
+    Description = '',
+    Title = 'Hop Server with a few people',
+})
+_call537:AddButton({
+    Callback = function(...) end,
+    Description = '',
+    Title = 'Hop Sever with low ping',
+})
+_call537:AddInput({
+    Title = 'JobID',
+    Default = '',
+    PlaceHolder = '',
+    Callback = function(...) end,
+    Description = '',
+})
+spawn(function(...) end)
+_call537:AddButton({
+    Callback = function(...) end,
+    Description = '',
+    Title = 'Join Server',
+})
+_call537:AddButton({
+    Callback = function(...) end,
+    Description = '',
+    Title = 'Copy JobID Server',
+})
+
+fenv.isnil = function(...) end
+fenv.Number = 386228
+fenv.EspPly = function(...) end
+fenv.DevEsp = function(...) end
+fenv.flowerEsp = function(...) end
+fenv.gearEsp = function(...) end
+fenv.AdvanFruitEsp = function(...) end
+fenv.HakiClorEsp = function(...) end
+fenv.LegenSword = function(...) end
+fenv.ChestEsp = function(...) end
+fenv.berriesEsp = function(...) end
+_G.ESPColor = Color3.fromRGB(255, 255, 255)
+fenv.IslandESP_Func = function(...) end
+
+_call561:AddSeperator('Esp Section')
+_call561:AddToggle({
+    Callback = function(...) end,
+    Default = false,
+    Title = 'Esp Berries',
+})
+_call561:AddToggle({
+    Callback = function(...) end,
+    Default = false,
+    Title = 'Esp Players',
+})
+_call561:AddToggle({
+    Callback = function(...) end,
+    Default = false,
+    Title = 'Esp Chests',
+})
+_call561:AddToggle({
+    Callback = function(...) end,
+    Default = false,
+    Title = 'Esp Fruits',
+})
+_call561:AddToggle({
+    Callback = function(...) end,
+    Default = false,
+    Title = 'Esp Island',
+})
+_call561:AddSeperator('M1 Fruit Color')
+game:GetService('ReplicatedStorage')
+Color3.fromRGB(0, 120, 255)
+Color3.fromRGB(255, 0, 0)
+Color3.fromRGB(10, 10, 10)
+Color3.fromRGB(255, 220, 0)
+Color3.fromRGB(255, 80, 180)
+Color3.fromRGB(0, 200, 60)
+Color3.fromRGB(140, 0, 255)
+Color3.fromRGB(255, 255, 255)
+Color3.fromRGB(255, 120, 0)
+Color3.fromRGB(0, 220, 255)
+game.Players.LocalPlayer.CharacterAdded:Connect(function(...) end)
+_call561:AddDropdown({
+    Callback = function(...) end,
+    Default = 'Dragon',
+    Values = {
+        [1] = 'Dragon',
+        [2] = 'Kitsune',
+        [3] = 'T-rex',
+    },
+    Title = 'Select Fruit',
+})
+_call561:AddDropdown({
+    Callback = function(...) end,
+    Default = 'Blue',
+    Values = {
+        [1] = 'Blue',
+        [2] = 'Red',
+        [3] = 'Black',
+        [4] = 'Yellow',
+        [5] = 'Pink',
+        [6] = 'Green',
+        [7] = 'Purple',
+        [8] = 'White',
+        [9] = 'Orange',
+        [10] = 'Cyan',
+    },
+    Title = 'Select Color',
+})
+_call561:AddButton({
+    Title = 'Apply Click Color',
+    Callback = function(...) end,
+})
+_call569:AddSeperator('Fps')
+
+local _ = Enum.Font.Arial
+local _ = Enum.Font.Arial
+local _ = Enum.Font.AmaticSC
+local _ = Enum.Font.Antique
+local _ = Enum.Font.Arcade
+local _ = Enum.Font.Arial
+local _ = Enum.Font.ArialBold
+local _ = Enum.Font.Bangers
+local _ = Enum.Font.Bodoni
+local _ = Enum.Font.Cartoon
+local _ = Enum.Font.Code
+local _ = Enum.Font.Creepster
+local _ = Enum.Font.DenkOne
+local _ = Enum.Font.Fondamento
+local _ = Enum.Font.FredokaOne
+local _ = Enum.Font.Garamond
+local _ = Enum.Font.Gotham
+
+game.Players.LocalPlayer.PlayerGui.DescendantAdded:Connect(function(...) end)
+_call569:AddDropdown({
+    Title = 'Select Font',
+    Values = {
+        [1] = 'Amatic SC',
+        [2] = 'Antique',
+        [3] = 'Arcade',
+        [4] = 'Arial',
+        [5] = 'Arial Bold',
+        [6] = 'Bangers',
+        [7] = 'Bodoni',
+        [8] = 'Cartoon',
+        [9] = 'Code',
+        [10] = 'Creepster',
+        [11] = 'Denk One',
+        [12] = 'Fondamento',
+        [13] = 'Fredoka One',
+        [14] = 'Garamond',
+        [15] = 'Gotham',
+    },
+    Default = 'Arial',
+    Callback = function(...) end,
+    Description = 'Choose a font style',
+})
+_call569:AddButton({
+    Callback = function(...) end,
+    Description = 'Updates all UI text',
+    Title = 'Apply Font',
+})
+_call569:AddButton({
+    Callback = function(...) end,
+    Description = '',
+    Title = 'Stretch the screen',
+})
+_call569:AddButton({
+    Callback = function(...) end,
+    Description = '',
+    Title = 'Fps Boost',
+})
+_call557:AddSeperator('Farm Mastery')
+CFrame.new(-9513.63867, 164.010269, 5786.66895, -0.0950724334, 9.31791888e-8, 0.995470345, 7.18874515e-9, 1, -9.29166148e-8, -0.995470345, -1.67762626e-9, -0.0950724334)
+_call537:AddSeperator('Server - Status')
+_call537:AddParagraph({
+    Title = 'Time Zone',
+    Desc = '',
+})
+
+fenv.UpdateOS = function(...) end
+
+spawn(function(...) end)
+_call537:AddParagraph({
+    Title = 'Time',
+    Desc = '',
+})
+
+fenv.UpdateTime = function(...) end
+
+spawn(function(...) end)
+
+local _WorldOrigin756 = game.Workspace._WorldOrigin
+local _ = _WorldOrigin756.Locations
+
+_call537:AddParagraph({
+    Title = 'Mirage Island',
+    Desc = 'Status: ',
+})
+spawn(function(...) end)
+
+local _ = game.Workspace.Map
+
+_call537:AddParagraph({
+    Title = 'Kitsune Island',
+    Desc = 'Status: ',
+})
+spawn(function(...) end)
+
+local _WorldOrigin769 = game.Workspace._WorldOrigin
+local _ = _WorldOrigin769.Locations
+
+_call537:AddParagraph({
+    Title = 'Prehistoric Island',
+    Desc = 'Status: ',
+})
+spawn(function(...) end)
+
+local _WorldOrigin776 = game.Workspace._WorldOrigin
+local _ = _WorldOrigin776.Locations
+
+_call537:AddParagraph({
+    Title = 'Frozen Dimension',
+    Desc = 'Status: ',
+})
+spawn(function(...) end)
+_call537:AddParagraph({
+    Title = 'Dimension Killed',
+    Desc = '',
+})
+spawn(function(...) end)
+_call537:AddParagraph({
+    Title = 'Tyrant of the Skies',
+    Desc = 'Status: ',
+})
+spawn(function(...) end)
+_call537:AddParagraph({
+    Title = 'Rip_Indra',
+    Desc = 'Status: ',
+})
+spawn(function(...) end)
+_call537:AddParagraph({
+    Title = 'Dough King',
+    Desc = 'Status: ',
+})
+spawn(function(...) end)
+_call537:AddParagraph({
+    Title = 'Elite Hunter',
+    Desc = 'Status: ',
+})
+spawn(function(...) end)
+_call537:AddParagraph({
+    Title = 'Pull Lever',
+    Desc = 'Status: ',
+})
+spawn(function(...) end)
+_call537:AddParagraph({
+    Title = 'Full Moon',
+    Desc = '',
+})
+spawn(function(...) end)
+_call537:AddParagraph({
+    Title = 'Legendary Sword',
+    Desc = 'Status: ',
+})
+spawn(function(...) end)
+_call537:AddParagraph({
+    Title = 'Bone',
+    Desc = '',
+})
+spawn(function(...) end)
+_call537:AddSeperator('Place id')
+
+local _call821 = _call537:AddParagraph({
+    Title = 'PlaceId',
+    Content = '',
+})
+
+_call821:SetDesc('Current PlaceId: ' .. tostring(game.PlaceId))
+_LocalPlayer53.CharacterAdded:Connect(function(...) end)
+
+local _ = _LocalPlayer53.Character
+
+_LocalPlayer53.Character:WaitForChild('HumanoidRootPart')
+_call535:AddSeperator('Farming')
+
+_G.SelectedFarmMode = 'Level'
+_G.StartFarm = false
+_G.Level = false
+_G.AutoFarm_Bone = false
+_G.AutoFarm_Cake = false
+_G.AutoTyrant = false
+_G.AcceptQuest = false
+
+local _ = _call31.SelectedFarmMode_Save
+local _SelectedFarmMode_Save839 = _call31.SelectedFarmMode_Save
+
+_call535:AddDropdown({
+    Callback = function(...) end,
+    Default = _SelectedFarmMode_Save839,
+    Values = {
+        [1] = 'Level',
+        [2] = 'Bone',
+        [3] = 'Cake Prince',
+        [4] = 'Tyrant Of The Skies',
+    },
+    Title = 'Select Farm Mode',
+})
+
+local _ = _call31.StartFarm_Save
+local _StartFarm_Save844 = _call31.StartFarm_Save
+
+_call535:AddToggle({
+    Callback = function(...) end,
+    Default = _StartFarm_Save844,
+    Title = 'Start Farm',
+})
+
+local _ = _call31.AcceptQuest_Save
+local _AcceptQuest_Save849 = _call31.AcceptQuest_Save
+
+_call535:AddToggle({
+    Callback = function(...) end,
+    Default = _AcceptQuest_Save849,
+    Title = 'Accept Quests',
+})
+
+local _ = _call31.UseSkullSummon_Save
+local _UseSkullSummon_Save854 = _call31.UseSkullSummon_Save
+
+_call535:AddToggle({
+    Callback = function(...) end,
+    Default = _UseSkullSummon_Save854,
+    Title = 'Use Skull Guitar Summon Tyrant',
+})
+spawn(function(...) end)
+spawn(function(...) end)
+spawn(function(...) end)
+spawn(function(...) end)
+_call535:AddSeperator('statistics point')
+
+local _ = _G.StatsList
+
+_G.StatsList = {}
+_G.StatsPointsAmount = 1
+
+local _ = _call31.StatsAmount_Save
+local _StatsAmount_Save869 = _call31.StatsAmount_Save
+
+_call535:AddSlider({
+    Min = 1,
+    Title = 'Points Amount',
+    Max = 100,
+    Callback = function(...) end,
+    Default = _StatsAmount_Save869,
+})
+
+local _ = _call31.SelectedStats_Save
+local _SelectedStats_Save874 = _call31.SelectedStats_Save
+
+_call535:AddDropdown({
+    Title = 'Select Stats to Upgrade',
+    Default = _SelectedStats_Save874,
+    Multi = true,
+    Callback = function(...) end,
+    Values = {
+        [1] = 'Melee',
+        [2] = 'Defense',
+        [3] = 'Sword',
+        [4] = 'Gun',
+        [5] = 'Fruit',
+    },
+})
+task.spawn(function(...) end)
+_call535:AddSeperator('Other')
+
+local _ = _call31.FarmBuddha_Save
+local _FarmBuddha_Save884 = _call31.FarmBuddha_Save
+
+_call535:AddToggle({
+    Callback = function(...) end,
+    Default = _FarmBuddha_Save884,
+    Title = 'Farm with the transformation of Buddha',
+})
+
+local _LocalPlayer888 = game.Players.LocalPlayer
+local _Net891 = game.ReplicatedStorage.Modules.Net
+local _ = _Net891['RE/RegisterHit']
+local _ = _Net891['RE/RegisterAttack']
+local _G898 = getsenv(_LocalPlayer888.PlayerScripts:WaitForChildOfClass('LocalScript'))._G
+local _ = _G898.SendHitsToServer
+
+task.spawn(function(...) end)
+
+for _909, _909_2 in pairs(workspace.Characters:FindFirstChild(_LocalPlayer888.Name):GetDescendants())do
+    _909_2:IsA('BasePart')
+    _909_2:FindFirstChild('OriginalSize')
+
+    _909_2.Size = _909_2.OriginalSize.Value
+end
+
+_LocalPlayer888.CharacterAdded:Connect(function(...) end)
+task.spawn(function(...) end)
+
+_G.MaxFarmDistance = 325
+
+game:GetService('Players')
+game:GetService('ReplicatedStorage')
+
+local _ = _call31.AutoFarmNear_Save
+local _AutoFarmNear_Save929 = _call31.AutoFarmNear_Save
+
+_call535:AddToggle({
+    Callback = function(...) end,
+    Default = _AutoFarmNear_Save929,
+    Description = '',
+    Title = 'Kill Mobs Nearest',
+})
+spawn(function(...) end)
+_call535:AddSeperator('Collect')
+
+local _ = _call31.AutoFarmChest_Save
+local _AutoFarmChest_Save938 = _call31.AutoFarmChest_Save
+
+_call535:AddToggle({
+    Callback = function(...) end,
+    Default = _AutoFarmChest_Save938,
+    Description = '',
+    Title = 'Auto Collect Chest',
+})
+
+local _ = _call31.AutoBerry_Save
+local _AutoBerry_Save943 = _call31.AutoBerry_Save
+
+_call535:AddToggle({
+    Callback = function(...) end,
+    Default = _AutoBerry_Save943,
+    Description = '',
+    Title = 'Auto Collect Berry',
+})
+spawn(function(...) end)
+spawn(function(...) end)
+
+local _ = _call31.StopCollectItem_Save
+local _StopCollectItem_Save952 = _call31.StopCollectItem_Save
+
+_call535:AddToggle({
+    Callback = function(...) end,
+    Default = _StopCollectItem_Save952,
+    Description = '',
+    Title = 'Stop Collect Item',
+})
+spawn(function(...) end)
+
+local _ = game.Players.LocalPlayer
+
+game:GetService('ReplicatedStorage')
+game:GetService('Workspace')
+_call535:AddSeperator('Boss Farm')
+
+_G.AutoBoss = false
+_G.FarmAllBoss = false
+_G.AutoAcceptQuest = false
+_G.CurrentTargetBoss = nil
+
+local _ = _G.FindBoss
+
+_G.FindBoss = nil
+
+_call535:AddDropdown({
+    Callback = function(...) end,
+    Values = {},
+    Title = 'Select Boss',
+})
+_call535:AddButton({
+    Callback = function(...) end,
+    Description = '',
+    Title = 'Refresh Boss List',
+})
+_call535:AddToggle({
+    Callback = function(...) end,
+    Default = false,
+    Title = 'Auto Farm Boss Select',
+})
+_call535:AddToggle({
+    Callback = function(...) end,
+    Default = false,
+    Title = 'Accept Quest Boss',
+})
+_call535:AddToggle({
+    Callback = function(...) end,
+    Default = false,
+    Description = '',
+    Title = 'Farm All Bosses',
+})
+task.spawn(function(...) end)
+spawn(function(...) end)
+spawn(function(...) end)
+spawn(function(...) end)
+_call535:AddSeperator('Mastery')
+_call535:AddDropdown({
+    Title = 'Select Method',
+    Values = {
+        [1] = 'Cake',
+        [2] = 'Bone',
+    },
+    Default = 'Bone',
+    Callback = function(...) end,
+    Description = '',
+})
+_call535:AddToggle({
+    Callback = function(...) end,
+    Default = false,
+    Description = '',
+    Title = 'Auto Farm Mastery Fruit',
+})
+spawn(function(...) end)
+spawn(function(...) end)
+_call535:AddToggle({
+    Callback = function(...) end,
+    Default = false,
+    Description = '',
+    Title = 'Auto Farm Mastery Gun',
+})
+spawn(function(...) end)
+
+_G.MasteryHealthPercent = 70
+
+_call535:AddSlider({
+    Min = 10,
+    Title = 'Skill Usage HP (%)',
+    Max = 100,
+    Default = 70,
+    Callback = function(...) end,
+    Description = 'Health % to stop clicking and use skills',
+})
+_call535:AddDropdown({
+    Title = 'Select Fruit Skills',
+    Default = {},
+    Multi = true,
+    Callback = function(...) end,
+    Values = {
+        [1] = 'Fruit Skill Z',
+        [2] = 'Fruit Skill X',
+        [3] = 'Fruit Skill C',
+        [4] = 'Fruit Skill V',
+        [5] = 'Fruit Skill F',
+    },
+})
+_call535:AddSeperator('Material')
+
+local _ = _call31.SelectMaterial_Save
+local _SelectMaterial_Save1016 = _call31.SelectMaterial_Save
+
+_call535:AddDropdown({
+    Title = 'Select Material',
+    Values = {},
+    Default = _SelectMaterial_Save1016,
+    Multi = false,
+    Callback = function(...) end,
+    Description = '',
+})
+
+local _ = _call31.AutoMaterial_Save
+local _AutoMaterial_Save1021 = _call31.AutoMaterial_Save
+
+_call535:AddToggle({
+    Callback = function(...) end,
+    Default = _AutoMaterial_Save1021,
+    Description = '',
+    Title = 'Auto Farm',
+})
+spawn(function(...) end)
+_call567:AddSeperator('Settings')
+
+local _ = _call31.SelectWeapon_Save
+local _SelectWeapon_Save1030 = _call31.SelectWeapon_Save
+
+_call567:AddDropdown({
+    Title = 'Select Weapon',
+    Default = _SelectWeapon_Save1030,
+    Multi = false,
+    Callback = function(...) end,
+    Values = {
+        [1] = 'Melee',
+        [2] = 'Sword',
+        [3] = 'Blox Fruit',
+        [4] = 'Gun',
+    },
+})
+spawn(function(...) end)
+
+local _ = _call567.AddToggle
+local _ = _call31.OtherAutoAttack_Save
+
+error('internal 579: <25ms: infinitelooperror>')
