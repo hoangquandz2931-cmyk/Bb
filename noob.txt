@@ -1,0 +1,210 @@
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local Stats = game:GetService("Stats")
+
+local player = Players.LocalPlayer
+
+-- Clear old UI
+if player.PlayerGui:FindFirstChild("MeowHubUI") then
+    player.PlayerGui.MeowHubUI:Destroy()
+end
+
+-- ScreenGui
+local gui = Instance.new("ScreenGui")
+gui.Name = "MeowHubUI"
+gui.ResetOnSpawn = false
+gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+gui.Parent = player.PlayerGui
+
+----------------------------------------------------------------
+-- LOGO TOGGLE UI (TOP LEFT)
+----------------------------------------------------------------
+local logoBtn = Instance.new("ImageButton")
+logoBtn.Name = "ToggleLogo"
+logoBtn.Size = UDim2.new(0,46,0,46)
+logoBtn.Position = UDim2.new(0,14,0,14)
+logoBtn.BackgroundColor3 = Color3.fromRGB(22,22,28)
+logoBtn.Image = "rbxassetid://79773252738743"
+logoBtn.AutoButtonColor = false
+logoBtn.Parent = gui
+
+local logoCorner = Instance.new("UICorner", logoBtn)
+logoCorner.CornerRadius = UDim.new(1,0)
+
+local logoStroke = Instance.new("UIStroke", logoBtn)
+logoStroke.Color = Color3.fromRGB(80,170,255)
+logoStroke.Thickness = 2
+logoStroke.Transparency = 0.2
+
+task.spawn(function()
+    while task.wait(0.03) do
+        logoStroke.Transparency = 0.2 + math.abs(math.sin(tick()*1.5))*0.35
+    end
+end)
+
+----------------------------------------------------------------
+-- MAIN UI
+----------------------------------------------------------------
+local main = Instance.new("Frame")
+main.Size = UDim2.new(0,430,0,230)
+main.Position = UDim2.new(0.5,-215,0.5,-115)
+main.BackgroundColor3 = Color3.fromRGB(22,22,28)
+main.BorderSizePixel = 0
+main.Visible = true
+main.Parent = gui
+
+local corner = Instance.new("UICorner", main)
+corner.CornerRadius = UDim.new(0,22)
+
+-- Neon Border
+local neon = Instance.new("UIStroke", main)
+neon.Color = Color3.fromRGB(80,170,255)
+neon.Thickness = 2
+neon.Transparency = 0.18
+
+task.spawn(function()
+    while task.wait(0.03) do
+        neon.Transparency = 0.18 + math.abs(math.sin(tick()*1.4))*0.28
+    end
+end)
+
+-- Background Image
+local bg = Instance.new("ImageLabel")
+bg.Size = UDim2.new(1,0,1,0)
+bg.BackgroundTransparency = 1
+bg.Image = "rbxassetid://137898463182318"
+bg.ImageTransparency = 0.1
+bg.ScaleType = Enum.ScaleType.Crop
+bg.Parent = main
+
+local bgCorner = Instance.new("UICorner", bg)
+bgCorner.CornerRadius = UDim.new(0,22)
+
+-- Overlay
+local overlay = Instance.new("Frame")
+overlay.Size = UDim2.new(1,0,1,0)
+overlay.BackgroundColor3 = Color3.fromRGB(30,30,38)
+overlay.BackgroundTransparency = 2
+overlay.Parent = main
+
+local overlayCorner = Instance.new("UICorner", overlay)
+overlayCorner.CornerRadius = UDim.new(0,22)
+
+-- Avatar
+local avatar = Instance.new("ImageLabel")
+avatar.Size = UDim2.new(0,64,0,64)
+avatar.Position = UDim2.new(0,18,0,18)
+avatar.BackgroundTransparency = 1
+avatar.Image = Players:GetUserThumbnailAsync(
+    player.UserId,
+    Enum.ThumbnailType.HeadShot,
+    Enum.ThumbnailSize.Size150x150
+)
+avatar.ImageTransparency = 0.08
+avatar.Parent = main
+
+local avatarCorner = Instance.new("UICorner", avatar)
+avatarCorner.CornerRadius = UDim.new(1,0)
+
+local avatarStroke = Instance.new("UIStroke", avatar)
+avatarStroke.Color = Color3.fromRGB(90,180,255)
+avatarStroke.Thickness = 2
+avatarStroke.Transparency = 0.25
+
+-- Title
+local title = Instance.new("TextLabel")
+title.Text = "NHATAN HUB SCRIPT"
+title.Font = Enum.Font.GothamBold
+title.TextSize = 22
+title.TextColor3 = Color3.fromRGB(120,200,255)
+title.BackgroundTransparency = 1
+title.Position = UDim2.new(0,98,0,22)
+title.Size = UDim2.new(1,-110,0,26)
+title.TextXAlignment = Enum.TextXAlignment.Left
+title.Parent = main
+
+local titleStroke = Instance.new("UIStroke", title)
+titleStroke.Color = Color3.fromRGB(160,220,255)
+titleStroke.Thickness = 1.2
+titleStroke.Transparency = 0.35
+
+-- Subtitle (đậm hơn – không tăng size)
+local sub = Instance.new("TextLabel")
+sub.Text = "Auto Bounty Blox Fruit"
+sub.Font = Enum.Font.GothamBold
+sub.TextSize = 14
+sub.TextColor3 = Color3.fromRGB(150,215,255)
+sub.BackgroundTransparency = 1
+sub.Position = UDim2.new(0,98,0,50)
+sub.Size = UDim2.new(1,-110,0,20)
+sub.TextXAlignment = Enum.TextXAlignment.Left
+sub.Parent = main
+
+local subStroke = Instance.new("UIStroke", sub)
+subStroke.Color = Color3.fromRGB(120,190,255)
+subStroke.Thickness = 0.8
+subStroke.Transparency = 0.45
+
+-- Info
+local info = Instance.new("Frame")
+info.Size = UDim2.new(1,-36,0,90)
+info.Position = UDim2.new(0,18,0,92)
+info.BackgroundTransparency = 1
+info.Parent = main
+
+local function label(y)
+    local l = Instance.new("TextLabel")
+    l.Size = UDim2.new(1,0,0,20)
+    l.Position = UDim2.new(0,0,0,y)
+    l.BackgroundTransparency = 1
+    l.Font = Enum.Font.GothamBold
+    l.TextSize = 16
+    l.TextColor3 = Color3.fromRGB(235,248,255)
+    l.TextXAlignment = Enum.TextXAlignment.Left
+    l.Parent = info
+
+    local stroke = Instance.new("UIStroke", l)
+    stroke.Color = Color3.fromRGB(80,170,255)
+    stroke.Thickness = 1
+    stroke.Transparency = 0.25
+
+    return l
+end
+
+local fpsL = label(0)
+local pingL = label(22)
+local playerL = label(44)
+local killL = label(66)
+
+-- Update stats
+local frames, last, fps = 0, tick(), 0
+local kills = 0
+
+RunService.RenderStepped:Connect(function()
+    frames += 1
+    if tick() - last >= 1 then
+        fps = frames
+        frames = 0
+        last = tick()
+    end
+
+    fpsL.Text = "FPS: "..fps
+    playerL.Text = "Players: "..#Players:GetPlayers()
+    killL.Text = "Kills: "..kills
+
+    local ok, ping = pcall(function()
+        return Stats.Network.ServerStatsItem["Data Ping"]:GetValueString()
+    end)
+    pingL.Text = "Ping: "..(ok and ping or "N/A")
+end)
+
+----------------------------------------------------------------
+-- LOGO TOGGLE FUNCTION
+----------------------------------------------------------------
+local uiOpen = true
+logoBtn.MouseButton1Click:Connect(function()
+    uiOpen = not uiOpen
+    main.Visible = uiOpen
+end)
