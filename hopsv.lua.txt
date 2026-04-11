@@ -1,0 +1,493 @@
+local genv = getgenv()
+local fenv = getfenv()
+
+fenv.printf = function(_2, _2_2, _2_3, _2_4, _2_5, _2_6)
+    local _3, _3_2, _3_3 = string.format('DEBUG: %s', _2)
+
+    print(_3, _3_2, _3_3)
+end
+fenv.troi = function(_5, _5_2, _5_3)
+    local _ = genv.Config
+
+    genv.Config = {
+        AutoRipIndra = false,
+        AutoSoulReaper = false,
+        HopSelected = 'Dough King',
+        AutoCursedCaptain = false,
+        AutoDoughKing = false,
+        AutoHop = false,
+        AutoDarkbeard = false,
+    }
+end
+
+local _ = genv.Config
+
+fenv.saveconfig = function(_8, _8_2, _8_3)
+    local _call10 = game:GetService('HttpService')
+    local _ = genv.Config
+    local _call13 = _call10:JSONEncode({
+        AutoRipIndra = false,
+        AutoSoulReaper = false,
+        HopSelected = 'Dough King',
+        AutoCursedCaptain = false,
+        AutoDoughKing = false,
+        AutoHop = false,
+        AutoDarkbeard = false,
+    })
+
+    writefile('noguchi/saved.config', _call13)
+end
+
+print('DEBUG: executed')
+print('DEBUG: LOADING . . .')
+
+local _19 = loadstring(game:HttpGet('https://github.com/Footagesus/WindUI/releases/latest/download/main.lua'))()
+
+print('DEBUG: loaded library')
+_19:SetTheme('Dark')
+
+local _call26 = _19:CreateWindow({
+    Folder = 'tnhuw',
+    Title = 'Script Hop Server - Blox Fruit',
+    Transparent = true,
+    SideBarWidth = 200,
+    Author = 'Nhatan Hub [ HoangQuan]',
+    Theme = 'Dark',
+    Size = UDim2.fromOffset(580, 400),
+})
+local _call28 = _call26:Tab({
+    Title = 'Tab Farm',
+})
+
+_call28:Paragraph({
+    Color = 'Grey',
+    Title = 'This Script Made by Noguchi Hyuga',
+    Desc = 'status: working',
+})
+_call28:Button({
+    Locked = false,
+    Callback = function(_33, _33_2, _33_3, _33_4)
+        setclipboard('https://discord.gg/Y9d4svT7wD')
+    end,
+    Title = 'My server discord',
+    Desc = 'click to copy link',
+})
+
+local _call36 = _call26:Tab({
+    Title = 'Tab Farm',
+})
+local _ = genv.Config
+
+_call36:Dropdown({
+    Value = 'Dough King',
+    Callback = function(_40, _40_2)
+        local _ = genv.Config
+        local _call43 = game:GetService('HttpService')
+        local _ = genv.Config
+        local _call46 = _call43:JSONEncode({
+            AutoRipIndra = false,
+            AutoSoulReaper = false,
+            HopSelected = _40,
+            AutoCursedCaptain = false,
+            AutoDoughKing = false,
+            AutoHop = false,
+            AutoDarkbeard = false,
+        })
+
+        writefile('noguchi/saved.config', _call46)
+    end,
+    Title = 'Choose Hop',
+    Values = {
+        [1] = 'Dough King',
+        [2] = 'Darkbeard',
+        [3] = 'Soul Reaper',
+        [4] = 'Cursed Captain',
+        [5] = 'Rip Indra',
+    },
+})
+
+local _ = genv.Config
+
+_call36:Toggle({
+    Callback = function(_50)
+        local _ = genv.Config
+        local _call53 = game:GetService('HttpService')
+        local _ = genv.Config
+        local _call56 = _call53:JSONEncode({
+            AutoRipIndra = false,
+            AutoSoulReaper = false,
+            HopSelected = _40,
+            AutoCursedCaptain = false,
+            AutoDoughKing = false,
+            AutoHop = _50,
+            AutoDarkbeard = false,
+        })
+
+        writefile('noguchi/saved.config', _call56)
+    end,
+    Default = false,
+    Title = 'Auto Hop Server',
+    Desc = '',
+})
+
+local _ = genv.Config
+
+_call36:Toggle({
+    Callback = function(_60, _60_2, _60_3, _60_4, _60_5, _60_6)
+        local _ = genv.Config
+        local _call63 = game:GetService('HttpService')
+        local _ = genv.Config
+        local _call66 = _call63:JSONEncode({
+            AutoRipIndra = false,
+            AutoSoulReaper = false,
+            HopSelected = _40,
+            AutoCursedCaptain = false,
+            AutoDoughKing = _60,
+            AutoHop = _50,
+            AutoDarkbeard = false,
+        })
+
+        writefile('noguchi/saved.config', _call66)
+    end,
+    Default = false,
+    Title = 'Auto Kill Dough King',
+    Desc = 'only kill',
+})
+
+local _ = genv.Config
+
+_call36:Toggle({
+    Callback = function(_70, _70_2, _70_3)
+        local _ = genv.Config
+        local _call73 = game:GetService('HttpService')
+        local _ = genv.Config
+        local _call76 = _call73:JSONEncode({
+            AutoRipIndra = _70,
+            AutoSoulReaper = false,
+            HopSelected = _40,
+            AutoCursedCaptain = false,
+            AutoDoughKing = _60,
+            AutoHop = _50,
+            AutoDarkbeard = false,
+        })
+
+        writefile('noguchi/saved.config', _call76)
+    end,
+    Default = false,
+    Title = 'Auto Kill Rip Indra',
+    Desc = 'only kill',
+})
+
+local _ = genv.Config
+
+_call36:Toggle({
+    Callback = function(_80, _80_2, _80_3, _80_4, _80_5)
+        local _ = genv.Config
+        local _call83 = game:GetService('HttpService')
+        local _ = genv.Config
+        local _call86 = _call83:JSONEncode({
+            AutoRipIndra = _70,
+            AutoSoulReaper = false,
+            HopSelected = _40,
+            AutoCursedCaptain = false,
+            AutoDoughKing = _60,
+            AutoHop = _50,
+            AutoDarkbeard = _80,
+        })
+
+        writefile('noguchi/saved.config', _call86)
+    end,
+    Default = false,
+    Title = 'Auto Kill Darkbeard',
+    Desc = 'only kill',
+})
+
+local _ = genv.Config
+
+_call36:Toggle({
+    Callback = function(_90, _90_2, _90_3, _90_4, _90_5, _90_6)
+        local _ = genv.Config
+        local _call93 = game:GetService('HttpService')
+        local _ = genv.Config
+        local _call96 = _call93:JSONEncode({
+            AutoRipIndra = _70,
+            AutoSoulReaper = _90,
+            HopSelected = _40,
+            AutoCursedCaptain = false,
+            AutoDoughKing = _60,
+            AutoHop = _50,
+            AutoDarkbeard = _80,
+        })
+
+        writefile('noguchi/saved.config', _call96)
+    end,
+    Default = false,
+    Title = 'Auto Kill Soul Reaper',
+    Desc = 'only kill',
+})
+
+local _ = genv.Config
+
+_call36:Toggle({
+    Callback = function(_100, _100_2)
+        local _ = genv.Config
+        local _call103 = game:GetService('HttpService')
+        local _ = genv.Config
+        local _call106 = _call103:JSONEncode({
+            AutoRipIndra = _70,
+            AutoSoulReaper = _90,
+            HopSelected = _40,
+            AutoCursedCaptain = _100,
+            AutoDoughKing = _60,
+            AutoHop = _50,
+            AutoDarkbeard = _80,
+        })
+
+        writefile('noguchi/saved.config', _call106)
+    end,
+    Default = false,
+    Title = 'Auto Kill Cursed Captain',
+    Desc = 'only kill',
+})
+_call26:Tab({
+    Title = 'Full Moon',
+})
+spawn(function(_110)
+    wait(1)
+
+    local _call112 = game:GetService('HttpService')
+
+    for _118, _118_2 in pairs(_call112:JSONDecode(game:HttpGet('http://api.visionx.x10.mx:21716/finder?type=FULL_MOON&api_key=VISIONX_kunBEZRBTa')).data)do
+        local _ = _118_2.data.age
+
+        error('line 6: attempt to compare table < number')
+    end
+end)
+_call26:Tab({
+    Title = 'Near Full Moon',
+})
+spawn(function(_124)
+    wait(1)
+
+    local _call126 = game:GetService('HttpService')
+
+    for _132, _132_2 in pairs(_call126:JSONDecode(game:HttpGet('http://api.visionx.x10.mx:21716/finder?type=NEAR_MOON&api_key=VISIONX_kunBEZRBTa')).data)do
+        local _ = _132_2.data.age
+
+        error('line 6: attempt to compare table < number')
+    end
+end)
+_call26:Tab({
+    Title = 'Haki Color',
+})
+spawn(function(_138)
+    wait(1)
+
+    local _call140 = game:GetService('HttpService')
+
+    for _146, _146_2 in pairs(_call140:JSONDecode(game:HttpGet('http://api.visionx.x10.mx:21716/finder?type=HAKI_COLOR&api_key=VISIONX_kunBEZRBTa')).data)do
+        local _ = _146_2.data.age
+
+        error('line 6: attempt to compare table < number')
+    end
+end)
+_call26:Tab({
+    Title = 'Legend Sword',
+})
+spawn(function(_152)
+    wait(1)
+
+    local _call154 = game:GetService('HttpService')
+
+    for _160, _160_2 in pairs(_call154:JSONDecode(game:HttpGet('http://api.visionx.x10.mx:21716/finder?type=LEGENDARY_SWORD&api_key=VISIONX_kunBEZRBTa')).data)do
+        local _ = _160_2.data.age
+
+        error('line 6: attempt to compare table < number')
+    end
+end)
+_call26:Tab({
+    Title = 'Mirage Island',
+})
+spawn(function(_166)
+    wait(1)
+
+    local _call168 = game:GetService('HttpService')
+
+    for _174, _174_2 in pairs(_call168:JSONDecode(game:HttpGet('http://api.visionx.x10.mx:21716/finder?type=MIRAGE_ISLAND&api_key=VISIONX_kunBEZRBTa')).data)do
+        local _ = _174_2.data.age
+
+        error('line 6: attempt to compare table < number')
+    end
+end)
+_call26:Tab({
+    Title = 'Soul Reaper',
+})
+spawn(function(_180)
+    wait(1)
+
+    local _call182 = game:GetService('HttpService')
+
+    for _188, _188_2 in pairs(_call182:JSONDecode(game:HttpGet('http://api.visionx.x10.mx:21716/finder?type=SOUL_REAPER&api_key=VISIONX_kunBEZRBTa')).data)do
+        local _ = _188_2.data.age
+
+        error('line 6: attempt to compare table < number')
+    end
+end)
+_call26:Tab({
+    Title = 'Cursed Captain',
+})
+spawn(function(_194)
+    wait(1)
+
+    local _call196 = game:GetService('HttpService')
+
+    for _202, _202_2 in pairs(_call196:JSONDecode(game:HttpGet('http://api.visionx.x10.mx:21716/finder?type=CURSED_CAPTAIN&api_key=VISIONX_kunBEZRBTa')).data)do
+        local _ = _202_2.data.age
+
+        error('line 6: attempt to compare table < number')
+    end
+end)
+_call26:Tab({
+    Title = 'Greybeard',
+})
+spawn(function(_208)
+    wait(1)
+
+    local _call210 = game:GetService('HttpService')
+
+    for _216, _216_2 in pairs(_call210:JSONDecode(game:HttpGet('http://api.visionx.x10.mx:21716/finder?type=GREYBEARD&api_key=VISIONX_kunBEZRBTa')).data)do
+        local _ = _216_2.data.age
+
+        error('line 6: attempt to compare table < number')
+    end
+end)
+_call26:Tab({
+    Title = 'Darkbeard',
+})
+spawn(function(_222)
+    wait(1)
+
+    local _call224 = game:GetService('HttpService')
+
+    for _230, _230_2 in pairs(_call224:JSONDecode(game:HttpGet('http://api.visionx.x10.mx:21716/finder?type=DARKBEARD&api_key=VISIONX_kunBEZRBTa')).data)do
+        local _ = _230_2.data.age
+
+        error('line 6: attempt to compare table < number')
+    end
+end)
+_call26:Tab({
+    Title = 'Dough King',
+})
+spawn(function(_236)
+    wait(1)
+
+    local _call238 = game:GetService('HttpService')
+
+    for _244, _244_2 in pairs(_call238:JSONDecode(game:HttpGet('http://api.visionx.x10.mx:21716/finder?type=DOUGH_KING&api_key=VISIONX_kunBEZRBTa')).data)do
+        local _ = _244_2.data.age
+
+        error('line 6: attempt to compare table < number')
+    end
+end)
+_call26:Tab({
+    Title = 'Rip Indra',
+})
+spawn(function(_250)
+    wait(1)
+
+    local _call252 = game:GetService('HttpService')
+
+    for _258, _258_2 in pairs(_call252:JSONDecode(game:HttpGet('http://api.visionx.x10.mx:21716/finder?type=RIP_INDRA&api_key=VISIONX_kunBEZRBTa')).data)do
+        local _ = _258_2.data.age
+
+        error('line 6: attempt to compare table < number')
+    end
+end)
+_call26:Tab({
+    Title = 'Kitsune Island',
+})
+spawn(function(_264)
+    wait(1)
+
+    local _call266 = game:GetService('HttpService')
+
+    for _272, _272_2 in pairs(_call266:JSONDecode(game:HttpGet('http://api.visionx.x10.mx:21716/finder?type=KITSUNE_ISLAND&api_key=VISIONX_kunBEZRBTa')).data)do
+        local _ = _272_2.data.age
+
+        error('line 6: attempt to compare table < number')
+    end
+end)
+
+local _callhttp_request275 = http_request({
+    Url = 'https://raw.githubusercontent.com/Iamkhnah/projectluacanmayidollop8a/refs/heads/main/pkhanh.lua',
+    Method = 'GET',
+    Headers = {
+        ['user-agent'] = 'Coded by pkhanh',
+    },
+})
+local _278 = loadstring(_callhttp_request275.Body)()
+
+spawn(function(_280, _280_2, _280_3)
+    wait()
+    _278.mmb('ymf')
+    wait()
+    _278.mmb('ymf')
+    wait()
+    _278.mmb('ymf')
+    wait()
+    _278.mmb('ymf')
+    wait()
+    _278.mmb('ymf')
+    wait()
+    _278.mmb('ymf')
+    wait()
+    _278.mmb('ymf')
+    wait()
+    _278.mmb('ymf')
+    wait()
+    _278.mmb('ymf')
+    wait()
+    _278.mmb('ymf')
+    wait()
+    _278.mmb('ymf')
+    wait()
+    _278.mmb('ymf')
+    wait()
+    _278.mmb('ymf')
+    wait()
+    _278.mmb('ymf')
+    wait()
+    _278.mmb('ymf')
+    wait()
+    _278.mmb('ymf')
+    wait()
+    _278.mmb('ymf')
+    wait()
+    _278.mmb('ymf')
+    wait()
+    _278.mmb('ymf')
+    wait()
+    _278.mmb('ymf')
+    wait()
+    _278.mmb('ymf')
+    wait()
+    _278.mmb('ymf')
+    wait()
+    _278.mmb('ymf')
+    wait()
+    error('internal 557: <25ms: infinitelooperror>')
+end)
+
+genv.noclip = false
+genv.SelectWeapon = 'Melee'
+fenv.EQ = function(_328, _328_2, _328_3)
+    local _ = fenv.lpr
+
+    error("line 6: attempt to index nil with 'Character'")
+end
+
+spawn(function(_331, _331_2, _331_3) end)
+spawn(function(_333, _333_2, _333_3) end)
+spawn(function() end)
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Iamkhnah/bf/refs/heads/main/topos.lua'))()
+spawn(function(_341, _341_2) end)
