@@ -12624,81 +12624,87 @@ local function kq(Y, d)
 	end;
 	return r;
 end;
+-- Cache remotes một lần duy nhất, không WaitForChild trong Heartbeat
+local _atk_r = game:GetService("ReplicatedStorage");
+local _atk_modules = _atk_r:WaitForChild("Modules");
+local _atk_net = _atk_modules:WaitForChild("Net");
+local _atk_RE_Attack = _atk_net:WaitForChild("RE/RegisterAttack");
+local _atk_RE_Hit = _atk_net:WaitForChild("RE/RegisterHit");
+local _atk_flags_ok, _atk_COMBAT_THREAD = pcall(function()
+	return (require(_atk_modules.Flags)).COMBAT_REMOTE_THREAD or false;
+end);
+-- Cache SendHitsToServer function
+local _atk_SendHits = nil;
+do
+	local _ps = game:GetService("Players").LocalPlayer:FindFirstChild("PlayerScripts");
+	if _ps and getsenv then
+		local _ls = _ps:FindFirstChildOfClass("LocalScript");
+		if not _ls then
+			local _conn;
+			_conn = _ps.ChildAdded:Connect(function(c)
+				if c:IsA("LocalScript") then
+					_ls = c;
+					_conn:Disconnect();
+				end;
+			end);
+		end;
+		if _ls then
+			local ok, env = pcall(getsenv, _ls);
+			if ok and env and env._G then
+				_atk_SendHits = env._G.SendHitsToServer;
+			end;
+		end;
+	end;
+end;
+local _atk_parts = {
+	"RightLowerArm",
+	"RightUpperArm",
+	"LeftLowerArm",
+	"LeftUpperArm",
+	"RightHand",
+	"LeftHand",
+};
 function AttackNoCoolDown()
-	local Y = (game:GetService("Players")).LocalPlayer;
-	local d = Y.Character;
-	if not d then
+	local lp = (game:GetService("Players")).LocalPlayer;
+	local char = lp.Character;
+	if not char then
 		return;
 	end;
-	local R = nil;
-	for _, child in ipairs(d:GetChildren()) do
+	local tool = nil;
+	for _, child in ipairs(char:GetChildren()) do
 		if child:IsA("Tool") then
-			R = child;
+			tool = child;
 			break;
 		end;
 	end;
-	if not R then
+	if not tool then
 		return;
 	end;
-	local Q = kq(d, 60);
+	local Q = kq(char, 60);
 	if #Q == 0 then
 		return;
 	end;
-	local r = game:GetService("ReplicatedStorage");
-	local a = r:FindFirstChild("Modules");
-	if not a then
-		return;
-	end;
-	local w = ((r:WaitForChild("Modules")):WaitForChild("Net")):WaitForChild("RE/RegisterAttack");
-	local F = ((r:WaitForChild("Modules")):WaitForChild("Net")):WaitForChild("RE/RegisterHit");
-	if not w or not F then
+	if not _atk_RE_Attack or not _atk_RE_Hit then
 		return;
 	end;
 	local M, K = {}, nil;
 	for _, target in ipairs(Q) do
 		if not target:GetAttribute("IsBoat") then
-			local parts = {
-					"RightLowerArm",
-					"RightUpperArm",
-					"LeftLowerArm",
-					"LeftUpperArm",
-					"RightHand",
-					"LeftHand",
-				};
-			local R = target:FindFirstChild(parts[math.random(#parts)]) or target.PrimaryPart;
-			if R then
-				table.insert(M, { target, R });
-				K = R;
+			local part = target:FindFirstChild(_atk_parts[math.random(#_atk_parts)]) or target.PrimaryPart;
+			if part then
+				table.insert(M, { target, part });
+				K = part;
 			end;
 		end;
 	end;
 	if not K then
 		return;
 	end;
-	w:FireServer(0);
-	local n = Y:FindFirstChild("PlayerScripts");
-	if not n then
-		return;
-	end;
-	local I = n:FindFirstChildOfClass("LocalScript");
-	while not I do
-		n.ChildAdded:Wait();
-		I = n:FindFirstChildOfClass("LocalScript");
-	end;
-	local W;
-	if getsenv then
-		local Y, d = pcall(getsenv, I);
-		if Y and d then
-			W = d._G.SendHitsToServer;
-		end;
-	end;
-	local N, D = pcall(function()
-			return (require(a.Flags)).COMBAT_REMOTE_THREAD or false;
-		end);
-	if N and (D and W) then
-		W(K, M);
-	elseif N and not D then
-		F:FireServer(K, M);
+	_atk_RE_Attack:FireServer(0);
+	if _atk_flags_ok and (_atk_COMBAT_THREAD and _atk_SendHits) then
+		_atk_SendHits(K, M);
+	elseif _atk_flags_ok and not _atk_COMBAT_THREAD then
+		_atk_RE_Hit:FireServer(K, M);
 	end;
 end;
 CameraShakerR = require(game.ReplicatedStorage.Util.CameraShaker);
