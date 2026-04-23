@@ -1,0 +1,538 @@
+-- Quantum Onyx UI Recreation
+-- Recreated by SHΔDØW CORE based on original design
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local CoreGui = game:GetService("CoreGui")
+
+-- Cleanup previous UI
+if CoreGui:FindFirstChild("QuantumOnyxRecreation") then
+    CoreGui:FindFirstChild("QuantumOnyxRecreation"):Destroy()
+end
+
+-- Main UI Creation
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "QuantumOnyxRecreation"
+ScreenGui.Parent = CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+-- Main Window
+local MainFrame = Instance.new("Frame")
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = Color3.fromRGB(10, 10, 15)
+MainFrame.BorderSizePixel = 0
+MainFrame.Position = UDim2.new(0.3, 0, 0.25, 0)
+MainFrame.Size = UDim2.new(0, 550, 0, 400)
+MainFrame.Active = true
+MainFrame.Draggable = true
+
+-- Outer Glow Effect
+local OuterGlow = Instance.new("Frame")
+OuterGlow.Name = "OuterGlow"
+OuterGlow.Parent = MainFrame
+OuterGlow.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+OuterGlow.BorderSizePixel = 0
+OuterGlow.Size = UDim2.new(1, 6, 1, 6)
+OuterGlow.Position = UDim2.new(0, -3, 0, -3)
+OuterGlow.ZIndex = 0
+
+local GlowCorner = Instance.new("UICorner")
+GlowCorner.CornerRadius = UDim.new(0, 8)
+GlowCorner.Parent = OuterGlow
+
+-- Main Container
+local MainContainer = Instance.new("Frame")
+MainContainer.Name = "MainContainer"
+MainContainer.Parent = MainFrame
+MainContainer.BackgroundColor3 = Color3.fromRGB(15, 15, 25)
+MainContainer.BorderSizePixel = 0
+MainContainer.Size = UDim2.new(1, 0, 1, 0)
+
+local MainCorner = Instance.new("UICorner")
+MainCorner.CornerRadius = UDim.new(0, 6)
+MainCorner.Parent = MainContainer
+
+-- Header with Gradient
+local Header = Instance.new("Frame")
+Header.Name = "Header"
+Header.Parent = MainContainer
+Header.BackgroundColor3 = Color3.fromRGB(20, 20, 35)
+Header.BorderSizePixel = 0
+Header.Size = UDim2.new(1, 0, 0, 50)
+
+local HeaderCorner = Instance.new("UICorner")
+HeaderCorner.CornerRadius = UDim.new(0, 6)
+HeaderCorner.Parent = Header
+
+-- Header Gradient
+local HeaderGradient = Instance.new("UIGradient")
+HeaderGradient.Parent = Header
+HeaderGradient.Rotation = 90
+HeaderGradient.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 100, 255)),
+    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(100, 0, 255))
+})
+
+-- Title
+local Title = Instance.new("TextLabel")
+Title.Name = "Title"
+Title.Parent = Header
+Title.BackgroundTransparency = 1
+Title.Position = UDim2.new(0.05, 0, 0, 0)
+Title.Size = UDim2.new(0.6, 0, 1, 0)
+Title.Font = Enum.Font.GothamBlack
+Title.Text = "HoangQuan(nhatan) Hub"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.TextSize = 18
+Title.TextXAlignment = Enum.TextXAlignment.Left
+
+-- Subtitle
+local Subtitle = Instance.new("TextLabel")
+Subtitle.Name = "Subtitle"
+Subtitle.Parent = Header
+Subtitle.BackgroundTransparency = 1
+Subtitle.Position = UDim2.new(0.05, 0, 0.6, 0)
+Subtitle.Size = UDim2.new(0.6, 0, 0.4, 0)
+Subtitle.Font = Enum.Font.Gotham
+Subtitle.Text = "Premium Blox Fruits Script"
+Subtitle.TextColor3 = Color3.fromRGB(200, 200, 255)
+Subtitle.TextSize = 11
+Subtitle.TextXAlignment = Enum.TextXAlignment.Left
+
+-- Control Buttons
+local CloseButton = Instance.new("TextButton")
+CloseButton.Name = "CloseButton"
+CloseButton.Parent = Header
+CloseButton.BackgroundColor3 = Color3.fromRGB(255, 60, 60)
+CloseButton.BorderSizePixel = 0
+CloseButton.Position = UDim2.new(0.9, 0, 0.2, 0)
+CloseButton.Size = UDim2.new(0, 25, 0, 25)
+CloseButton.Font = Enum.Font.GothamBold
+CloseButton.Text = "×"
+CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+CloseButton.TextSize = 16
+
+local CloseCorner = Instance.new("UICorner")
+CloseCorner.CornerRadius = UDim.new(1, 0)
+CloseCorner.Parent = CloseButton
+
+local MinimizeButton = Instance.new("TextButton")
+MinimizeButton.Name = "MinimizeButton"
+MinimizeButton.Parent = Header
+MinimizeButton.BackgroundColor3 = Color3.fromRGB(255, 180, 60)
+MinimizeButton.BorderSizePixel = 0
+MinimizeButton.Position = UDim2.new(0.8, 0, 0.2, 0)
+MinimizeButton.Size = UDim2.new(0, 25, 0, 25)
+MinimizeButton.Font = Enum.Font.GothamBold
+MinimizeButton.Text = "−"
+MinimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+MinimizeButton.TextSize = 16
+
+local MinimizeCorner = Instance.new("UICorner")
+MinimizeCorner.CornerRadius = UDim.new(1, 0)
+MinimizeCorner.Parent = MinimizeButton
+
+-- Tab System
+local TabContainer = Instance.new("Frame")
+TabContainer.Name = "TabContainer"
+TabContainer.Parent = MainContainer
+TabContainer.BackgroundColor3 = Color3.fromRGB(25, 25, 40)
+TabContainer.BorderSizePixel = 0
+TabContainer.Position = UDim2.new(0, 0, 0, 50)
+TabContainer.Size = UDim2.new(1, 0, 0, 40)
+
+local TabListLayout = Instance.new("UIListLayout")
+TabListLayout.Parent = TabContainer
+TabListLayout.FillDirection = Enum.FillDirection.Horizontal
+TabListLayout.Padding = UDim.new(0, 5)
+
+-- Tab Definitions (Quantum Onyx Style)
+local Tabs = {
+    "HOME",
+    "AUTO FARM", 
+    "COMBAT",
+    "TELEPORTS",
+    "MISC",
+    "SETTINGS"
+}
+
+local TabButtons = {}
+local TabPages = {}
+local CurrentTab = "HOME"
+
+-- Create Tabs
+for _, tabName in ipairs(Tabs) do
+    local TabButton = Instance.new("TextButton")
+    TabButton.Name = tabName .. "Tab"
+    TabButton.Parent = TabContainer
+    TabButton.BackgroundColor3 = Color3.fromRGB(40, 40, 60)
+    TabButton.BorderSizePixel = 0
+    TabButton.Size = UDim2.new(0, 85, 0, 35)
+    TabButton.Font = Enum.Font.GothamSemibold
+    TabButton.Text = tabName
+    TabButton.TextColor3 = Color3.fromRGB(200, 200, 220)
+    TabButton.TextSize = 12
+    TabButton.AutoButtonColor = false
+
+    local TabCorner = Instance.new("UICorner")
+    TabCorner.CornerRadius = UDim.new(0, 6)
+    TabCorner.Parent = TabButton
+
+    -- Tab Hover Effects
+    TabButton.MouseEnter:Connect(function()
+        if CurrentTab ~= tabName then
+            game:GetService("TweenService"):Create(TabButton, TweenInfo.new(0.2), {
+                BackgroundColor3 = Color3.fromRGB(50, 50, 80)
+            }):Play()
+        end
+    end)
+
+    TabButton.MouseLeave:Connect(function()
+        if CurrentTab ~= tabName then
+            game:GetService("TweenService"):Create(TabButton, TweenInfo.new(0.2), {
+                BackgroundColor3 = Color3.fromRGB(40, 40, 60)
+            }):Play()
+        end
+    end)
+
+    local TabPage = Instance.new("ScrollingFrame")
+    TabPage.Name = tabName .. "Page"
+    TabPage.Parent = MainContainer
+    TabPage.BackgroundTransparency = 1
+    TabPage.BorderSizePixel = 0
+    TabPage.Position = UDim2.new(0, 0, 0, 90)
+    TabPage.Size = UDim2.new(1, 0, 1, -90)
+    TabPage.CanvasSize = UDim2.new(0, 0, 2, 0)
+    TabPage.ScrollBarThickness = 4
+    TabPage.ScrollBarImageColor3 = Color3.fromRGB(0, 150, 255)
+    TabPage.Visible = false
+
+    TabButtons[tabName] = TabButton
+    TabPages[tabName] = TabPage
+
+    TabButton.MouseButton1Click:Connect(function()
+        CurrentTab = tabName
+        
+        -- Update all tabs
+        for name, btn in pairs(TabButtons) do
+            if name == tabName then
+                -- Active tab
+                game:GetService("TweenService"):Create(btn, TweenInfo.new(0.3), {
+                    BackgroundColor3 = Color3.fromRGB(0, 150, 255),
+                    TextColor3 = Color3.fromRGB(255, 255, 255)
+                }):Play()
+            else
+                -- Inactive tabs
+                game:GetService("TweenService"):Create(btn, TweenInfo.new(0.3), {
+                    BackgroundColor3 = Color3.fromRGB(40, 40, 60),
+                    TextColor3 = Color3.fromRGB(200, 200, 220)
+                }):Play()
+            end
+        end
+        
+        -- Show/hide pages
+        for name, page in pairs(TabPages) do
+            page.Visible = (name == tabName)
+        end
+    end)
+end
+
+-- Content Creation Functions
+local function CreateSection(parent, title, yPosition)
+    local Section = Instance.new("Frame")
+    Section.Name = title .. "Section"
+    Section.Parent = parent
+    Section.BackgroundColor3 = Color3.fromRGB(30, 30, 45)
+    Section.BorderSizePixel = 0
+    Section.Position = UDim2.new(0.05, 0, yPosition, 0)
+    Section.Size = UDim2.new(0.9, 0, 0, 40)
+
+    local SectionCorner = Instance.new("UICorner")
+    SectionCorner.CornerRadius = UDim.new(0, 8)
+    SectionCorner.Parent = Section
+
+    local SectionTitle = Instance.new("TextLabel")
+    SectionTitle.Name = "Title"
+    SectionTitle.Parent = Section
+    SectionTitle.BackgroundTransparency = 1
+    SectionTitle.Position = UDim2.new(0.05, 0, 0, 0)
+    SectionTitle.Size = UDim2.new(0.9, 0, 1, 0)
+    SectionTitle.Font = Enum.Font.GothamBold
+    SectionTitle.Text = title
+    SectionTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+    SectionTitle.TextSize = 14
+    SectionTitle.TextXAlignment = Enum.TextXAlignment.Left
+
+    return Section
+end
+
+local function CreateToggle(parent, text, yPosition)
+    local ToggleFrame = Instance.new("Frame")
+    ToggleFrame.Name = text .. "Toggle"
+    ToggleFrame.Parent = parent
+    ToggleFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 60)
+    ToggleFrame.BorderSizePixel = 0
+    ToggleFrame.Position = UDim2.new(0.05, 0, yPosition, 0)
+    ToggleFrame.Size = UDim2.new(0.9, 0, 0, 35)
+
+    local ToggleCorner = Instance.new("UICorner")
+    ToggleCorner.CornerRadius = UDim.new(0, 8)
+    ToggleCorner.Parent = ToggleFrame
+
+    local ToggleLabel = Instance.new("TextLabel")
+    ToggleLabel.Name = "Label"
+    ToggleLabel.Parent = ToggleFrame
+    ToggleLabel.BackgroundTransparency = 1
+    ToggleLabel.Position = UDim2.new(0.05, 0, 0, 0)
+    ToggleLabel.Size = UDim2.new(0.7, 0, 1, 0)
+    ToggleLabel.Font = Enum.Font.Gotham
+    ToggleLabel.Text = text
+    ToggleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    ToggleLabel.TextSize = 12
+    ToggleLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+    local ToggleButton = Instance.new("TextButton")
+    ToggleButton.Name = "Toggle"
+    ToggleButton.Parent = ToggleFrame
+    ToggleButton.BackgroundColor3 = Color3.fromRGB(80, 80, 100)
+    ToggleButton.BorderSizePixel = 0
+    ToggleButton.Position = UDim2.new(0.8, 0, 0.2, 0)
+    ToggleButton.Size = UDim2.new(0, 50, 0, 20)
+    ToggleButton.Font = Enum.Font.GothamBold
+    ToggleButton.Text = "OFF"
+    ToggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    ToggleButton.TextSize = 10
+    ToggleButton.AutoButtonColor = false
+
+    local ToggleButtonCorner = Instance.new("UICorner")
+    ToggleButtonCorner.CornerRadius = UDim.new(1, 0)
+    ToggleButtonCorner.Parent = ToggleButton
+
+    local ToggleState = false
+
+    ToggleButton.MouseButton1Click:Connect(function()
+        ToggleState = not ToggleState
+        
+        if ToggleState then
+            game:GetService("TweenService"):Create(ToggleButton, TweenInfo.new(0.2), {
+                BackgroundColor3 = Color3.fromRGB(0, 200, 100)
+            }):Play()
+            ToggleButton.Text = "ON"
+        else
+            game:GetService("TweenService"):Create(ToggleButton, TweenInfo.new(0.2), {
+                BackgroundColor3 = Color3.fromRGB(80, 80, 100)
+            }):Play()
+            ToggleButton.Text = "OFF"
+        end
+        
+        print("Toggle " .. text .. ": " .. tostring(ToggleState))
+    end)
+
+    return ToggleButton
+end
+
+local function CreateButton(parent, text, yPosition)
+    local ButtonFrame = Instance.new("Frame")
+    ButtonFrame.Name = text .. "Button"
+    ButtonFrame.Parent = parent
+    ButtonFrame.BackgroundColor3 = Color3.fromRGB(0, 100, 255)
+    ButtonFrame.BorderSizePixel = 0
+    ButtonFrame.Position = UDim2.new(0.05, 0, yPosition, 0)
+    ButtonFrame.Size = UDim2.new(0.9, 0, 0, 35)
+
+    local ButtonCorner = Instance.new("UICorner")
+    ButtonCorner.CornerRadius = UDim.new(0, 8)
+    ButtonCorner.Parent = ButtonFrame
+
+    local Button = Instance.new("TextButton")
+    Button.Name = "Button"
+    Button.Parent = ButtonFrame
+    Button.BackgroundTransparency = 1
+    Button.Size = UDim2.new(1, 0, 1, 0)
+    Button.Font = Enum.Font.GothamBold
+    Button.Text = text
+    Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Button.TextSize = 12
+    Button.AutoButtonColor = false
+
+    -- Button Hover Effects
+    Button.MouseEnter:Connect(function()
+        game:GetService("TweenService"):Create(ButtonFrame, TweenInfo.new(0.2), {
+            BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+        }):Play()
+    end)
+
+    Button.MouseLeave:Connect(function()
+        game:GetService("TweenService"):Create(ButtonFrame, TweenInfo.new(0.2), {
+            BackgroundColor3 = Color3.fromRGB(0, 100, 255)
+        }):Play()
+    end)
+
+    Button.MouseButton1Click:Connect(function()
+        print("Button clicked: " .. text)
+    end)
+
+    return Button
+end
+
+-- HOME TAB CONTENT
+local HomePage = TabPages["HOME"]
+
+-- Welcome Section
+local WelcomeSection = CreateSection(HomePage, "🚀 WELCOME TO QUANTUM ONYX", 0.02)
+
+local WelcomeText = Instance.new("TextLabel")
+WelcomeText.Name = "Welcome user"
+WelcomeText.Parent = HomePage
+WelcomeText.BackgroundTransparency = 1
+WelcomeText.Position = UDim2.new(0.05, 0, 0.12, 0)
+WelcomeText.Size = UDim2.new(0.9, 0, 0, 60)
+WelcomeText.Font = Enum.Font.Gotham
+WelcomeText.Text = "Premium Blox Fruits Script\nVersion: v2.5.1 | Status: ✅ ACTIVE"
+WelcomeText.TextColor3 = Color3.fromRGB(200, 200, 220)
+WelcomeText.TextSize = 12
+WelcomeText.TextYAlignment = Enum.TextYAlignment.Top
+
+-- Quick Actions Section
+CreateSection(HomePage, "⚡ QUICK ACTIONS", 0.25)
+
+CreateButton(HomePage, "🏃 AUTO FARM LEVEL", 0.32)
+CreateButton(HomePage, "⚔️ AUTO BOSS FARM", 0.40)
+CreateButton(HomePage, "🌀 AUTO FRUIT FARM", 0.48)
+
+-- Status Section
+CreateSection(HomePage, "📊 SYSTEM STATUS", 0.58)
+
+local StatusText = Instance.new("TextLabel")
+StatusText.Name = "StatusText"
+StatusText.Parent = HomePage
+StatusText.BackgroundTransparency = 1
+StatusText.Position = UDim2.new(0.05, 0, 0.65, 0)
+StatusText.Size = UDim2.new(0.9, 0, 0, 80)
+StatusText.Font = Enum.Font.Gotham
+StatusText.Text = "🔹 Script Loaded: ✅\n🔹 Game Detected: ✅\n🔹 Executor: ✅\n🔹 Security: ✅"
+StatusText.TextColor3 = Color3.fromRGB(200, 200, 220)
+StatusText.TextSize = 11
+StatusText.TextYAlignment = Enum.TextYAlignment.Top
+StatusText.TextXAlignment = Enum.TextXAlignment.Left
+
+-- AUTO FARM TAB CONTENT
+local FarmPage = TabPages["AUTO FARM"]
+
+CreateSection(FarmPage, "🤖 AUTO FARM SYSTEM", 0.02)
+
+CreateToggle(FarmPage, "Auto Farm Level", 0.08)
+CreateToggle(FarmPage, "Auto Farm Boss", 0.15)
+CreateToggle(FarmPage, "Auto Farm Fruit", 0.22)
+CreateToggle(FarmPage, "Auto Farm Material", 0.29)
+CreateToggle(FarmPage, "Bring Mobs", 0.36)
+CreateToggle(FarmPage, "Skip Mobs", 0.43)
+
+CreateSection(FarmPage, "⚙️ FARM SETTINGS", 0.52)
+
+CreateToggle(FarmPage, "Fast Attack", 0.58)
+CreateToggle(FarmPage, "Super Fast Attack", 0.65)
+CreateToggle(FarmPage, "Auto Click", 0.72)
+
+-- COMBAT TAB CONTENT
+local CombatPage = TabPages["COMBAT"]
+
+CreateSection(CombatPage, "⚔️ COMBAT SYSTEM", 0.02)
+
+CreateToggle(CombatPage, "Auto Skills [Z]", 0.08)
+CreateToggle(CombatPage, "Auto Skills [X]", 0.15)
+CreateToggle(CombatPage, "Auto Skills [C]", 0.22)
+CreateToggle(CombatPage, "Auto Skills [V]", 0.29)
+CreateToggle(CombatPage, "Auto Skills [F]", 0.36)
+
+CreateSection(CombatPage, "🎯 AIMBOT", 0.45)
+
+CreateToggle(CombatPage, "Aimbot Enabled", 0.51)
+CreateToggle(CombatPage, "Wall Check", 0.58)
+CreateToggle(CombatPage, "Team Check", 0.65)
+
+-- TELEPORTS TAB CONTENT
+local TeleportPage = TabPages["TELEPORTS"]
+
+CreateSection(TeleportPage, "📍 TELEPORT SYSTEM", 0.02)
+
+CreateButton(TeleportPage, "🏝️ TELEPORT TO ISLANDS", 0.08)
+CreateButton(TeleportPage, "👑 TELEPORT TO BOSSES", 0.15)
+CreateButton(TeleportPage, "🎒 TELEPORT TO NPCS", 0.22)
+CreateButton(TeleportPage, "💎 TELEPORT TO DUNGEONS", 0.29)
+
+CreateSection(TeleportPage, "🔧 QUICK TELEPORTS", 0.38)
+
+CreateButton(TeleportPage, "Starter Island", 0.44)
+CreateButton(TeleportPage, "Jungle", 0.51)
+CreateButton(TeleportPage, "Pirate Village", 0.58)
+CreateButton(TeleportPage, "Desert", 0.65)
+
+-- MISC TAB CONTENT
+local MiscPage = TabPages["MISC"]
+
+CreateSection(MiscPage, "🔧 MISCELLANEOUS", 0.02)
+
+CreateToggle(MiscPage, "Auto Collect Chests", 0.08)
+CreateToggle(MiscPage, "Auto Buy Haki", 0.15)
+CreateToggle(MiscPage, "Auto Redeem Codes", 0.22)
+CreateToggle(MiscPage, "Auto Store Fruit", 0.29)
+
+CreateSection(MiscPage, "🎮 PLAYER", 0.38)
+
+CreateToggle(MiscPage, "Infinite Energy", 0.44)
+CreateToggle(MiscPage, "No Clip", 0.51)
+CreateToggle(MiscPage, "Fly Hack", 0.58)
+
+-- SETTINGS TAB CONTENT
+local SettingsPage = TabPages["SETTINGS"]
+
+CreateSection(SettingsPage, "⚙️ SCRIPT SETTINGS", 0.02)
+
+CreateToggle(SettingsPage, "Anti AFK", 0.08)
+CreateToggle(SettingsPage, "Safe Mode", 0.15)
+CreateToggle(SettingsPage, "UI Visible", 0.22)
+
+CreateSection(SettingsPage, "🔒 SECURITY", 0.32)
+
+CreateToggle(SettingsPage, "Anti Ban", 0.38)
+CreateToggle(SettingsPage, "Anti Detection", 0.45)
+CreateToggle(SettingsPage, "Fake Lag", 0.52)
+
+CreateButton(SettingsPage, "🔄 RELOAD SCRIPT", 0.62)
+CreateButton(SettingsPage, "🗑️ DESTROY UI", 0.69)
+
+-- UI Functionality
+CloseButton.MouseButton1Click:Connect(function()
+    ScreenGui:Destroy()
+end)
+
+local minimized = false
+MinimizeButton.MouseButton1Click:Connect(function()
+    minimized = not minimized
+    if minimized then
+        for _, page in pairs(TabPages) do
+            page.Visible = false
+        end
+        MainFrame.Size = UDim2.new(0, 550, 0, 50)
+        MinimizeButton.Text = "+"
+    else
+        TabPages[CurrentTab].Visible = true
+        MainFrame.Size = UDim2.new(0, 550, 0, 400)
+        MinimizeButton.Text = "−"
+    end
+end)
+
+-- Set default tab
+TabButtons["HOME"].BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+TabButtons["HOME"].TextColor3 = Color3.fromRGB(255, 255, 255)
+TabPages["HOME"].Visible = true
+
+-- Success message
+print("🎯 Quantum Onyx UI Recreation Loaded Successfully!")
+print("🎨 UI Design: Quantum Onyx Style")
+print("📱 Tabs: HOME, AUTO FARM, COMBAT, TELEPORTS, MISC, SETTINGS")
