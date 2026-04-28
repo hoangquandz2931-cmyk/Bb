@@ -1,0 +1,711 @@
+-- ts file was generated at discord.gg/25ms
+
+local genv = getgenv()
+local fenv = getfenv()
+local _t2 = setmetatable({}, {
+    __index = function(_3, _3_2)
+        return nil
+    end,
+})
+
+genv.table = _t2
+fenv._MJwibUGGgoXn = 'This file was protected with MoonSec V3'
+
+wait()
+
+fenv.MoonSec_StringsHiddenAttr = true
+
+table.find({
+    [1] = '0bj27',
+    [2] = '0bj51',
+    [3] = 'Memesjs939',
+    [4] = 'SkibidiKj87',
+    [5] = 'HiTsbMods',
+    [6] = 'HelloTsbMods',
+    [7] = 'GeburahhTsbg',
+    [8] = 'IJustLOVE_Scripts',
+    [9] = 'DontDiscriminate_me',
+    [10] = 'jujjdjkjd',
+    [11] = '0bj26',
+    [12] = 'galarianx2',
+    [13] = 'GarouToSuriyu',
+    [14] = 'safasfasfwe0',
+    [15] = 'kaminari0996',
+    [16] = 'SuperSilly9918',
+    [17] = 'Kevintyrio',
+    [18] = 'isofthung',
+    [19] = 'ShinoZakuro',
+    [20] = 'whatdabat',
+    [21] = 'freeboosting1001',
+    [22] = 'chat0992',
+    [23] = 'Snsjjsnaan_7',
+    [24] = 'MAXIMUMSPEEDMOVESET',
+    [25] = 'JackpotReal',
+    [26] = 'manface4u',
+    [27] = 'Tp_clan27',
+    [28] = 'HELLLYEAAAAAEAGLE',
+    [29] = 'ididstoleyourmoney',
+    [30] = 'MaxedNathan',
+    [31] = 'subaltbruh',
+    [32] = 'jsjakahah',
+    [33] = 'Robloxs0724',
+    [34] = 'Anas_gaming24',
+    [35] = 'sigmaskibidig1ytt',
+    [36] = 'the_geckyt',
+    [37] = 'kaitanopezkai',
+    [38] = 'thehakerman34',
+    [39] = 'cr7ismyidol',
+    [40] = 'Robson_Legal3090',
+    [41] = 'sebbyrmxz12',
+    [42] = 'lvtolv100',
+    [43] = 'dontban_metsb',
+    [44] = 'BigNabiha',
+    [45] = 'Gojoscript_tester',
+    [46] = 'yUc3TL',
+    [47] = 'ClientKjV2',
+    [48] = 'DimwittedIvans',
+    [49] = 'skibidisigmagya2',
+    [50] = 'D1STRACTI0NZZ',
+    [51] = 'kjtsbbat',
+    [52] = 'nahtab2',
+    [53] = 'rut328901',
+    [54] = 'Heybrotherbrotherho',
+    [55] = 'YourFunnyExp',
+    [56] = 'skyline0839',
+    [57] = 'coolguy102020120',
+    [58] = 'skillgamer20167',
+    [59] = 'petah_the',
+    [60] = 'ishowmeatsiu213',
+    [61] = 'GO_J0g3eto',
+    [62] = 'Toyota972682',
+    [63] = 'AlterMonarchTheFirst',
+    [64] = 'Jackpot_real',
+    [65] = 'WatodOkiraYoshikage',
+    [66] = 'xxplard9605',
+    [67] = 'GojosATORU8232',
+    [68] = 'mitioennavidad',
+    [69] = 'Poopydoopy7311',
+    [70] = 'IndomitableHumanSps',
+    [71] = 'pwojsjckaqkd',
+    [72] = 'King_ofBacons88',
+    [73] = 'nihha_duck',
+    [74] = 'ForsakenVincenzo',
+    [75] = 'GojosATORU8232',
+    [76] = 'Nkhgnjungg',
+    [77] = 'Pls_DontTsb',
+    [78] = 'B4UH80',
+    [79] = 'applewarerust',
+    [80] = 'fishin._.',
+    [81] = 'WsgTsbModss',
+    [82] = 'matt_power12344',
+    [83] = 'Xhoukd',
+    [84] = '93crab',
+    [85] = 'remembrance0',
+    [86] = 'skillgamer20167',
+}, game.Players.LocalPlayer.Name)
+
+local _LocalPlayer9 = game.Players.LocalPlayer
+local _PlayerGui10 = _LocalPlayer9.PlayerGui
+local _call16 = _PlayerGui10:FindFirstChild('Hotbar'):FindFirstChild('Backpack'):FindFirstChild('Hotbar')
+local _workspaceCurrentCamera17 = workspace.CurrentCamera
+
+_LocalPlayer9:GetMouse()
+
+local _call22 = _LocalPlayer9.Character:WaitForChild('Humanoid')
+local _call25 = Instance.new('ScreenGui', _LocalPlayer9.PlayerGui)
+local _call27 = Instance.new('TextLabel', _call25)
+
+_call27.Position = UDim2.fromScale(0.25, 0.061)
+_call27.Size = UDim2.fromScale(0.5, 0.078)
+_call27.TextColor3 = Color3.new(1, 1, 1)
+_call27.TextScaled = true
+_call27.Text = 'Gojo moveset made by Kyra#9760, osaka/nilauraz, ker/hecker4118. All VFX only appear on ur screen'
+
+local _call35 = Instance.new('Frame', _call25)
+local _call37 = Instance.new('UICorner', _call35)
+
+_call37.CornerRadius = UDim.new(0.02, 0)
+_call35.Size = UDim2.fromScale(0.5, 0.5)
+_call35.Position = UDim2.fromScale(0.25, 0.249)
+_call35.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+
+local _call47 = Instance.new('Frame', _call35)
+local _call49 = Instance.new('UICorner', _call35)
+
+_call49.CornerRadius = UDim.new(0.02, 0)
+_call47.Size = UDim2.fromScale(0.9, 0.9)
+_call47.Position = UDim2.fromScale(0.05, 0.051)
+_call47.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+
+local _call59 = Instance.new('UIListLayout', _call47)
+
+_call59.Padding = UDim.new(0.05, 0)
+_call59.VerticalAlignment = Enum.VerticalAlignment.Center
+_call59.HorizontalAlignment = Enum.HorizontalAlignment.Center
+
+local _call67 = Instance.new('TextButton', _call47)
+local _call69 = Instance.new('UICorner', _call67)
+
+_call69.CornerRadius = UDim.new(0.05, 0)
+_call67.Position = UDim2.fromScale(0.099, 0.092)
+_call67.Size = UDim2.fromScale(0.8, 0.2)
+_call67.TextColor3 = Color3.new(1, 1, 1)
+_call67.TextScaled = true
+_call67.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+_call67.Text = 'bigvfx: true'
+
+local _call81 = Instance.new('TextButton', _call47)
+local _call83 = Instance.new('UICorner', _call81)
+
+_call83.CornerRadius = UDim.new(0.05, 0)
+_call81.Position = UDim2.fromScale(0.099, 0.092)
+_call81.Size = UDim2.fromScale(0.8, 0.2)
+_call81.TextColor3 = Color3.new(1, 1, 1)
+_call81.TextScaled = true
+_call81.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+_call81.Text = 'moregojo: true'
+
+local _call95 = Instance.new('TextButton', _call47)
+local _call97 = Instance.new('UICorner', _call81)
+
+_call97.CornerRadius = UDim.new(0.05, 0)
+_call95.Position = UDim2.fromScale(0.099, 0.092)
+_call95.Size = UDim2.fromScale(0.8, 0.2)
+_call95.TextColor3 = Color3.new(1, 1, 1)
+_call95.TextScaled = true
+_call95.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+_call95.Text = 'easteregg: true'
+
+local _call109 = Instance.new('TextButton', _call47)
+local _call111 = Instance.new('UICorner', _call81)
+
+_call111.CornerRadius = UDim.new(0.05, 0)
+_call109.Position = UDim2.fromScale(0.099, 0.092)
+_call109.Size = UDim2.fromScale(0.8, 0.2)
+_call109.TextColor3 = Color3.new(1, 1, 1)
+_call109.TextScaled = true
+_call109.BackgroundColor3 = Color3.fromRGB(50, 255, 100)
+_call109.Text = 'start'
+
+_call67.MouseButton1Click:Connect(function(...)
+    _call67.Text = 'bigvfx: false'
+end)
+_call81.MouseButton1Click:Connect(function(...)
+    _call81.Text = 'moregojo: false'
+end)
+_call109.MouseButton1Click:Connect(function(...)
+    _call25:Destroy()
+end)
+wait(1)
+
+fenv.GetGitSoundID = function(...)
+    local _136_vararg1, _136_vararg2 = ...
+    local _tostring138 = tostring(tostring(_136_vararg2))
+
+    fenv.FileName = _tostring138
+
+    writefile('customObject_Sound_' .. _tostring138 .. '.mp3', game:HttpGet(_136_vararg1))
+
+    return getcustomasset('customObject_Sound_' .. _tostring138 .. '.mp3')
+end
+fenv.FileName = 'nil'
+
+writefile('customObject_Sound_nil.mp3', game:HttpGet('https://github.com/fartmaggot445/sounds/raw/main/gojo.mp3'))
+getcustomasset('customObject_Sound_nil.mp3')
+
+local _call154 = _PlayerGui10:FindFirstChild('ScreenGui'):FindFirstChild('MagicHealth'):FindFirstChild('TextLabel')
+
+_call154.Text = 'TRANSCENDENCE'
+fenv.ultsongrem = function(...)
+    for _158, _158_2 in pairs(workspace:GetChildren())do
+        _158_2:IsA('Sound')
+
+        local _ = _158_2.Name
+    end
+end
+
+local _call163 = Instance.new('Part', workspace)
+
+_call163.CanCollide = false
+_call163.Size = Vector3.new(45, 45, 45)
+_call163.Name = 'InfBall'
+_call163.Transparency = 1
+_call163.Massless = true
+_call163.Position = _LocalPlayer9.Character.HumanoidRootPart.Position
+
+local _call170 = Instance.new('WeldConstraint', _call163)
+
+_call170.Part0 = _LocalPlayer9.Character.HumanoidRootPart
+_call170.Part1 = _call163
+
+_call163.Touched:Connect(function(...)
+    local _176_vararg1 = ...
+
+    _176_vararg1:IsA('BasePart')
+
+    local _ = _176_vararg1.Anchored
+end)
+_LocalPlayer9.Character.Humanoid.Died:Connect(function(...)
+    _call154.Text = 'SERIOUS MODE'
+
+    for _188, _188_2 in pairs(workspace:GetChildren())do
+        _188_2:IsA('Sound')
+
+        local _ = _188_2.Name
+    end
+
+    _call163:Remove()
+end)
+
+fenv.blackflash = function(...)
+    local _call196 = Instance.new('Part', workspace)
+
+    _call196.CFrame = (_LocalPlayer9.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -7))
+    _call196.Size = Vector3.new(1, 1, 1)
+    _call196.Transparency = 1
+    _call196.Anchored = true
+    _call196.CanCollide = false
+
+    local _call206 = Instance.new('ParticleEmitter', _call196)
+
+    _call206.Brightness = 10
+    _call206.Color = ColorSequence.new(Color3.new(1, 0, 0))
+    _call206.LightEmission = 0
+    _call206.LightInfluence = 0
+    _call206.Orientation = Enum.ParticleOrientation.VelocityParallel
+    _call206.Size = NumberSequence.new(2, 10)
+    _call206.Squash = NumberSequence.new(0)
+    _call206.Texture = 'rbxassetid://14255829980'
+    _call206.Transparency = NumberSequence.new(0)
+    _call206.ZOffset = 2
+    _call206.EmissionDirection = Enum.NormalId.Front
+    _call206.Enabled = false
+    _call206.Lifetime = NumberRange.new(0.5, 2)
+    _call206.Rate = 20
+    _call206.Rotation = NumberRange.new(0, 360)
+    _call206.RotSpeed = NumberRange.new(-5, 5)
+    _call206.Speed = NumberRange.new(5, 100)
+    _call206.SpreadAngle = Vector2.new(25, 25)
+    _call206.FlipbookMode = Enum.ParticleFlipbookMode.OneShot
+    _call206.FlipbookLayout = Enum.ParticleFlipbookLayout.Grid4x4
+    _call206.Drag = 2
+
+    local _call236 = Instance.new('ParticleEmitter', _call196)
+
+    _call236.Brightness = 10
+    _call236.Color = ColorSequence.new(Color3.new(1, 0, 0))
+    _call236.LightEmission = 0
+    _call236.LightInfluence = 0
+    _call236.Orientation = Enum.ParticleOrientation.FacingCamera
+    _call236.Size = NumberSequence.new(2, 0)
+    _call236.Squash = NumberSequence.new(0)
+    _call236.Texture = 'rbxassetid://12776836573'
+    _call236.Transparency = NumberSequence.new(0)
+    _call236.ZOffset = 2
+    _call236.EmissionDirection = Enum.NormalId.Front
+    _call236.Enabled = false
+    _call236.Lifetime = NumberRange.new(1, 2)
+    _call236.Rate = 20
+    _call236.Rotation = NumberRange.new(0, 360)
+    _call236.RotSpeed = NumberRange.new(-5, 5)
+    _call236.Speed = NumberRange.new(5, 100)
+    _call236.SpreadAngle = Vector2.new(25, 25)
+    _call236.FlipbookMode = Enum.ParticleFlipbookMode.OneShot
+    _call236.FlipbookLayout = Enum.ParticleFlipbookLayout.Grid4x4
+    _call236.Drag = 2
+    _call236.Acceleration = Vector3.new(0, 5, 0)
+
+    local _call268 = Instance.new('ParticleEmitter', _call196)
+
+    _call268.Brightness = 10
+    _call268.Color = ColorSequence.new(Color3.new(0, 0, 0))
+    _call268.LightEmission = 0
+    _call268.LightInfluence = 0
+    _call268.Orientation = Enum.ParticleOrientation.VelocityParallel
+    _call268.Size = NumberSequence.new(9.9, 0)
+    _call268.Squash = NumberSequence.new(1, 5)
+    _call268.Texture = 'rbxassetid://8030734851'
+    _call268.Transparency = NumberSequence.new(0, 1)
+    _call268.ZOffset = 2
+    _call268.EmissionDirection = Enum.NormalId.Front
+    _call268.Enabled = false
+    _call268.Lifetime = NumberRange.new(0.1)
+    _call268.Rate = 20
+    _call268.Rotation = NumberRange.new(90)
+    _call268.RotSpeed = NumberRange.new(0)
+    _call268.Speed = NumberRange.new(50)
+    _call268.SpreadAngle = Vector2.new(0, 0)
+    _call268.Drag = 2
+
+    local _call294 = Instance.new('ParticleEmitter', _call196)
+
+    _call294.Brightness = 10
+    _call294.Color = ColorSequence.new(Color3.new(1, 0, 0))
+    _call294.LightEmission = 0
+    _call294.LightInfluence = 0
+    _call294.Orientation = Enum.ParticleOrientation.VelocityParallel
+    _call294.Size = NumberSequence.new(100, 0)
+    _call294.Squash = NumberSequence.new(1, 5)
+    _call294.Texture = 'rbxassetid://8030734851'
+    _call294.Transparency = NumberSequence.new(0, 1)
+    _call294.ZOffset = 1
+    _call294.EmissionDirection = Enum.NormalId.Front
+    _call294.Enabled = false
+    _call294.Lifetime = NumberRange.new(0.1)
+    _call294.Rate = 20
+    _call294.Rotation = NumberRange.new(90)
+    _call294.RotSpeed = NumberRange.new(0)
+    _call294.Speed = NumberRange.new(50)
+    _call294.SpreadAngle = Vector2.new(0, 0)
+    _call294.Drag = 2
+
+    _call206:Emit()
+    _call236:Emit()
+    _call268:Emit()
+    _call294:Emit()
+    game.Debris:AddItem(_call196, 3)
+end
+
+local _call331 = Instance.new('BoolValue')
+
+_call331.Value = false
+
+local _call333 = Instance.new('BoolValue')
+
+_call333.Value = false
+fenv.blue2 = function(...)
+    local _Humanoid336 = _LocalPlayer9.Character.Humanoid
+
+    for _339, _339_2 in pairs(_Humanoid336:GetPlayingAnimationTracks())do
+        _339_2:Stop()
+    end
+
+    local _call343 = Instance.new('Animation')
+
+    _call343.AnimationId = 'rbxassetid://13073745835'
+
+    local _call345 = _Humanoid336:LoadAnimation(_call343)
+
+    _call345:Play()
+    _call345:AdjustSpeed(0)
+
+    _call345.TimePosition = 0
+
+    _call345:AdjustSpeed(2)
+    wait(0.5)
+
+    local _call353 = OverlapParams.new()
+
+    _call353.FilterType = Enum.RaycastFilterType.Exclude
+    _call353.FilterDescendantsInstances = {
+        [1] = _LocalPlayer9.Character,
+    }
+
+    for _367, _367_2 in pairs(workspace:GetPartBoundsInBox((_LocalPlayer9.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -25)), Vector3.new(5, 5, 50), _call353))do
+        _367_2.Parent:FindFirstChildOfClass('Humanoid')
+
+        local _HumanoidRootPart372 = _LocalPlayer9.Character.HumanoidRootPart
+
+        _HumanoidRootPart372.CFrame = (_367_2.Parent.HumanoidRootPart.CFrame * CFrame.new(0, 0, 5))
+        _workspaceCurrentCamera17.CameraType = Enum.CameraType.Follow
+        _workspaceCurrentCamera17.CameraSubject = _367_2.Parent.Humanoid
+        _workspaceCurrentCamera17.CFrame = CFrame.new(_workspaceCurrentCamera17.CFrame.Position, _367_2.Parent.Head.Position)
+
+        wait()
+
+        _workspaceCurrentCamera17.CameraSubject = _LocalPlayer9.Character.Humanoid
+        _workspaceCurrentCamera17.CameraType = Enum.CameraType.Custom
+
+        local _call395 = Instance.new('Sound', workspace)
+
+        _call395.SoundId = 'rbxassetid://3356359494'
+        _call395.Volume = 2
+        _call395.PlaybackSpeed = 2
+
+        _call395:Play()
+
+        _call395.Name = 'An'
+
+        game.Debris:AddItem(_call395, 5)
+
+        local _call407 = game.ReplicatedStorage.Resources.Sorcerer.LimitlessBarrier.Sphere:Clone()
+        local _call409 = Instance.new('Highlight', _call407)
+
+        _call409.OutlineTransparency = 0
+        _call409.FillTransparency = 1
+        _call407.Parent = workspace
+        _call407.Transparency = 0.95
+        _call407.Material = Enum.Material.Neon
+        _call407.Position = _LocalPlayer9.Character.HumanoidRootPart.Position
+        _call407.Size = Vector3.new(25, 25, 25)
+
+        local _call423 = game.TweenService:Create(_call407, TweenInfo.new(0.25), {
+            Transparency = 1,
+            Size = Vector3.new(0, 0, 0),
+        })
+
+        _call423:Play()
+
+        local _call430 = game.TweenService:Create(_call409, TweenInfo.new(0.25), {OutlineTransparency = 1})
+
+        _call430:Play()
+        game.Debris:AddItem(_call407, 1)
+    end
+end
+fenv.blue = function(...)
+    local _ = _call331.Value
+end
+fenv.run = function(...)
+    local _ = _call333.Value
+end
+fenv.limitless = function(...) end
+
+local _call445 = _call16['1'].Base.ToolName:Clone()
+local _ToolName448 = _call16['1'].Base.ToolName
+
+_ToolName448.Visible = false
+_call445.Parent = _call16['1'].Base
+
+local _call455 = _call16['2'].Base.ToolName:Clone()
+local _ToolName458 = _call16['2'].Base.ToolName
+
+_ToolName458.Visible = false
+_call455.Parent = _call16['2'].Base
+
+local _call465 = _call16['3'].Base.ToolName:Clone()
+local _ToolName468 = _call16['3'].Base.ToolName
+
+_ToolName468.Visible = false
+_call465.Parent = _call16['3'].Base
+
+local _call475 = _call16['4'].Base.ToolName:Clone()
+local _ToolName478 = _call16['4'].Base.ToolName
+
+_ToolName478.Visible = false
+_call475.Parent = _call16['4'].Base
+fenv.basemove = function(...)
+    _call445.Text = 'Red Output'
+    _call455.Text = 'Beatdown'
+    _call465.Text = 'Lapse Combo'
+    _call475.Text = 'Reversal Red'
+end
+fenv.ultimatemove = function(...)
+    _call445.Text = 'Confusion'
+    _call455.Text = 'Maximum Output: Red'
+    _call465.Text = 'Imaginary Technique: Hollow Purple'
+    _call475.Text = 'Hollow Max'
+end
+_call445.Text = 'Red Output'
+_call455.Text = 'Beatdown'
+_call465.Text = 'Lapse Combo'
+_call475.Text = 'Reversal Red'
+fenv.purpleflash = function(...)
+    local _call485 = Instance.new('ColorCorrectionEffect')
+
+    _call485.Contrast = 5
+    _call485.TintColor = Color3.fromRGB(0, 0, 0)
+    _call485.Enabled = false
+
+    local _call489 = Instance.new('ColorCorrectionEffect')
+
+    _call489.Contrast = 5
+    _call489.TintColor = Color3.fromRGB(100, 0, 255)
+    _call489.Enabled = false
+
+    local _call493 = Instance.new('ColorCorrectionEffect')
+
+    _call493.Brightness = 1
+    _call493.TintColor = Color3.fromRGB(255, 255, 255)
+    _call493.Enabled = false
+
+    local _call497 = Instance.new('Highlight')
+
+    _call497.Name = 'impact'
+    _call497.FillTransparency = 0
+    _call497.FillColor = Color3.new(1, 1, 1)
+
+    local _call501 = Instance.new('Highlight')
+
+    _call501.Name = 'impact'
+    _call501.FillTransparency = 0
+    _call501.FillColor = Color3.new(0, 0, 0)
+    _call485.Parent = game.Lighting
+
+    game.Debris:AddItem(_call485, 5)
+
+    _call489.Parent = game.Lighting
+
+    game.Debris:AddItem(_call489, 5)
+
+    _call493.Parent = game.Lighting
+
+    game.Debris:AddItem(_call493, 5)
+
+    _call485.Parent = game.Lighting
+
+    game.Debris:AddItem(_call485, 5)
+
+    _call489.Parent = game.Lighting
+
+    game.Debris:AddItem(_call489, 5)
+
+    _call493.Parent = game.Lighting
+
+    game.Debris:AddItem(_call493, 5)
+
+    _call485.Enabled = false
+    _call489.Enabled = false
+    _call493.Enabled = false
+    _call485.Enabled = false
+    _call489.Enabled = false
+    _call493.Enabled = false
+    _call485.Enabled = true
+
+    for _531, _531_2 in pairs(workspace.Live:GetChildren())do
+        _531_2:FindFirstChildOfClass('Humanoid')
+        _531_2:FindFirstChild('impact')
+        _531_2:FindFirstChild('impact'):Remove()
+
+        local _call541 = _call497:Clone()
+
+        _call541.Parent = _531_2
+
+        game.Debris:AddItem(_call541, 0.1)
+    end
+
+    task.wait(0.1)
+
+    _call485.Enabled = false
+    _call489.Enabled = false
+    _call493.Enabled = false
+    _call485.Enabled = false
+    _call489.Enabled = false
+    _call493.Enabled = false
+    _call489.Enabled = true
+
+    for _548, _548_2 in pairs(workspace.Live:GetChildren())do
+        _548_2:FindFirstChildOfClass('Humanoid')
+        _548_2:FindFirstChild('impact')
+        _548_2:FindFirstChild('impact'):Remove()
+
+        local _call558 = _call497:Clone()
+
+        _call558.Parent = _548_2
+
+        game.Debris:AddItem(_call558, 0.1)
+    end
+
+    task.wait(0.1)
+
+    _call485.Enabled = false
+    _call489.Enabled = false
+    _call493.Enabled = false
+    _call485.Enabled = false
+    _call489.Enabled = false
+    _call493.Enabled = false
+    _call493.Enabled = true
+
+    for _565, _565_2 in pairs(workspace.Live:GetChildren())do
+        _565_2:FindFirstChildOfClass('Humanoid')
+        _565_2:FindFirstChild('impact')
+        _565_2:FindFirstChild('impact'):Remove()
+
+        local _call575 = _call501:Clone()
+
+        _call575.Parent = _565_2
+
+        game.Debris:AddItem(_call575, 0.1)
+    end
+
+    task.wait(0.1)
+
+    _call485.Enabled = false
+    _call489.Enabled = false
+    _call493.Enabled = false
+    _call485.Enabled = false
+    _call489.Enabled = false
+    _call493.Enabled = false
+    _call485.Enabled = true
+
+    for _582, _582_2 in pairs(workspace.Live:GetChildren())do
+        _582_2:FindFirstChildOfClass('Humanoid')
+        _582_2:FindFirstChild('impact')
+        _582_2:FindFirstChild('impact'):Remove()
+
+        local _call592 = _call497:Clone()
+
+        _call592.Parent = _582_2
+
+        game.Debris:AddItem(_call592, 0.1)
+    end
+
+    task.wait(0.1)
+
+    _call485.Enabled = false
+    _call489.Enabled = false
+    _call493.Enabled = false
+    _call485.Enabled = false
+    _call489.Enabled = false
+    _call493.Enabled = false
+    _call489.Enabled = true
+
+    for _599, _599_2 in pairs(workspace.Live:GetChildren())do
+        _599_2:FindFirstChildOfClass('Humanoid')
+        _599_2:FindFirstChild('impact')
+        _599_2:FindFirstChild('impact'):Remove()
+
+        local _call609 = _call497:Clone()
+
+        _call609.Parent = _599_2
+
+        game.Debris:AddItem(_call609, 0.1)
+    end
+
+    task.wait(0.1)
+
+    _call485.Enabled = false
+    _call489.Enabled = false
+    _call493.Enabled = false
+    _call485.Enabled = false
+    _call489.Enabled = false
+    _call493.Enabled = false
+    _call493.Enabled = true
+
+    for _616, _616_2 in pairs(workspace.Live:GetChildren())do
+        local _ = _616_2.FindFirstChildOfClass
+
+        error('internal 579: <25ms: infinitelooperror>')
+    end
+end
+fenv.impactblackflash = function(...)
+    local _call621 = Instance.new('ColorCorrectionEffect')
+
+    _call621.Contrast = 5
+    _call621.TintColor = Color3.fromRGB(0, 0, 0)
+    _call621.Enabled = false
+
+    local _call625 = Instance.new('ColorCorrectionEffect')
+
+    _call625.Contrast = 5
+    _call625.TintColor = Color3.fromRGB(255, 0, 0)
+    _call625.Enabled = false
+
+    error('internal 579: <25ms: infinitelooperror>')
+end
+fenv.barrier = function(...)
+    local _call636 = game.ReplicatedStorage.Resources.Sorcerer.Lighting.BarrierScreen:Clone()
+
+    _call636.Parent = game.Lighting
+
+    game.Debris:AddItem(_call636, 3)
+    error('internal 579: <25ms: infinitelooperror>')
+end
+
+_call22.AnimationPlayed:Connect(function(...)
+    local _645_vararg1 = ...
+    local _ = _645_vararg1.Animation.AnimationId
+
+    error('internal 579: <25ms: infinitelooperror>')
+end)
+game:GetService('UserInputService').InputBegan:Connect(function(...) end)
+_call22.AnimationPlayed:Connect(function(...) end)
