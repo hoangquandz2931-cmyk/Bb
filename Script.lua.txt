@@ -1,0 +1,246 @@
+--// SERVICES
+local Players = game:GetService("Players")
+local Player = Players.LocalPlayer
+local PlayerGui = Player:WaitForChild("PlayerGui")
+local UIS = game:GetService("UserInputService")
+
+--// SCREEN GUI
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "BottomFullyRoundedFreezeTradeUI"
+ScreenGui.Parent = PlayerGui
+
+--// UI PARAMETERS
+local UI_WIDTH = 200
+local UI_HEIGHT = 250
+local CORNER_RADIUS = 10
+
+--// MAIN FRAME
+local MainFrame = Instance.new("Frame")
+MainFrame.Name = "MainFrame"
+MainFrame.Size = UDim2.new(0, UI_WIDTH, 0, UI_HEIGHT)
+MainFrame.Position = UDim2.new(0.3, 0, 1, -(UI_HEIGHT + 50))
+MainFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+MainFrame.BorderSizePixel = 0
+MainFrame.ZIndex = 2
+MainFrame.Parent = ScreenGui
+
+local UICornerMain = Instance.new("UICorner")
+UICornerMain.CornerRadius = UDim.new(0, CORNER_RADIUS)
+UICornerMain.Parent = MainFrame
+
+--// HEADER BAR & DRAG
+local dragging = false
+local dragStart
+local startPos
+
+local Header = Instance.new("Frame")
+Header.Name = "Header"
+Header.Size = UDim2.new(1, 0, 0, 25)
+Header.Position = UDim2.new(0, 0, 0, 0)
+Header.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+Header.BorderSizePixel = 0
+Header.ZIndex = 3
+Header.Parent = MainFrame
+
+local UICornerHeader = Instance.new("UICorner")
+UICornerHeader.CornerRadius = UDim.new(0, CORNER_RADIUS)
+UICornerHeader.Parent = Header
+
+Header.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        dragStart = input.Position
+        startPos = MainFrame.Position
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+Header.InputChanged:Connect(function(input)
+    if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+        local delta = input.Position - dragStart
+        MainFrame.Position = UDim2.new(
+            startPos.X.Scale, startPos.X.Offset + delta.X,
+            startPos.Y.Scale, startPos.Y.Offset + delta.Y
+        )
+    end
+end)
+
+-- Title
+local Title = Instance.new("TextLabel")
+Title.Name = "Title"
+Title.Size = UDim2.new(1, -20, 1, 0)
+Title.Position = UDim2.new(0.5, 0, 0.5, 0)
+Title.AnchorPoint = Vector2.new(0.5, 0.5)
+Title.BackgroundTransparency = 1
+Title.Text = "Freeze Trade"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.Font = Enum.Font.SourceSansBold
+Title.TextSize = 14
+Title.ZIndex = 4
+Title.Parent = Header
+
+-- Close Button
+local CloseButton = Instance.new("TextButton")
+CloseButton.Name = "CloseButton"
+CloseButton.Size = UDim2.new(0, 20, 0, 20)
+CloseButton.Position = UDim2.new(1, -22, 0.5, 0)
+CloseButton.AnchorPoint = Vector2.new(1, 0.5)
+CloseButton.BackgroundTransparency = 1
+CloseButton.Text = "X"
+CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+CloseButton.Font = Enum.Font.SourceSansBold
+CloseButton.TextSize = 14
+CloseButton.ZIndex = 4
+CloseButton.Parent = Header
+CloseButton.MouseButton1Click:Connect(function()
+    ScreenGui:Destroy()
+end)
+
+-- New Top Label
+local TopLabel = Instance.new("TextLabel")
+TopLabel.Name = "TopLabel"
+TopLabel.Size = UDim2.new(1, -20, 0, 15)
+TopLabel.Position = UDim2.new(0, 10, 0, 35)
+TopLabel.BackgroundTransparency = 1
+TopLabel.Text = "Find Player to Freeze Trade"
+TopLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TopLabel.Font = Enum.Font.SourceSansBold
+TopLabel.TextSize = 10
+TopLabel.TextXAlignment = Enum.TextXAlignment.Left
+TopLabel.ZIndex = 3
+TopLabel.Parent = MainFrame
+
+-- Instruction Label (moved slightly higher)
+local InstructionLabel = Instance.new("TextLabel")
+InstructionLabel.Name = "InstructionLabel"
+InstructionLabel.Size = UDim2.new(1, -20, 0, 15)
+InstructionLabel.Position = UDim2.new(0, 10, 0, 50) -- moved up
+InstructionLabel.BackgroundTransparency = 1
+InstructionLabel.Text = "Enter username to start Freeze Trade"
+InstructionLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+InstructionLabel.Font = Enum.Font.SourceSans
+InstructionLabel.TextSize = 10
+InstructionLabel.TextXAlignment = Enum.TextXAlignment.Left
+InstructionLabel.ZIndex = 3
+InstructionLabel.Parent = MainFrame
+
+-- Username Input
+local UsernameInput = Instance.new("TextBox")
+UsernameInput.Name = "UsernameInput"
+UsernameInput.Size = UDim2.new(0.95, 0, 0, 25)
+UsernameInput.Position = UDim2.new(0, 10, 0, 70)
+UsernameInput.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+UsernameInput.BorderSizePixel = 0
+UsernameInput.PlaceholderText = "Search Username"
+UsernameInput.Text = ""
+UsernameInput.TextColor3 = Color3.fromRGB(255, 255, 255)
+UsernameInput.Font = Enum.Font.SourceSans
+UsernameInput.TextSize = 12
+UsernameInput.TextXAlignment = Enum.TextXAlignment.Left
+UsernameInput.TextWrapped = true
+UsernameInput.ZIndex = 3
+UsernameInput.Parent = MainFrame
+
+local UICornerInput = Instance.new("UICorner")
+UICornerInput.CornerRadius = UDim.new(0, CORNER_RADIUS)
+UICornerInput.Parent = UsernameInput
+
+-- Player Box
+local PlayerBox = Instance.new("Frame")
+PlayerBox.Name = "PlayerBox"
+PlayerBox.Size = UDim2.new(1, -20, 0, 40)
+PlayerBox.Position = UDim2.new(0, 10, 0, 105)
+PlayerBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+PlayerBox.BorderSizePixel = 0
+PlayerBox.ZIndex = 3
+PlayerBox.Parent = MainFrame
+
+local UICornerPlayerBox = Instance.new("UICorner")
+UICornerPlayerBox.CornerRadius = UDim.new(0, CORNER_RADIUS)
+UICornerPlayerBox.Parent = PlayerBox
+
+-- Avatar
+local Avatar = Instance.new("ImageLabel")
+Avatar.Name = "AvatarImage"
+Avatar.Size = UDim2.new(0, 30, 0, 30)
+Avatar.Position = UDim2.new(0, 5, 0.5, 0)
+Avatar.AnchorPoint = Vector2.new(0, 0.5)
+Avatar.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+Avatar.ZIndex = 4
+Avatar.Parent = PlayerBox
+
+local UICornerAvatar = Instance.new("UICorner")
+UICornerAvatar.CornerRadius = UDim.new(0.5, 0)
+UICornerAvatar.Parent = Avatar
+
+-- Username Label
+local FoundUsername = Instance.new("TextLabel")
+FoundUsername.Name = "FoundUsername"
+FoundUsername.Size = UDim2.new(0.8, -40, 1, 0)
+FoundUsername.Position = UDim2.new(0, 40, 0.5, 0)
+FoundUsername.AnchorPoint = Vector2.new(0, 0.5)
+FoundUsername.BackgroundTransparency = 1
+FoundUsername.Text = "Search Username"
+FoundUsername.TextColor3 = Color3.fromRGB(255, 255, 255)
+FoundUsername.Font = Enum.Font.SourceSansBold
+FoundUsername.TextSize = 12
+FoundUsername.TextXAlignment = Enum.TextXAlignment.Left
+FoundUsername.ZIndex = 4
+FoundUsername.Parent = PlayerBox
+
+-- Freeze Trade Button
+local FreezeTradeButton = Instance.new("TextButton")
+FreezeTradeButton.Name = "FreezeTradeButton"
+FreezeTradeButton.Size = UDim2.new(0.9, 0, 0, 30)
+FreezeTradeButton.Position = UDim2.new(0.5, 0, 1, -10)
+FreezeTradeButton.AnchorPoint = Vector2.new(0.5, 1)
+FreezeTradeButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+FreezeTradeButton.Text = "FREEZE TRADE"
+FreezeTradeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+FreezeTradeButton.Font = Enum.Font.SourceSansBold
+FreezeTradeButton.TextSize = 14
+FreezeTradeButton.ZIndex = 3
+FreezeTradeButton.Parent = MainFrame
+
+local UICornerFTB = Instance.new("UICorner")
+UICornerFTB.CornerRadius = UDim.new(0, CORNER_RADIUS)
+UICornerFTB.Parent = FreezeTradeButton
+
+----------------------------------------------------------------
+--// LIVE SEARCH (USERNAME OR DISPLAYNAME, IN-GAME ONLY)
+----------------------------------------------------------------
+local function updatePlayerBox(player)
+    if player then
+        FoundUsername.Text = player.Name
+        local thumbType = Enum.ThumbnailType.HeadShot
+        local thumbSize = Enum.ThumbnailSize.Size48x48
+        local content, ready = Players:GetUserThumbnailAsync(player.UserId, thumbType, thumbSize)
+        if content then
+            Avatar.Image = content
+        else
+            Avatar.Image = ""
+        end
+    else
+        FoundUsername.Text = "Search Username"
+        Avatar.Image = ""
+    end
+end
+
+UsernameInput:GetPropertyChangedSignal("Text"):Connect(function()
+    local query = UsernameInput.Text:lower()
+    
+    local matchedPlayer = nil
+    
+    for _, plr in pairs(Players:GetPlayers()) do
+        if plr.Name:lower():find(query) or plr.DisplayName:lower():find(query) then
+            matchedPlayer = plr
+            break
+        end
+    end
+    
+    updatePlayerBox(matchedPlayer)
+end)
