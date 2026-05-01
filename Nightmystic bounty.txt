@@ -1,0 +1,2046 @@
+local genv = getgenv()
+local fenv = getfenv()
+local env = _G
+task.wait()
+if not game:IsLoaded() then return end -- Hooked, Not Original Content Loaded.
+local _ = genv.MysticConfig
+local Players = game:GetService('Players')
+local Players = game:GetService('Players')
+local CoreGui = game:GetService('CoreGui')
+local TweenService = game:GetService('TweenService')
+local RunService = game:GetService('RunService')
+local Workspace = game:GetService('Workspace')
+local Lighting = game:GetService('Lighting')
+local HttpService = game:GetService('HttpService')
+local TeleportService = game:GetService('TeleportService')
+local VirtualInputManager = game:GetService('VirtualInputManager')
+local ReplicatedStorage = game:GetService('ReplicatedStorage')
+local VirtualUser = game:GetService('VirtualUser')
+env.KilledPlayers = {}
+env.CurrentTarget = nil
+env.AutoBounty = {
+    Enabled = true,
+    Combat = {
+        AutoRace = true,
+        AutoHaki = true,
+        AuraAttack = true,
+        AttackRange = 45,
+        AutoRandomFruit = true,
+        AutoStoreFruit = true,
+        AutoKen = true,
+        AutoAwakenV4 = true,
+        HitboxSize = 30,
+        SafeHealth = 4500,
+        ReturnHealth = 9000,
+        FastAttackSpeed = 12
+    },
+    Skill = {
+        Sword = {
+            Z = {
+                Enabled = true,
+                Wait = 0.3,
+                Hold = 0.05
+            },
+            X = {
+                Enabled = true,
+                Wait = 0.3,
+                Hold = 0.05
+            }
+        },
+        Gun = {
+            Z = {
+                Enabled = true,
+                Wait = 0.3,
+                Hold = 0.05
+            },
+            X = {
+                Enabled = true,
+                Wait = 0.3,
+                Hold = 0.05
+            }
+        },
+        Fruit = {
+            Z = {
+                Enabled = true,
+                Wait = 0.4,
+                Hold = 0.1
+            },
+            C = {
+                Enabled = true,
+                Wait = 0.4,
+                Hold = 0.1
+            },
+            X = {
+                Enabled = true,
+                Wait = 0.4,
+                Hold = 0.1
+            },
+            V = {
+                Enabled = true,
+                Wait = 0.4,
+                Hold = 0.1
+            }
+        },
+        Melee = {
+            Z = {
+                Enabled = true,
+                Wait = 0.3,
+                Hold = 0.05
+            },
+            C = {
+                Enabled = true,
+                Wait = 0.3,
+                Hold = 0.05
+            },
+            X = {
+                Enabled = true,
+                Wait = 0.3,
+                Hold = 0.05
+            }
+        }
+    },
+    Target = {
+        MaxDistance = 30000
+    },
+    Movement = {
+        FlySpeed = 350,
+        SkyHeight = 2500
+    },
+    Stick = {
+        Smooth = 0.6,
+        Height = 1.2,
+        Back = 3.5
+    }
+}
+local blureffect_617 = Instance.new("BlurEffect")
+
+blureffect_617.Name = "Flare x Hub"
+blureffect_617.Parent = blureffect_617
+blureffect_617.Size = 24
+local screengui_720 = Instance.new("ScreenGui")
+
+local frame_139 = Instance.new("Frame")
+
+local uicorner_696 = Instance.new("UICorner")
+
+local imagelabel_174 = Instance.new("ImageLabel")
+
+local textlabel_21 = Instance.new("TextLabel")
+
+local textlabel_940 = Instance.new("TextLabel")
+
+local frame_897 = Instance.new("Frame")
+
+local uigradient_707 = Instance.new("UIGradient")
+
+local textlabel_45 = Instance.new("TextLabel")
+
+local textlabel_332 = Instance.new("TextLabel")
+
+local frame_349 = Instance.new("Frame")
+
+local uigradient_871 = Instance.new("UIGradient")
+
+local frame_225 = Instance.new("Frame")
+
+local uilistlayout_711 = Instance.new("UIListLayout")
+
+local imagebutton_650 = Instance.new("ImageButton")
+
+local textlabel_158 = Instance.new("TextLabel")
+
+local imagebutton_665 = Instance.new("ImageButton")
+
+local textlabel_531 = Instance.new("TextLabel")
+
+local imagebutton_661 = Instance.new("ImageButton")
+
+local textlabel_606 = Instance.new("TextLabel")
+
+screengui_720.Name = "NightMysticUI"
+screengui_720.Parent = screengui_720
+screengui_720.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+frame_139.Name = "MainFrame"
+frame_139.Parent = frame_139
+frame_139.AnchorPoint = Vector2.new(0.5, 0.5)
+frame_139.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+frame_139.Position = UDim2.new(0.5, 0, 0.42, 0)
+frame_139.Size = UDim2.new(0, 300, 0, 380)
+frame_139.Active = true
+frame_139.Draggable = false
+uicorner_696.CornerRadius = UDim.new(0, 10)
+uicorner_696.Parent = uicorner_696
+imagelabel_174.Name = "Logo"
+imagelabel_174.Parent = imagelabel_174
+imagelabel_174.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+imagelabel_174.BackgroundTransparency = 1
+imagelabel_174.Position = UDim2.new(0.5, -140, 0.05, 0)
+imagelabel_174.Size = UDim2.new(0, 280, 0, 110)
+imagelabel_174.Image = "rbxassetid://134827121069757"
+imagelabel_174.ScaleType = Enum.ScaleType.Fit
+textlabel_21.Name = "BountyLabel"
+textlabel_21.Parent = textlabel_21
+textlabel_21.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+textlabel_21.BackgroundTransparency = 1
+textlabel_21.Position = UDim2.new(0, 0, 0.32, 0)
+textlabel_21.Size = UDim2.new(1, 0, 0, 25)
+textlabel_21.Font = Font.GothamMedium
+textlabel_21.Text = "Bounty Earned"
+textlabel_21.TextColor3 = Color3.fromRGB(255, 255, 255)
+textlabel_21.TextSize = 22.0
+textlabel_940.Name = "BountyValue"
+textlabel_940.Parent = textlabel_940
+textlabel_940.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+textlabel_940.BackgroundTransparency = 1
+textlabel_940.Position = UDim2.new(0, 0, 0.39, 0)
+textlabel_940.Size = UDim2.new(1, 0, 0, 25)
+textlabel_940.Font = Font.Gotham
+textlabel_940.Text = "0"
+textlabel_940.TextColor3 = Color3.fromRGB(200, 200, 200)
+textlabel_940.TextSize = 18.0
+frame_897.Name = "Sep1"
+frame_897.Parent = frame_897
+frame_897.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+frame_897.BorderSizePixel = 0
+frame_897.Position = UDim2.new(0.2, 0, 0.47, 0)
+frame_897.Size = UDim2.new(0.6, 0, 0, 2)
+uigradient_707.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 0, 0)),
+    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(180, 0, 0)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 0))
+})
+uigradient_707.Parent = uigradient_707
+textlabel_45.Name = "TotalLabel"
+textlabel_45.Parent = textlabel_45
+textlabel_45.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+textlabel_45.BackgroundTransparency = 1
+textlabel_45.Position = UDim2.new(0, 0, 0.53, 0)
+textlabel_45.Size = UDim2.new(1, 0, 0, 25)
+textlabel_45.Font = Font.GothamMedium
+textlabel_45.Text = "Total Bounty"
+textlabel_45.TextColor3 = Color3.fromRGB(255, 255, 255)
+textlabel_45.TextSize = 22.0
+textlabel_332.Name = "TotalValue"
+textlabel_332.Parent = textlabel_332
+textlabel_332.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+textlabel_332.BackgroundTransparency = 1
+textlabel_332.Position = UDim2.new(0, 0, 0.6, 0)
+textlabel_332.Size = UDim2.new(1, 0, 0, 25)
+textlabel_332.Font = Font.Gotham
+textlabel_332.Text = "Loading..."
+textlabel_332.TextColor3 = Color3.fromRGB(200, 200, 200)
+textlabel_332.TextSize = 18.0
+frame_349.Name = "Sep2"
+frame_349.Parent = frame_349
+frame_349.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+frame_349.BorderSizePixel = 0
+frame_349.Position = UDim2.new(0.2, 0, 0.68, 0)
+frame_349.Size = UDim2.new(0.6, 0, 0, 2)
+uigradient_871.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 0, 0)),
+    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(180, 0, 0)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 0))
+})
+uigradient_871.Parent = uigradient_871
+frame_225.Name = "ButtonContainer"
+frame_225.Parent = frame_225
+frame_225.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+frame_225.BackgroundTransparency = 1
+frame_225.Position = UDim2.new(0, 0, 0.78, 0)
+frame_225.Size = UDim2.new(1, 0, 0, 50)
+uilistlayout_711.Parent = uilistlayout_711
+uilistlayout_711.FillDirection = Enum.FillDirection.Horizontal
+uilistlayout_711.HorizontalAlignment = Enum.HorizontalAlignment.Center
+uilistlayout_711.SortOrder = Enum.SortOrder.LayoutOrder
+uilistlayout_711.VerticalAlignment = Enum.VerticalAlignment.Center
+uilistlayout_711.Padding = UDim.new(0, 30)
+imagebutton_665.Name = "HopButton"
+imagebutton_665.Parent = imagebutton_665
+imagebutton_665.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+imagebutton_665.BackgroundTransparency = 1
+imagebutton_665.LayoutOrder = 1
+imagebutton_665.Size = UDim2.new(0, 35, 0, 35)
+imagebutton_665.Image = "rbxassetid://15000801352"
+imagebutton_665.ImageColor3 = Color3.fromRGB(255, 255, 255)
+textlabel_531.Name = "Label"
+textlabel_531.Parent = textlabel_531
+textlabel_531.AnchorPoint = Vector2.new(0.5, 0)
+textlabel_531.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+textlabel_531.BackgroundTransparency = 1
+textlabel_531.Position = UDim2.new(0.5, 0, 1, 2)
+textlabel_531.Size = UDim2.new(0, 50, 0, 15)
+textlabel_531.Font = Font.Gotham
+textlabel_531.Text = "Server Hop"
+textlabel_531.TextColor3 = Color3.fromRGB(200, 200, 200)
+textlabel_531.TextSize = 10
+imagebutton_650.Name = "DiscordButton"
+imagebutton_650.Parent = imagebutton_650
+imagebutton_650.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+imagebutton_650.BackgroundTransparency = 1
+imagebutton_650.LayoutOrder = 2
+imagebutton_650.Size = UDim2.new(0, 35, 0, 35)
+imagebutton_650.Image = "rbxassetid://101192191207677"
+imagebutton_650.ImageColor3 = Color3.fromRGB(255, 255, 255)
+textlabel_158.Name = "Label"
+textlabel_158.Parent = textlabel_158
+textlabel_158.AnchorPoint = Vector2.new(0.5, 0)
+textlabel_158.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+textlabel_158.BackgroundTransparency = 1
+textlabel_158.Position = UDim2.new(0.5, 0, 1, 2)
+textlabel_158.Size = UDim2.new(0, 50, 0, 15)
+textlabel_158.Font = Font.Gotham
+textlabel_158.Text = "Discord"
+textlabel_158.TextColor3 = Color3.fromRGB(200, 200, 200)
+textlabel_158.TextSize = 10
+imagebutton_661.Name = "SkipButton"
+imagebutton_661.Parent = imagebutton_661
+imagebutton_661.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+imagebutton_661.BackgroundTransparency = 1
+imagebutton_661.LayoutOrder = 3
+imagebutton_661.Size = UDim2.new(0, 35, 0, 35)
+imagebutton_661.Image = "rbxassetid://15480040231"
+imagebutton_661.ImageColor3 = Color3.fromRGB(255, 255, 255)
+textlabel_606.Name = "Label"
+textlabel_606.Parent = textlabel_606
+textlabel_606.AnchorPoint = Vector2.new(0.5, 0)
+textlabel_606.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+textlabel_606.BackgroundTransparency = 1
+textlabel_606.Position = UDim2.new(0.5, 0, 1, 2)
+textlabel_606.Size = UDim2.new(0, 50, 0, 15)
+textlabel_606.Font = Font.Gotham
+textlabel_606.Text = "Skip Player"
+textlabel_606.TextColor3 = Color3.fromRGB(200, 200, 200)
+textlabel_606.TextSize = 10
+local screengui_747 = Instance.new("ScreenGui")
+
+local frame_700 = Instance.new("Frame")
+
+local uicorner_494 = Instance.new("UICorner")
+
+local frame_356 = Instance.new("Frame")
+
+local uicorner_299 = Instance.new("UICorner")
+
+local textlabel_518 = Instance.new("TextLabel")
+
+local textbutton_879 = Instance.new("TextButton")
+
+local frame_290 = Instance.new("Frame")
+
+local uigradient_756 = Instance.new("UIGradient")
+
+local frame_436 = Instance.new("Frame")
+
+local uilistlayout_907 = Instance.new("UIListLayout")
+
+local uipadding_476 = Instance.new("UIPadding")
+
+screengui_747.Name = "NightMysticDebug"
+screengui_747.Parent = screengui_747
+screengui_747.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+frame_700.Name = "MainFrame"
+frame_700.Parent = frame_700
+frame_700.BackgroundColor3 = Color3.fromRGB(5, 0, 0)
+frame_700.BackgroundTransparency = 0.15
+frame_700.Position = UDim2.new(0, 15, 1, -180)
+frame_700.Size = UDim2.new(0, 210, 0, 140)
+frame_700.Active = true
+frame_700.Draggable = true
+uicorner_494.CornerRadius = UDim.new(0, 6)
+uicorner_494.Parent = uicorner_494
+frame_356.Name = "TopBar"
+frame_356.Parent = frame_356
+frame_356.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+frame_356.BackgroundTransparency = 0
+frame_356.Size = UDim2.new(1, 0, 0, 24)
+frame_356.BorderSizePixel = 0
+uicorner_299.CornerRadius = UDim.new(0, 6)
+uicorner_299.Parent = uicorner_299
+local frame_574 = Instance.new("Frame")
+
+frame_574.Name = "BottomCover"
+frame_574.Parent = frame_574
+frame_574.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+frame_574.BorderSizePixel = 0
+frame_574.Position = UDim2.new(0, 0, 1, -6)
+frame_574.Size = UDim2.new(1, 0, 0, 6)
+textlabel_518.Name = "Title"
+textlabel_518.Parent = textlabel_518
+textlabel_518.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+textlabel_518.BackgroundTransparency = 1
+textlabel_518.Position = UDim2.new(0, 8, 0, 0)
+textlabel_518.Size = UDim2.new(0, 180, 1, 0)
+textlabel_518.Font = Font.GothamBold
+textlabel_518.Text = "Flare - Status"
+textlabel_518.TextColor3 = Color3.fromRGB(255, 255, 255)
+textlabel_518.TextSize = 11
+textlabel_518.TextXAlignment = Enum.TextXAlignment.Left
+textbutton_879.Name = "CloseButton"
+textbutton_879.Parent = textbutton_879
+textbutton_879.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+textbutton_879.BackgroundTransparency = 1
+textbutton_879.Position = UDim2.new(1, -24, 0, 0)
+textbutton_879.Size = UDim2.new(0, 24, 1, 0)
+textbutton_879.Font = Font.GothamBold
+textbutton_879.Text = "X"
+textbutton_879.TextColor3 = Color3.fromRGB(255, 0, 0)
+textbutton_879.TextSize = 11
+frame_290.Name = "Separator"
+frame_290.Parent = frame_290
+frame_290.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+frame_290.BorderSizePixel = 0
+frame_290.Position = UDim2.new(0, 0, 0, 24)
+frame_290.Size = UDim2.new(1, 0, 0, 1)
+uigradient_756.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 0, 0)),
+    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 0, 0)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 0))
+})
+uigradient_756.Parent = uigradient_756
+frame_436.Name = "ContentFrame"
+frame_436.Parent = frame_436
+frame_436.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+frame_436.BackgroundTransparency = 1
+frame_436.Position = UDim2.new(0, 0, 0, 26)
+frame_436.Size = UDim2.new(1, 0, 1, -26)
+uilistlayout_907.Parent = uilistlayout_907
+uilistlayout_907.SortOrder = Enum.SortOrder.LayoutOrder
+uilistlayout_907.Padding = UDim.new(0, 2)
+uipadding_476.Parent = uipadding_476
+uipadding_476.PaddingLeft = UDim.new(0, 8)
+uipadding_476.PaddingTop = UDim.new(0, 4)
+local frame_604 = Instance.new("Frame")
+
+local imagelabel_649 = Instance.new("ImageLabel")
+
+local textlabel_595 = Instance.new("TextLabel")
+
+frame_604.Name = "Row"
+frame_604.Parent = frame_604
+frame_604.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+frame_604.BackgroundTransparency = 1
+frame_604.Size = UDim2.new(1, -16, 0, 16)
+imagelabel_649.Name = "Icon"
+imagelabel_649.Parent = imagelabel_649
+imagelabel_649.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+imagelabel_649.BackgroundTransparency = 1
+imagelabel_649.Size = UDim2.new(0, 14, 0, 14)
+imagelabel_649.Image = "rbxassetid://11419719540"
+imagelabel_649.ImageColor3 = Color3.fromRGB(255, 0, 0)
+imagelabel_649.Position = UDim2.new(0, 0, 0, 1)
+textlabel_595.Name = "Label"
+textlabel_595.Parent = textlabel_595
+textlabel_595.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+textlabel_595.BackgroundTransparency = 1
+textlabel_595.Position = UDim2.new(0, 20, 0, 0)
+textlabel_595.Size = UDim2.new(1, -20, 1, 0)
+textlabel_595.Font = Font.Gotham
+textlabel_595.Text = "Target: None"
+textlabel_595.TextColor3 = Color3.fromRGB(220, 220, 220)
+textlabel_595.TextSize = 10
+textlabel_595.TextXAlignment = Enum.TextXAlignment.Left
+local frame_544 = Instance.new("Frame")
+
+local imagelabel_547 = Instance.new("ImageLabel")
+
+local textlabel_302 = Instance.new("TextLabel")
+
+frame_544.Name = "Row"
+frame_544.Parent = frame_544
+frame_544.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+frame_544.BackgroundTransparency = 1
+frame_544.Size = UDim2.new(1, -16, 0, 16)
+imagelabel_547.Name = "Icon"
+imagelabel_547.Parent = imagelabel_547
+imagelabel_547.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+imagelabel_547.BackgroundTransparency = 1
+imagelabel_547.Size = UDim2.new(0, 14, 0, 14)
+imagelabel_547.Image = "rbxassetid://11419719540"
+imagelabel_547.ImageColor3 = Color3.fromRGB(255, 0, 0)
+imagelabel_547.Position = UDim2.new(0, 0, 0, 1)
+textlabel_302.Name = "Label"
+textlabel_302.Parent = textlabel_302
+textlabel_302.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+textlabel_302.BackgroundTransparency = 1
+textlabel_302.Position = UDim2.new(0, 20, 0, 0)
+textlabel_302.Size = UDim2.new(1, -20, 1, 0)
+textlabel_302.Font = Font.Gotham
+textlabel_302.Text = "Target Bounty: 0"
+textlabel_302.TextColor3 = Color3.fromRGB(220, 220, 220)
+textlabel_302.TextSize = 10
+textlabel_302.TextXAlignment = Enum.TextXAlignment.Left
+local frame_588 = Instance.new("Frame")
+
+local imagelabel_879 = Instance.new("ImageLabel")
+
+local textlabel_650 = Instance.new("TextLabel")
+
+frame_588.Name = "Row"
+frame_588.Parent = frame_588
+frame_588.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+frame_588.BackgroundTransparency = 1
+frame_588.Size = UDim2.new(1, -16, 0, 16)
+imagelabel_879.Name = "Icon"
+imagelabel_879.Parent = imagelabel_879
+imagelabel_879.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+imagelabel_879.BackgroundTransparency = 1
+imagelabel_879.Size = UDim2.new(0, 14, 0, 14)
+imagelabel_879.Image = "rbxassetid://11419719540"
+imagelabel_879.ImageColor3 = Color3.fromRGB(255, 0, 0)
+imagelabel_879.Position = UDim2.new(0, 0, 0, 1)
+textlabel_650.Name = "Label"
+textlabel_650.Parent = textlabel_650
+textlabel_650.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+textlabel_650.BackgroundTransparency = 1
+textlabel_650.Position = UDim2.new(0, 20, 0, 0)
+textlabel_650.Size = UDim2.new(1, -20, 1, 0)
+textlabel_650.Font = Font.Gotham
+textlabel_650.Text = "My Bounty: 0"
+textlabel_650.TextColor3 = Color3.fromRGB(220, 220, 220)
+textlabel_650.TextSize = 10
+textlabel_650.TextXAlignment = Enum.TextXAlignment.Left
+local frame_460 = Instance.new("Frame")
+
+local imagelabel_105 = Instance.new("ImageLabel")
+
+local textlabel_362 = Instance.new("TextLabel")
+
+frame_460.Name = "Row"
+frame_460.Parent = frame_460
+frame_460.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+frame_460.BackgroundTransparency = 1
+frame_460.Size = UDim2.new(1, -16, 0, 16)
+imagelabel_105.Name = "Icon"
+imagelabel_105.Parent = imagelabel_105
+imagelabel_105.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+imagelabel_105.BackgroundTransparency = 1
+imagelabel_105.Size = UDim2.new(0, 14, 0, 14)
+imagelabel_105.Image = "rbxassetid://11419719540"
+imagelabel_105.ImageColor3 = Color3.fromRGB(255, 0, 0)
+imagelabel_105.Position = UDim2.new(0, 0, 0, 1)
+textlabel_362.Name = "Label"
+textlabel_362.Parent = textlabel_362
+textlabel_362.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+textlabel_362.BackgroundTransparency = 1
+textlabel_362.Position = UDim2.new(0, 20, 0, 0)
+textlabel_362.Size = UDim2.new(1, -20, 1, 0)
+textlabel_362.Font = Font.Gotham
+textlabel_362.Text = "Fps: 0 Ping: 0 ms"
+textlabel_362.TextColor3 = Color3.fromRGB(220, 220, 220)
+textlabel_362.TextSize = 10
+textlabel_362.TextXAlignment = Enum.TextXAlignment.Left
+local frame_110 = Instance.new("Frame")
+
+local imagelabel_262 = Instance.new("ImageLabel")
+
+local textlabel_28 = Instance.new("TextLabel")
+
+frame_110.Name = "Row"
+frame_110.Parent = frame_110
+frame_110.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+frame_110.BackgroundTransparency = 1
+frame_110.Size = UDim2.new(1, -16, 0, 16)
+imagelabel_262.Name = "Icon"
+imagelabel_262.Parent = imagelabel_262
+imagelabel_262.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+imagelabel_262.BackgroundTransparency = 1
+imagelabel_262.Size = UDim2.new(0, 14, 0, 14)
+imagelabel_262.Image = "rbxassetid://11419719540"
+imagelabel_262.ImageColor3 = Color3.fromRGB(255, 0, 0)
+imagelabel_262.Position = UDim2.new(0, 0, 0, 1)
+textlabel_28.Name = "Label"
+textlabel_28.Parent = textlabel_28
+textlabel_28.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+textlabel_28.BackgroundTransparency = 1
+textlabel_28.Position = UDim2.new(0, 20, 0, 0)
+textlabel_28.Size = UDim2.new(1, -20, 1, 0)
+textlabel_28.Font = Font.Gotham
+textlabel_28.Text = "Time Played: 00:00:00"
+textlabel_28.TextColor3 = Color3.fromRGB(220, 220, 220)
+textlabel_28.TextSize = 10
+textlabel_28.TextXAlignment = Enum.TextXAlignment.Left
+local frame_640 = Instance.new("Frame")
+
+local imagelabel_923 = Instance.new("ImageLabel")
+
+local textlabel_633 = Instance.new("TextLabel")
+
+frame_640.Name = "Row"
+frame_640.Parent = frame_640
+frame_640.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+frame_640.BackgroundTransparency = 1
+frame_640.Size = UDim2.new(1, -16, 0, 16)
+imagelabel_923.Name = "Icon"
+imagelabel_923.Parent = imagelabel_923
+imagelabel_923.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+imagelabel_923.BackgroundTransparency = 1
+imagelabel_923.Size = UDim2.new(0, 14, 0, 14)
+imagelabel_923.Image = "rbxassetid://11419719540"
+imagelabel_923.ImageColor3 = Color3.fromRGB(255, 0, 0)
+imagelabel_923.Position = UDim2.new(0, 0, 0, 1)
+textlabel_633.Name = "Label"
+textlabel_633.Parent = textlabel_633
+textlabel_633.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+textlabel_633.BackgroundTransparency = 1
+textlabel_633.Position = UDim2.new(0, 20, 0, 0)
+textlabel_633.Size = UDim2.new(1, -20, 1, 0)
+textlabel_633.Font = Font.Gotham
+textlabel_633.Text = "Server Uptime: 00:00:00"
+textlabel_633.TextColor3 = Color3.fromRGB(220, 220, 220)
+textlabel_633.TextSize = 10
+textlabel_633.TextXAlignment = Enum.TextXAlignment.Left
+textbutton_879.MouseButton1Click:Connect(function(v_4, v_5, v_6, v_7, v_8)
+    local v1 = screengui_747.Destroy({})
+end)
+local time_437 = os.time()
+local v438 = game.Players.LocalPlayer:FindFirstChild("leaderstats")
+local v439 = game.Players.LocalPlayer.leaderstats:FindFirstChild("Bounty/Honor")
+RunService.Heartbeat:Connect(function(v_4, v_5, v_6, v_7, v_8, v_9)
+    local calc_1 = (0 + "v_4")
+    local _2 =  1 <= calc_1
+end)
+local screengui_623 = Instance.new("ScreenGui")
+
+local frame_128 = Instance.new("Frame")
+
+local uicorner_743 = Instance.new("UICorner")
+
+local imagelabel_922 = Instance.new("ImageLabel")
+
+local textbutton_645 = Instance.new("TextButton")
+
+screengui_623.Name = "Flare X Hub"
+screengui_623.Parent = screengui_623
+screengui_623.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+screengui_623.DisplayOrder = 10
+screengui_623.ResetOnSpawn = false
+frame_128.Name = "dut dit"
+frame_128.Parent = frame_128
+frame_128.AnchorPoint = Vector2.new(0.1, 0.1)
+frame_128.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+frame_128.BackgroundTransparency = 0.3
+frame_128.Position = UDim2.new(0, 20, 0.1, -6)
+frame_128.Size = UDim2.new(0, 50, 0, 50)
+frame_128.Active = true
+frame_128.Draggable = true
+uicorner_743.CornerRadius = UDim.new(1, 0)
+uicorner_743.Parent = uicorner_743
+imagelabel_922.Parent = imagelabel_922
+imagelabel_922.AnchorPoint = Vector2.new(0.5, 0.5)
+imagelabel_922.BackgroundTransparency = 1
+imagelabel_922.Position = UDim2.new(0.5, 0, 0.5, 0)
+imagelabel_922.Size = UDim2.new(0, 40, 0, 40)
+imagelabel_922.Image = "rbxassetid://105245380363493"
+textbutton_645.Parent = textbutton_645
+textbutton_645.BackgroundTransparency = 1
+textbutton_645.Size = UDim2.new(1, 0, 1, 0)
+textbutton_645.Font = Font.SourceSans
+textbutton_645.Text = ""
+textbutton_645.TextColor3 = Color3.fromRGB(27, 42, 53)
+local v474 = TweenService:Create(TweenService, {}, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+    BackgroundTransparency = 0.5
+})
+local v475 = TweenService:Create(TweenService, {}, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+    BackgroundTransparency = 0.3
+})
+textbutton_645.MouseButton1Down:Connect(function(v_4, v_5)
+    local v1 = TweenService:Create(TweenService, {}, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+    Size = UDim2.new(0, 30, 0, 30)
+})
+    local v2 = v1:Play()
+    local v3 = v474:Play()
+    screengui_720.Enabled = false
+    blureffect_617.Size = 24
+end)
+imagebutton_650.MouseButton1Click:Connect(function(arg1, arg2)
+    setclipboard("https://discord.gg/FuEdQSHr?event=1499304625801662544")
+    textlabel_158.Text = "Discord link copied"
+    task.wait(1)
+    textlabel_158.Text = "Discord"
+end)
+imagebutton_665.MouseButton1Click:Connect(function(arg1, arg2)
+    textlabel_531.Text = "Searching..."
+    local gameCall_2 = game.PlaceId
+    local concat_3 = gameCall_2 .. '/servers/Public?sortOrder=Desc&limit=100'
+    local concat_4 = 'https://games.roblox.com/v1/games/' .. concat_3
+    local HttpGetContent_5 = game:HttpGet(concat_4)
+    local v6 = HttpService:JSONDecode(HttpGetContent_5)
+    local v7 = v6.data
+end)
+imagebutton_661.MouseButton1Click:Connect(function(v_1, v_5, v_6)
+    textlabel_606.Text = "No Target"
+    task.wait(1)
+    textlabel_606.Text = "Skip Player"
+end)
+local module_480 = require(ReplicatedStorage.Util.CameraShaker)
+local v481 = module_480:Stop()
+task.spawn(function(arg1, arg2)
+    task.wait(0.25)
+    local v2 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v3 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _4 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v5 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v7 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v9 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_11 = LocalPlayer.Backpack
+    local character_12 = LocalPlayer.Character
+    local character_GetChildren_13 = character_12.GetChildren
+    local v14 = character_GetChildren_13(character_12)
+    local v15 = localPlayer_Backpack_11:GetChildren()
+    task.wait(0.25)
+    local v17 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v18 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _19 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v20 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v22 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v24 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_26 = LocalPlayer.Backpack
+    local character_27 = LocalPlayer.Character
+    local character_GetChildren_28 = character_27.GetChildren
+    local v29 = character_GetChildren_28(character_27)
+    local v30 = localPlayer_Backpack_26:GetChildren()
+    task.wait(0.25)
+    local v32 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v33 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _34 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v35 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v37 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v39 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_41 = LocalPlayer.Backpack
+    local character_42 = LocalPlayer.Character
+    local character_GetChildren_43 = character_42.GetChildren
+    local v44 = character_GetChildren_43(character_42)
+    local v45 = localPlayer_Backpack_41:GetChildren()
+    task.wait(0.25)
+    local v47 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v48 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _49 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v50 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v52 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v54 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_56 = LocalPlayer.Backpack
+    local character_57 = LocalPlayer.Character
+    local character_GetChildren_58 = character_57.GetChildren
+    local v59 = character_GetChildren_58(character_57)
+    local v60 = localPlayer_Backpack_56:GetChildren()
+    task.wait(0.25)
+    local v62 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v63 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _64 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v65 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v67 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v69 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_71 = LocalPlayer.Backpack
+    local character_72 = LocalPlayer.Character
+    local character_GetChildren_73 = character_72.GetChildren
+    local v74 = character_GetChildren_73(character_72)
+    local v75 = localPlayer_Backpack_71:GetChildren()
+    task.wait(0.25)
+    local v77 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v78 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _79 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v80 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v82 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v84 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_86 = LocalPlayer.Backpack
+    local character_87 = LocalPlayer.Character
+    local character_GetChildren_88 = character_87.GetChildren
+    local v89 = character_GetChildren_88(character_87)
+    local v90 = localPlayer_Backpack_86:GetChildren()
+    task.wait(0.25)
+    local v92 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v93 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _94 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v95 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v97 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v99 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_101 = LocalPlayer.Backpack
+    local character_102 = LocalPlayer.Character
+    local character_GetChildren_103 = character_102.GetChildren
+    local v104 = character_GetChildren_103(character_102)
+    local v105 = localPlayer_Backpack_101:GetChildren()
+    task.wait(0.25)
+    local v107 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v108 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _109 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v110 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v112 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v114 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_116 = LocalPlayer.Backpack
+    local character_117 = LocalPlayer.Character
+    local character_GetChildren_118 = character_117.GetChildren
+    local v119 = character_GetChildren_118(character_117)
+    local v120 = localPlayer_Backpack_116:GetChildren()
+    task.wait(0.25)
+    local v122 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v123 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _124 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v125 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v127 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v129 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_131 = LocalPlayer.Backpack
+    local character_132 = LocalPlayer.Character
+    local character_GetChildren_133 = character_132.GetChildren
+    local v134 = character_GetChildren_133(character_132)
+    local v135 = localPlayer_Backpack_131:GetChildren()
+    task.wait(0.25)
+    local v137 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v138 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _139 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v140 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v142 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v144 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_146 = LocalPlayer.Backpack
+    local character_147 = LocalPlayer.Character
+    local character_GetChildren_148 = character_147.GetChildren
+    local v149 = character_GetChildren_148(character_147)
+    local v150 = localPlayer_Backpack_146:GetChildren()
+    task.wait(0.25)
+    local v152 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v153 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _154 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v155 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v157 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v159 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_161 = LocalPlayer.Backpack
+    local character_162 = LocalPlayer.Character
+    local character_GetChildren_163 = character_162.GetChildren
+    local v164 = character_GetChildren_163(character_162)
+    local v165 = localPlayer_Backpack_161:GetChildren()
+    task.wait(0.25)
+    local v167 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v168 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _169 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v170 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v172 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v174 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_176 = LocalPlayer.Backpack
+    local character_177 = LocalPlayer.Character
+    local character_GetChildren_178 = character_177.GetChildren
+    local v179 = character_GetChildren_178(character_177)
+    local v180 = localPlayer_Backpack_176:GetChildren()
+    task.wait(0.25)
+    local v182 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v183 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _184 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v185 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v187 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v189 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_191 = LocalPlayer.Backpack
+    local character_192 = LocalPlayer.Character
+    local character_GetChildren_193 = character_192.GetChildren
+    local v194 = character_GetChildren_193(character_192)
+    local v195 = localPlayer_Backpack_191:GetChildren()
+    task.wait(0.25)
+    local v197 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v198 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _199 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v200 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v202 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v204 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_206 = LocalPlayer.Backpack
+    local character_207 = LocalPlayer.Character
+    local character_GetChildren_208 = character_207.GetChildren
+    local v209 = character_GetChildren_208(character_207)
+    local v210 = localPlayer_Backpack_206:GetChildren()
+    task.wait(0.25)
+    local v212 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v213 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _214 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v215 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v217 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v219 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_221 = LocalPlayer.Backpack
+    local character_222 = LocalPlayer.Character
+    local character_GetChildren_223 = character_222.GetChildren
+    local v224 = character_GetChildren_223(character_222)
+    local v225 = localPlayer_Backpack_221:GetChildren()
+    task.wait(0.25)
+    local v227 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v228 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _229 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v230 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v232 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v234 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_236 = LocalPlayer.Backpack
+    local character_237 = LocalPlayer.Character
+    local character_GetChildren_238 = character_237.GetChildren
+    local v239 = character_GetChildren_238(character_237)
+    local v240 = localPlayer_Backpack_236:GetChildren()
+    task.wait(0.25)
+    local v242 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v243 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _244 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v245 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v247 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v249 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_251 = LocalPlayer.Backpack
+    local character_252 = LocalPlayer.Character
+    local character_GetChildren_253 = character_252.GetChildren
+    local v254 = character_GetChildren_253(character_252)
+    local v255 = localPlayer_Backpack_251:GetChildren()
+    task.wait(0.25)
+    local v257 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v258 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _259 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v260 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v262 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v264 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_266 = LocalPlayer.Backpack
+    local character_267 = LocalPlayer.Character
+    local character_GetChildren_268 = character_267.GetChildren
+    local v269 = character_GetChildren_268(character_267)
+    local v270 = localPlayer_Backpack_266:GetChildren()
+    task.wait(0.25)
+    local v272 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v273 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _274 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v275 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v277 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v279 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_281 = LocalPlayer.Backpack
+    local character_282 = LocalPlayer.Character
+    local character_GetChildren_283 = character_282.GetChildren
+    local v284 = character_GetChildren_283(character_282)
+    local v285 = localPlayer_Backpack_281:GetChildren()
+    task.wait(0.25)
+    local v287 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v288 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _289 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v290 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v292 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v294 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_296 = LocalPlayer.Backpack
+    local character_297 = LocalPlayer.Character
+    local character_GetChildren_298 = character_297.GetChildren
+    local v299 = character_GetChildren_298(character_297)
+    local v300 = localPlayer_Backpack_296:GetChildren()
+    task.wait(0.25)
+    local v302 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v303 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _304 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v305 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v307 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v309 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_311 = LocalPlayer.Backpack
+    local character_312 = LocalPlayer.Character
+    local character_GetChildren_313 = character_312.GetChildren
+    local v314 = character_GetChildren_313(character_312)
+    local v315 = localPlayer_Backpack_311:GetChildren()
+    task.wait(0.25)
+    local v317 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v318 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _319 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v320 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v322 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v324 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_326 = LocalPlayer.Backpack
+    local character_327 = LocalPlayer.Character
+    local character_GetChildren_328 = character_327.GetChildren
+    local v329 = character_GetChildren_328(character_327)
+    local v330 = localPlayer_Backpack_326:GetChildren()
+    task.wait(0.25)
+    local v332 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v333 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _334 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v335 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v337 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v339 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_341 = LocalPlayer.Backpack
+    local character_342 = LocalPlayer.Character
+    local character_GetChildren_343 = character_342.GetChildren
+    local v344 = character_GetChildren_343(character_342)
+    local v345 = localPlayer_Backpack_341:GetChildren()
+    task.wait(0.25)
+    local v347 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v348 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _349 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v350 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v352 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v354 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_356 = LocalPlayer.Backpack
+    local character_357 = LocalPlayer.Character
+    local character_GetChildren_358 = character_357.GetChildren
+    local v359 = character_GetChildren_358(character_357)
+    local v360 = localPlayer_Backpack_356:GetChildren()
+    task.wait(0.25)
+    local v362 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v363 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _364 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v365 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v367 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v369 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_371 = LocalPlayer.Backpack
+    local character_372 = LocalPlayer.Character
+    local character_GetChildren_373 = character_372.GetChildren
+    local v374 = character_GetChildren_373(character_372)
+    local v375 = localPlayer_Backpack_371:GetChildren()
+    task.wait(0.25)
+    local v377 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v378 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _379 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v380 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v382 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v384 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_386 = LocalPlayer.Backpack
+    local character_387 = LocalPlayer.Character
+    local character_GetChildren_388 = character_387.GetChildren
+    local v389 = character_GetChildren_388(character_387)
+    local v390 = localPlayer_Backpack_386:GetChildren()
+    task.wait(0.25)
+    local v392 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v393 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _394 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v395 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v397 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v399 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_401 = LocalPlayer.Backpack
+    local character_402 = LocalPlayer.Character
+    local character_GetChildren_403 = character_402.GetChildren
+    local v404 = character_GetChildren_403(character_402)
+    local v405 = localPlayer_Backpack_401:GetChildren()
+    task.wait(0.25)
+    local v407 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v408 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _409 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v410 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v412 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v414 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_416 = LocalPlayer.Backpack
+    local character_417 = LocalPlayer.Character
+    local character_GetChildren_418 = character_417.GetChildren
+    local v419 = character_GetChildren_418(character_417)
+    local v420 = localPlayer_Backpack_416:GetChildren()
+    task.wait(0.25)
+    local v422 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v423 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _424 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v425 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v427 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v429 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_431 = LocalPlayer.Backpack
+    local character_432 = LocalPlayer.Character
+    local character_GetChildren_433 = character_432.GetChildren
+    local v434 = character_GetChildren_433(character_432)
+    local v435 = localPlayer_Backpack_431:GetChildren()
+    task.wait(0.25)
+    local v437 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v438 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _439 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v440 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v442 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v444 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_446 = LocalPlayer.Backpack
+    local character_447 = LocalPlayer.Character
+    local character_GetChildren_448 = character_447.GetChildren
+    local v449 = character_GetChildren_448(character_447)
+    local v450 = localPlayer_Backpack_446:GetChildren()
+    task.wait(0.25)
+    local v452 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v453 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _454 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v455 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v457 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v459 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_461 = LocalPlayer.Backpack
+    local character_462 = LocalPlayer.Character
+    local character_GetChildren_463 = character_462.GetChildren
+    local v464 = character_GetChildren_463(character_462)
+    local v465 = localPlayer_Backpack_461:GetChildren()
+    task.wait(0.25)
+    local v467 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v468 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _469 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v470 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v472 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v474 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_476 = LocalPlayer.Backpack
+    local character_477 = LocalPlayer.Character
+    local character_GetChildren_478 = character_477.GetChildren
+    local v479 = character_GetChildren_478(character_477)
+    local v480 = localPlayer_Backpack_476:GetChildren()
+    task.wait(0.25)
+    local v482 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v483 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _484 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v485 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v487 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v489 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_491 = LocalPlayer.Backpack
+    local character_492 = LocalPlayer.Character
+    local character_GetChildren_493 = character_492.GetChildren
+    local v494 = character_GetChildren_493(character_492)
+    local v495 = localPlayer_Backpack_491:GetChildren()
+    task.wait(0.25)
+    local v497 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v498 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _499 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v500 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v502 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v504 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_506 = LocalPlayer.Backpack
+    local character_507 = LocalPlayer.Character
+    local character_GetChildren_508 = character_507.GetChildren
+    local v509 = character_GetChildren_508(character_507)
+    local v510 = localPlayer_Backpack_506:GetChildren()
+    task.wait(0.25)
+    local v512 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v513 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _514 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v515 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v517 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v519 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_521 = LocalPlayer.Backpack
+    local character_522 = LocalPlayer.Character
+    local character_GetChildren_523 = character_522.GetChildren
+    local v524 = character_GetChildren_523(character_522)
+    local v525 = localPlayer_Backpack_521:GetChildren()
+    task.wait(0.25)
+    local v527 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v528 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _529 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v530 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v532 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v534 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_536 = LocalPlayer.Backpack
+    local character_537 = LocalPlayer.Character
+    local character_GetChildren_538 = character_537.GetChildren
+    local v539 = character_GetChildren_538(character_537)
+    local v540 = localPlayer_Backpack_536:GetChildren()
+    task.wait(0.25)
+    local v542 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v543 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _544 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v545 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v547 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v549 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_551 = LocalPlayer.Backpack
+    local character_552 = LocalPlayer.Character
+    local character_GetChildren_553 = character_552.GetChildren
+    local v554 = character_GetChildren_553(character_552)
+    local v555 = localPlayer_Backpack_551:GetChildren()
+    task.wait(0.25)
+    local v557 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v558 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _559 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v560 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v562 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v564 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_566 = LocalPlayer.Backpack
+    local character_567 = LocalPlayer.Character
+    local character_GetChildren_568 = character_567.GetChildren
+    local v569 = character_GetChildren_568(character_567)
+    local v570 = localPlayer_Backpack_566:GetChildren()
+    task.wait(0.25)
+    local v572 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v573 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _574 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v575 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v577 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v579 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_581 = LocalPlayer.Backpack
+    local character_582 = LocalPlayer.Character
+    local character_GetChildren_583 = character_582.GetChildren
+    local v584 = character_GetChildren_583(character_582)
+    local v585 = localPlayer_Backpack_581:GetChildren()
+    task.wait(0.25)
+    local v587 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v588 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _589 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v590 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v592 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v594 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_596 = LocalPlayer.Backpack
+    local character_597 = LocalPlayer.Character
+    local character_GetChildren_598 = character_597.GetChildren
+    local v599 = character_GetChildren_598(character_597)
+    local v600 = localPlayer_Backpack_596:GetChildren()
+    task.wait(0.25)
+    local v602 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v603 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _604 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v605 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v607 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v609 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_611 = LocalPlayer.Backpack
+    local character_612 = LocalPlayer.Character
+    local character_GetChildren_613 = character_612.GetChildren
+    local v614 = character_GetChildren_613(character_612)
+    local v615 = localPlayer_Backpack_611:GetChildren()
+    task.wait(0.25)
+    local v617 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v618 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _619 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v620 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v622 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v624 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_626 = LocalPlayer.Backpack
+    local character_627 = LocalPlayer.Character
+    local character_GetChildren_628 = character_627.GetChildren
+    local v629 = character_GetChildren_628(character_627)
+    local v630 = localPlayer_Backpack_626:GetChildren()
+    task.wait(0.25)
+    local v632 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v633 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _634 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v635 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v637 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v639 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_641 = LocalPlayer.Backpack
+    local character_642 = LocalPlayer.Character
+    local character_GetChildren_643 = character_642.GetChildren
+    local v644 = character_GetChildren_643(character_642)
+    local v645 = localPlayer_Backpack_641:GetChildren()
+    task.wait(0.25)
+    local v647 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v648 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _649 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v650 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v652 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v654 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_656 = LocalPlayer.Backpack
+    local character_657 = LocalPlayer.Character
+    local character_GetChildren_658 = character_657.GetChildren
+    local v659 = character_GetChildren_658(character_657)
+    local v660 = localPlayer_Backpack_656:GetChildren()
+    task.wait(0.25)
+    local v662 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v663 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _664 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v665 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v667 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v669 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_671 = LocalPlayer.Backpack
+    local character_672 = LocalPlayer.Character
+    local character_GetChildren_673 = character_672.GetChildren
+    local v674 = character_GetChildren_673(character_672)
+    local v675 = localPlayer_Backpack_671:GetChildren()
+    task.wait(0.25)
+    local v677 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v678 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _679 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v680 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v682 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v684 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_686 = LocalPlayer.Backpack
+    local character_687 = LocalPlayer.Character
+    local character_GetChildren_688 = character_687.GetChildren
+    local v689 = character_GetChildren_688(character_687)
+    local v690 = localPlayer_Backpack_686:GetChildren()
+    task.wait(0.25)
+    local v692 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v693 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _694 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v695 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v697 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v699 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_701 = LocalPlayer.Backpack
+    local character_702 = LocalPlayer.Character
+    local character_GetChildren_703 = character_702.GetChildren
+    local v704 = character_GetChildren_703(character_702)
+    local v705 = localPlayer_Backpack_701:GetChildren()
+    task.wait(0.25)
+    local v707 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v708 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _709 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v710 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v712 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v714 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_716 = LocalPlayer.Backpack
+    local character_717 = LocalPlayer.Character
+    local character_GetChildren_718 = character_717.GetChildren
+    local v719 = character_GetChildren_718(character_717)
+    local v720 = localPlayer_Backpack_716:GetChildren()
+    task.wait(0.25)
+    local v722 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v723 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _724 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v725 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v727 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v729 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_731 = LocalPlayer.Backpack
+    local character_732 = LocalPlayer.Character
+    local character_GetChildren_733 = character_732.GetChildren
+    local v734 = character_GetChildren_733(character_732)
+    local v735 = localPlayer_Backpack_731:GetChildren()
+    task.wait(0.25)
+    local v737 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v738 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _739 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v740 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v742 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v744 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_746 = LocalPlayer.Backpack
+    local character_747 = LocalPlayer.Character
+    local character_GetChildren_748 = character_747.GetChildren
+    local v749 = character_GetChildren_748(character_747)
+    local v750 = localPlayer_Backpack_746:GetChildren()
+    task.wait(0.25)
+    local v752 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v753 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _754 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v755 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v757 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v759 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_761 = LocalPlayer.Backpack
+    local character_762 = LocalPlayer.Character
+    local character_GetChildren_763 = character_762.GetChildren
+    local v764 = character_GetChildren_763(character_762)
+    local v765 = localPlayer_Backpack_761:GetChildren()
+    task.wait(0.25)
+    local v767 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v768 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _769 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v770 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v772 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v774 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_776 = LocalPlayer.Backpack
+    local character_777 = LocalPlayer.Character
+    local character_GetChildren_778 = character_777.GetChildren
+    local v779 = character_GetChildren_778(character_777)
+    local v780 = localPlayer_Backpack_776:GetChildren()
+    task.wait(0.25)
+    local v782 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v783 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _784 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v785 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v787 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v789 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_791 = LocalPlayer.Backpack
+    local character_792 = LocalPlayer.Character
+    local character_GetChildren_793 = character_792.GetChildren
+    local v794 = character_GetChildren_793(character_792)
+    local v795 = localPlayer_Backpack_791:GetChildren()
+    task.wait(0.25)
+    local v797 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v798 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _799 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v800 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v802 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v804 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_806 = LocalPlayer.Backpack
+    local character_807 = LocalPlayer.Character
+    local character_GetChildren_808 = character_807.GetChildren
+    local v809 = character_GetChildren_808(character_807)
+    local v810 = localPlayer_Backpack_806:GetChildren()
+    task.wait(0.25)
+    local v812 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v813 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _814 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v815 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v817 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v819 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_821 = LocalPlayer.Backpack
+    local character_822 = LocalPlayer.Character
+    local character_GetChildren_823 = character_822.GetChildren
+    local v824 = character_GetChildren_823(character_822)
+    local v825 = localPlayer_Backpack_821:GetChildren()
+    task.wait(0.25)
+    local v827 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v828 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _829 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v830 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v832 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v834 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_836 = LocalPlayer.Backpack
+    local character_837 = LocalPlayer.Character
+    local character_GetChildren_838 = character_837.GetChildren
+    local v839 = character_GetChildren_838(character_837)
+    local v840 = localPlayer_Backpack_836:GetChildren()
+    task.wait(0.25)
+    local v842 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v843 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _844 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v845 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v847 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v849 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_851 = LocalPlayer.Backpack
+    local character_852 = LocalPlayer.Character
+    local character_GetChildren_853 = character_852.GetChildren
+    local v854 = character_GetChildren_853(character_852)
+    local v855 = localPlayer_Backpack_851:GetChildren()
+    task.wait(0.25)
+    local v857 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v858 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _859 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v860 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v862 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v864 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_866 = LocalPlayer.Backpack
+    local character_867 = LocalPlayer.Character
+    local character_GetChildren_868 = character_867.GetChildren
+    local v869 = character_GetChildren_868(character_867)
+    local v870 = localPlayer_Backpack_866:GetChildren()
+    task.wait(0.25)
+    local v872 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v873 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _874 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v875 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v877 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v879 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_881 = LocalPlayer.Backpack
+    local character_882 = LocalPlayer.Character
+    local character_GetChildren_883 = character_882.GetChildren
+    local v884 = character_GetChildren_883(character_882)
+    local v885 = localPlayer_Backpack_881:GetChildren()
+    task.wait(0.25)
+    local v887 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v888 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _889 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v890 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v892 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v894 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_896 = LocalPlayer.Backpack
+    local character_897 = LocalPlayer.Character
+    local character_GetChildren_898 = character_897.GetChildren
+    local v899 = character_GetChildren_898(character_897)
+    local v900 = localPlayer_Backpack_896:GetChildren()
+    task.wait(0.25)
+    local v902 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v903 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _904 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v905 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v907 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v909 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_911 = LocalPlayer.Backpack
+    local character_912 = LocalPlayer.Character
+    local character_GetChildren_913 = character_912.GetChildren
+    local v914 = character_GetChildren_913(character_912)
+    local v915 = localPlayer_Backpack_911:GetChildren()
+    task.wait(0.25)
+    local v917 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v918 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _919 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v920 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v922 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v924 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_926 = LocalPlayer.Backpack
+    local character_927 = LocalPlayer.Character
+    local character_GetChildren_928 = character_927.GetChildren
+    local v929 = character_GetChildren_928(character_927)
+    local v930 = localPlayer_Backpack_926:GetChildren()
+    task.wait(0.25)
+    local v932 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v933 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _934 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v935 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v937 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v939 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_941 = LocalPlayer.Backpack
+    local character_942 = LocalPlayer.Character
+    local character_GetChildren_943 = character_942.GetChildren
+    local v944 = character_GetChildren_943(character_942)
+    local v945 = localPlayer_Backpack_941:GetChildren()
+    task.wait(0.25)
+    local v947 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v948 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _949 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v950 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v952 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v954 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_956 = LocalPlayer.Backpack
+    local character_957 = LocalPlayer.Character
+    local character_GetChildren_958 = character_957.GetChildren
+    local v959 = character_GetChildren_958(character_957)
+    local v960 = localPlayer_Backpack_956:GetChildren()
+    task.wait(0.25)
+    local v962 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v963 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _964 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v965 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v967 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v969 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_971 = LocalPlayer.Backpack
+    local character_972 = LocalPlayer.Character
+    local character_GetChildren_973 = character_972.GetChildren
+    local v974 = character_GetChildren_973(character_972)
+    local v975 = localPlayer_Backpack_971:GetChildren()
+    task.wait(0.25)
+    local v977 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v978 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _979 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v980 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v982 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v984 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_986 = LocalPlayer.Backpack
+    local character_987 = LocalPlayer.Character
+    local character_GetChildren_988 = character_987.GetChildren
+    local v989 = character_GetChildren_988(character_987)
+    local v990 = localPlayer_Backpack_986:GetChildren()
+    task.wait(0.25)
+    local v992 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v993 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _994 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v995 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v997 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v999 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_1001 = LocalPlayer.Backpack
+    local character_1002 = LocalPlayer.Character
+    local character_GetChildren_1003 = character_1002.GetChildren
+    local v1004 = character_GetChildren_1003(character_1002)
+    local v1005 = localPlayer_Backpack_1001:GetChildren()
+    task.wait(0.25)
+    local v1007 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1008 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1009 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1010 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v1012 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v1014 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_1016 = LocalPlayer.Backpack
+    local character_1017 = LocalPlayer.Character
+    local character_GetChildren_1018 = character_1017.GetChildren
+    local v1019 = character_GetChildren_1018(character_1017)
+    local v1020 = localPlayer_Backpack_1016:GetChildren()
+    task.wait(0.25)
+    local v1022 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1023 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1024 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1025 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v1027 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v1029 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_1031 = LocalPlayer.Backpack
+    local character_1032 = LocalPlayer.Character
+    local character_GetChildren_1033 = character_1032.GetChildren
+    local v1034 = character_GetChildren_1033(character_1032)
+    local v1035 = localPlayer_Backpack_1031:GetChildren()
+    task.wait(0.25)
+    local v1037 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1038 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1039 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1040 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v1042 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v1044 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_1046 = LocalPlayer.Backpack
+    local character_1047 = LocalPlayer.Character
+    local character_GetChildren_1048 = character_1047.GetChildren
+    local v1049 = character_GetChildren_1048(character_1047)
+    local v1050 = localPlayer_Backpack_1046:GetChildren()
+    task.wait(0.25)
+    local v1052 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1053 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1054 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1055 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v1057 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v1059 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_1061 = LocalPlayer.Backpack
+    local character_1062 = LocalPlayer.Character
+    local character_GetChildren_1063 = character_1062.GetChildren
+    local v1064 = character_GetChildren_1063(character_1062)
+    local v1065 = localPlayer_Backpack_1061:GetChildren()
+    task.wait(0.25)
+    local v1067 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1068 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1069 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1070 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v1072 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v1074 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_1076 = LocalPlayer.Backpack
+    local character_1077 = LocalPlayer.Character
+    local character_GetChildren_1078 = character_1077.GetChildren
+    local v1079 = character_GetChildren_1078(character_1077)
+    local v1080 = localPlayer_Backpack_1076:GetChildren()
+    task.wait(0.25)
+    local v1082 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1083 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1084 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1085 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v1087 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v1089 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_1091 = LocalPlayer.Backpack
+    local character_1092 = LocalPlayer.Character
+    local character_GetChildren_1093 = character_1092.GetChildren
+    local v1094 = character_GetChildren_1093(character_1092)
+    local v1095 = localPlayer_Backpack_1091:GetChildren()
+    task.wait(0.25)
+    local v1097 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1098 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1099 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1100 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v1102 = ReplicatedStorage.Remotes.CommE:FireServer("Ken", true)
+    local ReplicatedStorage = game:GetService('ReplicatedStorage')
+    local v1104 = ReplicatedStorage.Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    local LocalPlayer = game.Players.LocalPlayer
+    local localPlayer_Backpack_1106 = LocalPlayer.Backpack
+    local character_1107 = LocalPlayer.Character
+    local character_GetChildren_1108 = character_1107.GetChildren
+    local v1109 = character_GetChildren_1108(character_1107)
+    local v1110 = localPlayer_Backpack_1106:GetChildren()
+    task.wait(0.25)
+    local v1112 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1113 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1114 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1115 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1117 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1118 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1119 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1120 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1122 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1123 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1124 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1125 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1127 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1128 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1129 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1130 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1132 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1133 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1134 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1135 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1137 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1138 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1139 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1140 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1142 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1143 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1144 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1145 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1147 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1148 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1149 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1150 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1152 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1153 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1154 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1155 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1157 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1158 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1159 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1160 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1162 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1163 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1164 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1165 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1167 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1168 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1169 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1170 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1172 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1173 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1174 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1175 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1177 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1178 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1179 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1180 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1182 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1183 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1184 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1185 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1187 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1188 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1189 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1190 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1192 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1193 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1194 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1195 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1197 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1198 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1199 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1200 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1202 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1203 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1204 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1205 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1207 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1208 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1209 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1210 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1212 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1213 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1214 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1215 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1217 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1218 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1219 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1220 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1222 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1223 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1224 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1225 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1227 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1228 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1229 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1230 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1232 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1233 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1234 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1235 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1237 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1238 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1239 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1240 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1242 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1243 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1244 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1245 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1247 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1248 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1249 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1250 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1252 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1253 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1254 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1255 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1257 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1258 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1259 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1260 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1262 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1263 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1264 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1265 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1267 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1268 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1269 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1270 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1272 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1273 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1274 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1275 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1277 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1278 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1279 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1280 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1282 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1283 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1284 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1285 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1287 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1288 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1289 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1290 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1292 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1293 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1294 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1295 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1297 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1298 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1299 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1300 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1302 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1303 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1304 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1305 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1307 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1308 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1309 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1310 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1312 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1313 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1314 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1315 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1317 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1318 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1319 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1320 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1322 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1323 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1324 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1325 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1327 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1328 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1329 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1330 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1332 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1333 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1334 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1335 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+    task.wait(0.25)
+    local v1337 = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local v1338 = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+    local _1339 =  0 < game.Players.LocalPlayer.Character.Humanoid.Health
+    local v1340 = game.Players.LocalPlayer.Character:FindFirstChild("HasBuso")
+end)
+env.LastCombatTime = 0
+local time_484 = os.time()
+task.spawn(function(v_4)
+    task.wait()
+end)
+RunService.Stepped:Connect(function(v_4)
+    local v1 = game.Players.LocalPlayer.Character:GetDescendants()
+end)
+game.Players.LocalPlayer.Idled:Connect(function(v_4)
+    local v1 = VirtualUser.Button2Down(VirtualUser, Vector2.new(0, 0), game:GetService("Workspace").CurrentCamera.CFrame)
+    task.wait(1)
+    local v3 = VirtualUser.Button2Up(VirtualUser, Vector2.new(0, 0), game:GetService("Workspace").CurrentCamera.CFrame)
+end)
+local Players = game:GetService('Players')
+game.Players.LocalPlayer.CharacterAdded:Connect(function(v_4, v_5, v_6, v_7, v_8, v_9)
+    local v1 = v_4:WaitForChild("HumanoidRootPart", 9000000000.0)
+    task.wait(1)
+end)
+task.spawn(function(arg1, arg2)
+    local v1 = settings()
+    v1.Rendering.QualityLevel = Enum.QualityLevel.Level01
+    local Lighting = game:GetService('Lighting')
+    Lighting.GlobalShadows = false
+    Lighting.FogEnd = 8999999488
+    Lighting.Brightness = 1
+    local v7 = Lighting:GetChildren()
+    local v8 = Workspace:GetDescendants()
+end)
