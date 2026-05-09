@@ -1,0 +1,751 @@
+
+local Junkie = loadstring(game:HttpGet("https://jnkie.com/sdk/library.lua"))()
+Junkie.service    = "ZXCHUB"
+Junkie.identifier = "1049167"
+Junkie.provider   = "Free"
+
+-- ════════════════════════════════════════════════════════
+-- SERVICES
+-- ════════════════════════════════════════════════════════
+local Players      = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+local UIS          = game:GetService("UserInputService")
+local Lighting     = game:GetService("Lighting")
+local CoreGui      = game:GetService("CoreGui")
+local lp           = Players.LocalPlayer
+
+local isMobile = UIS.TouchEnabled and not UIS.KeyboardEnabled
+
+-- ════════════════════════════════════════════════════════
+-- PALETTE
+-- ════════════════════════════════════════════════════════
+local C = {
+    bg0     = Color3.fromRGB(8,   9,  11),
+    bg1     = Color3.fromRGB(13,  14, 17),
+    bg2     = Color3.fromRGB(18,  20, 24),
+    bg3     = Color3.fromRGB(24,  26, 32),
+    bg4     = Color3.fromRGB(30,  33, 40),
+    brd     = Color3.fromRGB(36,  39, 48),
+    brd2    = Color3.fromRGB(48,  52, 64),
+    acc     = Color3.fromRGB(215, 55, 55),
+    accDark = Color3.fromRGB(155, 30, 30),
+    accGlow = Color3.fromRGB(235, 80, 80),
+    grn     = Color3.fromRGB(65,  195, 115),
+    txt     = Color3.fromRGB(198, 201, 215),
+    txt2    = Color3.fromRGB(140, 144, 162),
+    txt3    = Color3.fromRGB(80,  83,  100),
+    white   = Color3.fromRGB(255, 255, 255),
+    black   = Color3.fromRGB(0,   0,   0),
+    gold    = Color3.fromRGB(235, 175, 35),
+    goldDk  = Color3.fromRGB(175, 128, 18),
+    dcBlue  = Color3.fromRGB(114, 137, 218),
+}
+
+-- ════════════════════════════════════════════════════════
+-- FILE SYSTEM
+-- ════════════════════════════════════════════════════════
+local KEY_FILE = "ZXCHub_Key.txt"
+
+local function fsSave(key)
+    if writefile then pcall(writefile, KEY_FILE, key) end
+end
+local function fsLoad()
+    if readfile then
+        local ok, v = pcall(readfile, KEY_FILE)
+        if ok and v and v ~= "" then return v end
+    end
+    return nil
+end
+local function fsClear()
+    if delfile then pcall(delfile, KEY_FILE) end
+end
+
+-- ════════════════════════════════════════════════════════
+-- STATE  (no return needed — caller reads getgenv().SCRIPT_KEY)
+-- ════════════════════════════════════════════════════════
+getgenv().UI_CLOSED  = false
+getgenv().SCRIPT_KEY = nil
+
+-- Pre-load logo asset in background
+task.spawn(function()
+    pcall(function()
+        game:GetService("ContentProvider"):PreloadAsync({"rbxassetid://77911892724832"})
+    end)
+end)
+
+-- ════════════════════════════════════════════════════════
+-- UI HELPERS
+-- ════════════════════════════════════════════════════════
+local GUI = Instance.new("ScreenGui")
+GUI.Name           = "ZXCHUB_KeySystem"
+GUI.ResetOnSpawn   = false
+GUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+GUI.IgnoreGuiInset = true
+GUI.Parent         = CoreGui
+
+local blur = Instance.new("BlurEffect")
+blur.Size = 16; blur.Name = "ZXCHUB_KeyBlur"; blur.Parent = Lighting
+
+local function Tw(obj, t, g)
+    TweenService:Create(obj, TweenInfo.new(t), g):Play()
+end
+local function TwE(obj, t, es, ed, g)
+    TweenService:Create(obj, TweenInfo.new(t, es, ed), g):Play()
+end
+local function TwLoop(obj, t, es, g)
+    TweenService:Create(obj,
+        TweenInfo.new(t, es, Enum.EasingDirection.InOut, -1, true), g):Play()
+end
+
+local function MkFrame(parent, size, pos, bg, r, z)
+    local f = Instance.new("Frame", parent)
+    f.Size = size; f.Position = pos
+    f.BackgroundColor3 = bg or C.bg1
+    f.BorderSizePixel = 0
+    if r then Instance.new("UICorner", f).CornerRadius = UDim.new(0, r) end
+    if z then f.ZIndex = z end
+    return f
+end
+
+local function MkStroke(parent, col, thick, trans)
+    local s = Instance.new("UIStroke", parent)
+    s.Color = col or C.brd; s.Thickness = thick or 1; s.Transparency = trans or 0
+    return s
+end
+
+local function MkLbl(parent, text, sz, col, font, xa)
+    local l = Instance.new("TextLabel", parent)
+    l.Size = UDim2.new(1,0,1,0); l.Position = UDim2.new(0,0,0,0)
+    l.BackgroundTransparency = 1; l.Text = text
+    l.TextSize = sz or 13; l.TextColor3 = col or C.txt
+    l.Font = font or Enum.Font.GothamMedium
+    l.TextXAlignment = xa or Enum.TextXAlignment.Left
+    l.TextYAlignment = Enum.TextYAlignment.Center
+    l.TextWrapped = false
+    return l
+end
+
+local function MkBtn(parent, size, pos, bg, r, z)
+    local b = Instance.new("TextButton", parent)
+    b.Size = size; b.Position = pos
+    b.BackgroundColor3 = bg or C.bg3
+    b.BorderSizePixel = 0; b.Text = ""; b.AutoButtonColor = false
+    if r then Instance.new("UICorner", b).CornerRadius = UDim.new(0, r) end
+    if z then b.ZIndex = z end
+    return b
+end
+
+local function Hover(btn, norm, hot)
+    btn.MouseEnter:Connect(function() Tw(btn, 0.14, {BackgroundColor3 = hot}) end)
+    btn.MouseLeave:Connect(function() Tw(btn, 0.14, {BackgroundColor3 = norm}) end)
+end
+
+local function Press(btn, size, pos)
+    btn.MouseButton1Down:Connect(function()
+        Tw(btn, 0.07, {
+            Size = UDim2.new(size.X.Scale, size.X.Offset-2, size.Y.Scale, size.Y.Offset-2),
+            Position = UDim2.new(pos.X.Scale, pos.X.Offset+1, pos.Y.Scale, pos.Y.Offset+1),
+        })
+    end)
+    btn.MouseButton1Up:Connect(function()
+        Tw(btn, 0.07, {Size = size, Position = pos})
+    end)
+end
+
+-- ════════════════════════════════════════════════════════
+-- PANEL DIMENSIONS
+-- ════════════════════════════════════════════════════════
+local PW = isMobile and math.min(330, workspace.CurrentCamera.ViewportSize.X - 16) or 490
+local PH = isMobile and 500 or 430
+
+-- ════════════════════════════════════════════════════════
+-- BACKDROP + GLOW
+-- ════════════════════════════════════════════════════════
+local Backdrop = MkFrame(GUI, UDim2.new(1,0,1,0), UDim2.new(0,0,0,0), C.black, 0, 1)
+Backdrop.BackgroundTransparency = 1
+
+local GlowBg = MkFrame(GUI, UDim2.new(0,PW+80,0,PH+60), UDim2.new(0.5,0,0.5,0), C.acc, 40, 0)
+GlowBg.AnchorPoint = Vector2.new(0.5,0.5)
+GlowBg.BackgroundTransparency = 0.92
+TweenService:Create(GlowBg,
+    TweenInfo.new(4, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true),
+    {BackgroundTransparency = 0.87, Size = UDim2.new(0,PW+120,0,PH+100)}):Play()
+
+-- ════════════════════════════════════════════════════════
+-- MAIN PANEL
+-- ════════════════════════════════════════════════════════
+local Panel = MkFrame(GUI, UDim2.new(0,PW,0,PH), UDim2.new(0.5,0,0.5,0), C.bg1, 12, 2)
+Panel.AnchorPoint = Vector2.new(0.5,0.5)
+Panel.ClipsDescendants = true
+MkStroke(Panel, C.brd2, 1)
+
+-- Glass sheen
+local Sheen = MkFrame(Panel, UDim2.new(1,0,0.5,0), UDim2.new(0,0,0,0), C.white, 0, 3)
+Sheen.BackgroundTransparency = 0.97
+local sheenG = Instance.new("UIGradient", Sheen)
+sheenG.Rotation = 90
+sheenG.Transparency = NumberSequence.new{
+    NumberSequenceKeypoint.new(0, 0.93),
+    NumberSequenceKeypoint.new(1, 1),
+}
+
+-- ════════════════════════════════════════════════════════
+-- TOP BAR
+-- ════════════════════════════════════════════════════════
+local TBH = isMobile and 44 or 38
+local TopBar = MkFrame(Panel, UDim2.new(1,0,0,TBH), UDim2.new(0,0,0,0), C.bg0, 0, 4)
+Instance.new("UICorner", TopBar).CornerRadius = UDim.new(0, 12)
+MkFrame(TopBar, UDim2.new(1,0,0,12), UDim2.new(0,0,1,-12), C.bg0, 0, 4) -- square bottom
+MkFrame(TopBar, UDim2.new(1,0,0,2), UDim2.new(0,0,1,-2), C.acc, 0, 5)   -- red underline
+
+-- Small logo in top bar (image with text fallback)
+local tbSz = isMobile and 22 or 20
+local tbImg = Instance.new("ImageLabel", TopBar)
+tbImg.Size = UDim2.new(0, tbSz, 0, tbSz)
+tbImg.Position = UDim2.new(0, isMobile and 12 or 10, 0.5, -tbSz/2)
+tbImg.BackgroundTransparency = 1
+tbImg.Image = "rbxassetid://77911892724832"
+tbImg.ScaleType = Enum.ScaleType.Fit
+tbImg.ZIndex = 6
+
+-- Brand text
+local BrandLbl = MkLbl(TopBar,
+    '<font color="#D73737">Flare</font>HUB',
+    isMobile and 13 or 13, C.white, Enum.Font.GothamBold, Enum.TextXAlignment.Left)
+BrandLbl.Size = UDim2.new(0, 90, 1, -4)
+BrandLbl.Position = UDim2.new(0, isMobile and 40 or 36, 0, 2)
+BrandLbl.RichText = true; BrandLbl.ZIndex = 6
+
+-- Badge
+local BadgeF = MkFrame(TopBar, UDim2.new(0,78,0,isMobile and 18 or 16),
+    UDim2.new(0, isMobile and 136 or 128, 0.5, isMobile and -9 or -8), C.bg3, 4, 6)
+MkStroke(BadgeF, C.brd2, 1)
+MkLbl(BadgeF, "Key System", 8, C.txt2, Enum.Font.GothamMedium, Enum.TextXAlignment.Center).ZIndex = 7
+
+-- Close button
+local cSz = isMobile and 30 or 26
+local CloseBtn = MkBtn(TopBar, UDim2.new(0,cSz,0,cSz),
+    UDim2.new(1,-(cSz+6),0.5,-cSz/2), C.bg2, 6, 6)
+local cLbl = MkLbl(CloseBtn, "X", isMobile and 13 or 12,
+    Color3.fromRGB(180,50,50), Enum.Font.GothamBold, Enum.TextXAlignment.Center)
+cLbl.ZIndex = 7
+Hover(CloseBtn, C.bg2, C.acc)
+CloseBtn.MouseEnter:Connect(function() cLbl.TextColor3 = C.white end)
+CloseBtn.MouseLeave:Connect(function() cLbl.TextColor3 = Color3.fromRGB(180,50,50) end)
+
+-- ════════════════════════════════════════════════════════
+-- CONTENT AREA
+-- ════════════════════════════════════════════════════════
+local PAD  = 18
+local Cont = MkFrame(Panel,
+    UDim2.new(1,-PAD*2,1,-(TBH+14)),
+    UDim2.new(0,PAD,0,TBH+8),
+    C.bg1, 0, 3)
+Cont.BackgroundTransparency = 1
+
+-- ════════════════════════════════════════════════════════
+-- CENTER LOGO
+-- Shows the image; while loading shows styled "Nhatan" text
+-- ════════════════════════════════════════════════════════
+local logoSz = isMobile and 62 or 70
+local LogoWrap = MkFrame(Cont,
+    UDim2.new(0,logoSz,0,logoSz),
+    UDim2.new(0.5,-logoSz/2,0,2),
+    C.bg2, 16, 4)
+MkStroke(LogoWrap, C.acc, 2, 0.3)
+
+-- Rotating gradient on the border ring
+local rStroke = LogoWrap:FindFirstChildOfClass("UIStroke")
+local rGrad = Instance.new("UIGradient")
+rGrad.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, C.acc),
+    ColorSequenceKeypoint.new(0.5, C.accGlow),
+    ColorSequenceKeypoint.new(1, C.accDark),
+}
+rGrad.Parent = rStroke
+TweenService:Create(rGrad,
+    TweenInfo.new(3, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, -1),
+    {Rotation = 360}):Play()
+
+-- Fallback label (visible by default, hidden once image loads)
+local logoFallback = Instance.new("TextLabel", LogoWrap)
+logoFallback.Size = UDim2.new(1,0,1,0)
+logoFallback.BackgroundTransparency = 1
+logoFallback.Text = '<font color="#D73737">Nhatan</font>'
+logoFallback.RichText = true
+logoFallback.TextColor3 = C.white
+logoFallback.Font = Enum.Font.GothamBold
+logoFallback.TextSize = isMobile and 14 or 16
+logoFallback.TextXAlignment = Enum.TextXAlignment.Center
+logoFallback.TextYAlignment = Enum.TextYAlignment.Center
+logoFallback.ZIndex = 4
+
+-- Image on top of fallback
+local LogoImg = Instance.new("ImageLabel", LogoWrap)
+LogoImg.Size = UDim2.new(1,-8,1,-8)
+LogoImg.Position = UDim2.new(0,4,0,4)
+LogoImg.BackgroundTransparency = 1
+LogoImg.Image = "rbxassetid://77911892724832"
+LogoImg.ScaleType = Enum.ScaleType.Fit
+LogoImg.ImageTransparency = 1   -- start invisible
+LogoImg.ZIndex = 5
+Instance.new("UICorner", LogoImg).CornerRadius = UDim.new(0,12)
+
+-- Fade image in once it loads, hide fallback
+local function onLogoLoaded()
+    if LogoImg.IsLoaded then
+        logoFallback.Visible = false
+        Tw(LogoImg, 0.3, {ImageTransparency = 0})
+    end
+end
+LogoImg:GetPropertyChangedSignal("IsLoaded"):Connect(onLogoLoaded)
+task.delay(0.1, onLogoLoaded) -- check immediately too
+
+-- Pulse the wrap
+TwLoop(LogoWrap, 2.2, Enum.EasingStyle.Sine, {BackgroundColor3 = C.bg3})
+
+-- ════════════════════════════════════════════════════════
+-- TITLE + SUBTITLE
+-- ════════════════════════════════════════════════════════
+local titleY = logoSz + 12
+
+local TitleLbl = MkLbl(Cont, "Verify Your Key",
+    isMobile and 18 or 20, C.white, Enum.Font.GothamBold, Enum.TextXAlignment.Center)
+TitleLbl.Size = UDim2.new(1,0,0,isMobile and 26 or 28)
+TitleLbl.Position = UDim2.new(0,0,0,titleY); TitleLbl.ZIndex = 4
+
+local SubLbl = MkLbl(Cont, "Enter your key below to access FlareHUB",
+    isMobile and 11 or 12, C.txt2, Enum.Font.Gotham, Enum.TextXAlignment.Center)
+SubLbl.Size = UDim2.new(1,0,0,isMobile and 16 or 18)
+SubLbl.Position = UDim2.new(0,0,0,titleY+(isMobile and 28 or 30)); SubLbl.ZIndex = 4
+
+-- ════════════════════════════════════════════════════════
+-- KEY INPUT
+-- ════════════════════════════════════════════════════════
+local inputY = titleY+(isMobile and 54 or 60)
+local inputH = isMobile and 42 or 38
+
+local InputWrap = MkFrame(Cont, UDim2.new(1,0,0,inputH), UDim2.new(0,0,0,inputY), C.bg2, 8, 4)
+local inputStroke = MkStroke(InputWrap, C.brd2, 1, 0.25)
+
+local keyTagW = isMobile and 38 or 34
+local keyTagF = MkFrame(InputWrap, UDim2.new(0,keyTagW,1,-8), UDim2.new(0,6,0,4), C.bg3, 6, 5)
+MkLbl(keyTagF, "KEY", 8, C.acc, Enum.Font.GothamBold, Enum.TextXAlignment.Center).ZIndex = 6
+MkFrame(InputWrap, UDim2.new(0,1,1,-12), UDim2.new(0,keyTagW+10,0,6), C.brd2, 0, 5)
+
+local KeyInput = Instance.new("TextBox", InputWrap)
+KeyInput.Size = UDim2.new(1,-(keyTagW+18),1,0)
+KeyInput.Position = UDim2.new(0,keyTagW+14,0,0)
+KeyInput.BackgroundTransparency = 1
+KeyInput.PlaceholderText = "Enter your verification key..."
+KeyInput.PlaceholderColor3 = C.txt3
+KeyInput.Text = ""; KeyInput.TextColor3 = C.txt
+KeyInput.TextSize = isMobile and 12 or 13
+KeyInput.Font = Enum.Font.GothamMedium
+KeyInput.TextXAlignment = Enum.TextXAlignment.Left
+KeyInput.ClearTextOnFocus = false; KeyInput.ZIndex = 5
+Instance.new("UIPadding", KeyInput).PaddingLeft = UDim.new(0,2)
+
+KeyInput.Focused:Connect(function()
+    Tw(inputStroke, 0.16, {Color=C.acc, Thickness=1.5, Transparency=0})
+    Tw(InputWrap, 0.16, {BackgroundColor3=C.bg3})
+end)
+KeyInput.FocusLost:Connect(function()
+    Tw(inputStroke, 0.16, {Color=C.brd2, Thickness=1, Transparency=0.25})
+    Tw(InputWrap, 0.16, {BackgroundColor3=C.bg2})
+end)
+
+-- ════════════════════════════════════════════════════════
+-- STATUS TEXT
+-- ════════════════════════════════════════════════════════
+local statusY = inputY+inputH+5
+local StatusLbl = MkLbl(Cont, "", isMobile and 10 or 11,
+    C.txt2, Enum.Font.Gotham, Enum.TextXAlignment.Center)
+StatusLbl.Size = UDim2.new(1,0,0,14)
+StatusLbl.Position = UDim2.new(0,0,0,statusY); StatusLbl.ZIndex = 4
+
+local function SetStatus(msg, col, dur)
+    StatusLbl.Text = msg
+    StatusLbl.TextColor3 = col or C.txt2
+    if dur and dur > 0 then
+        task.delay(dur, function()
+            if StatusLbl.Text == msg then StatusLbl.Text = "" end
+        end)
+    end
+end
+
+local function ShakeInput()
+    local orig = InputWrap.Position
+    for _ = 1, 3 do
+        Tw(InputWrap, 0.05, {Position=UDim2.new(orig.X.Scale,orig.X.Offset-7,orig.Y.Scale,orig.Y.Offset)})
+        task.wait(0.05)
+        Tw(InputWrap, 0.05, {Position=UDim2.new(orig.X.Scale,orig.X.Offset+7,orig.Y.Scale,orig.Y.Offset)})
+        task.wait(0.05)
+    end
+    InputWrap.Position = orig
+end
+
+-- ════════════════════════════════════════════════════════
+-- BUTTONS  (Get Key | Verify Key)
+-- ════════════════════════════════════════════════════════
+local btnY   = inputY+inputH+(isMobile and 24 or 20)
+local btnH   = isMobile and 40 or 36
+local btnGap = 8
+
+-- Get Key
+local GKSz  = UDim2.new(0.5,-btnGap/2,0,btnH)
+local GKPos = UDim2.new(0,0,0,btnY)
+local GKBtn = MkBtn(Cont, GKSz, GKPos, C.bg3, 8, 4)
+MkStroke(GKBtn, C.brd2, 1, 0.3)
+local gkGrad = Instance.new("UIGradient", GKBtn)
+gkGrad.Rotation = 90
+gkGrad.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, C.bg4),
+    ColorSequenceKeypoint.new(1, C.bg3),
+}
+local gkLbl = MkLbl(GKBtn, "Get Key",
+    isMobile and 12 or 13, C.txt, Enum.Font.GothamSemibold, Enum.TextXAlignment.Center)
+gkLbl.ZIndex = 5
+Hover(GKBtn, C.bg3, C.bg4)
+GKBtn.MouseEnter:Connect(function() gkLbl.TextColor3 = C.white end)
+GKBtn.MouseLeave:Connect(function() gkLbl.TextColor3 = C.txt end)
+Press(GKBtn, GKSz, GKPos)
+
+-- Verify Key
+local VKSz  = UDim2.new(0.5,-btnGap/2,0,btnH)
+local VKPos = UDim2.new(0.5,btnGap/2,0,btnY)
+local VKBtn = MkBtn(Cont, VKSz, VKPos, C.acc, 8, 4)
+local vkGrad = Instance.new("UIGradient", VKBtn)
+vkGrad.Rotation = 90
+vkGrad.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, C.accGlow),
+    ColorSequenceKeypoint.new(1, C.accDark),
+}
+local vkLbl = MkLbl(VKBtn, "Verify Key",
+    isMobile and 12 or 13, C.white, Enum.Font.GothamBold, Enum.TextXAlignment.Center)
+vkLbl.ZIndex = 5
+Hover(VKBtn, C.acc, C.accGlow)
+Press(VKBtn, VKSz, VKPos)
+
+-- ════════════════════════════════════════════════════════
+-- DIVIDER
+-- ════════════════════════════════════════════════════════
+local divY = btnY+btnH+(isMobile and 14 or 12)
+MkFrame(Cont, UDim2.new(1,0,0,1), UDim2.new(0,0,0,divY), C.brd, 0, 3)
+
+-- ════════════════════════════════════════════════════════
+-- PREMIUM CARD
+-- ════════════════════════════════════════════════════════
+local premY = divY+(isMobile and 12 or 10)
+local premH = isMobile and 64 or 58
+
+local PCard = MkFrame(Cont, UDim2.new(1,0,0,premH), UDim2.new(0,0,0,premY), C.bg2, 8, 4)
+MkStroke(PCard, C.gold, 1, 0.4)
+MkFrame(PCard, UDim2.new(0,3,1,-12), UDim2.new(0,0,0,6), C.gold, 2, 5)
+
+local pGrad = Instance.new("UIGradient", PCard)
+pGrad.Rotation = 120
+pGrad.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(28,24,12)),
+    ColorSequenceKeypoint.new(1, C.bg2),
+}
+
+local pTitleH = isMobile and 22 or 20
+local pTitleLbl = MkLbl(PCard, "Buy Premium Access",
+    isMobile and 13 or 14, C.gold, Enum.Font.GothamBold, Enum.TextXAlignment.Left)
+pTitleLbl.Size = UDim2.new(1,-(isMobile and 106 or 98),0,pTitleH)
+pTitleLbl.Position = UDim2.new(0,isMobile and 14 or 12,0,isMobile and 9 or 8)
+pTitleLbl.ZIndex = 5
+
+local pFeatLbl = MkLbl(PCard,
+    "Keyless  |  Priority updates  |  Premium features",
+    isMobile and 10 or 10,
+    Color3.fromRGB(188,168,105),
+    Enum.Font.Gotham, Enum.TextXAlignment.Left)
+pFeatLbl.Size = UDim2.new(1,-(isMobile and 106 or 98),0,isMobile and 18 or 16)
+pFeatLbl.Position = UDim2.new(0,isMobile and 14 or 12,0,isMobile and 34 or 30)
+pFeatLbl.ZIndex = 5
+
+local buyW = isMobile and 84 or 78
+local buyH = isMobile and 34 or 30
+local BuyBtn = MkBtn(PCard, UDim2.new(0,buyW,0,buyH),
+    UDim2.new(1,-(buyW+8),0.5,-buyH/2), C.gold, 6, 5)
+local buyGrad = Instance.new("UIGradient", BuyBtn)
+buyGrad.Rotation = 90
+buyGrad.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(248,198,65)),
+    ColorSequenceKeypoint.new(1, C.goldDk),
+}
+local buyLbl = MkLbl(BuyBtn, "Buy",
+    isMobile and 12 or 13, C.black, Enum.Font.GothamBold, Enum.TextXAlignment.Center)
+buyLbl.ZIndex = 6
+Hover(BuyBtn, C.gold, Color3.fromRGB(255,215,80))
+
+BuyBtn.MouseButton1Click:Connect(function()
+    local link = "https://zxchub.online/getkey"
+    if setclipboard then
+        setclipboard(link)
+        SetStatus("Link copied! Paste it into your browser.", C.gold, 5)
+        buyLbl.Text = "Copied!"
+        task.delay(2.2, function() buyLbl.Text = "Buy" end)
+    else
+        SetStatus("Visit: zxchub.online/getkey", C.gold, 6)
+    end
+end)
+
+-- ════════════════════════════════════════════════════════
+-- BOTTOM ROW  (Discord | zxchub.online)
+-- ════════════════════════════════════════════════════════
+local botY    = premY+premH+(isMobile and 12 or 10)
+local botRowH = isMobile and 30 or 26
+local dcBtnW  = isMobile and 106 or 96
+
+local DcBtn = MkBtn(Cont, UDim2.new(0,dcBtnW,0,botRowH), UDim2.new(0,0,0,botY), C.bg3, 6, 4)
+MkStroke(DcBtn, C.brd2, 1, 0.35)
+local dcGrad = Instance.new("UIGradient", DcBtn)
+dcGrad.Rotation = 90
+dcGrad.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(26,29,40)),
+    ColorSequenceKeypoint.new(1, C.bg3),
+}
+local dcLbl = MkLbl(DcBtn, "Discord",
+    isMobile and 12 or 12, C.dcBlue, Enum.Font.GothamSemibold, Enum.TextXAlignment.Center)
+dcLbl.ZIndex = 5
+Hover(DcBtn, C.bg3, C.bg4)
+DcBtn.MouseEnter:Connect(function() dcLbl.TextColor3 = Color3.fromRGB(155,175,255) end)
+DcBtn.MouseLeave:Connect(function() dcLbl.TextColor3 = C.dcBlue end)
+
+DcBtn.MouseButton1Click:Connect(function()
+    if setclipboard then
+        setclipboard("https://discord.gg/rnJC4yYfsU")
+        SetStatus("Discord link copied! Paste it into your browser.", C.txt, 4)
+        dcLbl.Text = "Copied!"
+        task.delay(2, function() dcLbl.Text = "Discord" end)
+    else
+        SetStatus("Join: discord.gg/rnJC4yYfsU", C.txt, 5)
+    end
+end)
+
+local SiteLbl = MkLbl(Cont, "zxchub.online",
+    isMobile and 10 or 10, C.txt3, Enum.Font.Gotham, Enum.TextXAlignment.Right)
+SiteLbl.Size = UDim2.new(1,-(dcBtnW+10),0,botRowH)
+SiteLbl.Position = UDim2.new(0,dcBtnW+8,0,botY); SiteLbl.ZIndex = 4
+
+-- ════════════════════════════════════════════════════════
+-- FLOATING PARTICLES
+-- ════════════════════════════════════════════════════════
+task.spawn(function()
+    while Panel and Panel.Parent do
+        local p = MkFrame(Panel,
+            UDim2.new(0,math.random(2,4),0,math.random(2,4)),
+            UDim2.new(math.random(),0,1,0),
+            C.acc, 2, 6)
+        p.BackgroundTransparency = 0.65
+        TweenService:Create(p,
+            TweenInfo.new(math.random(9,15), Enum.EasingStyle.Linear),
+            {Position=UDim2.new(p.Position.X.Scale,0,-0.08,0), BackgroundTransparency=1}):Play()
+        task.delay(16, function() if p and p.Parent then p:Destroy() end end)
+        task.wait(math.random(2,4))
+    end
+end)
+
+-- ════════════════════════════════════════════════════════
+-- LOADING OVERLAY
+-- ════════════════════════════════════════════════════════
+local LoadOv = MkFrame(Panel, UDim2.new(1,0,1,0), UDim2.new(0,0,0,0), C.bg1, 12, 20)
+LoadOv.Visible = false
+
+local SpinH = MkFrame(LoadOv, UDim2.new(0,64,0,64), UDim2.new(0.5,-32,0.5,-52), C.bg1, 0, 21)
+SpinH.BackgroundTransparency = 1
+
+local TrCirc = MkFrame(SpinH, UDim2.new(1,0,1,0), UDim2.new(0,0,0,0), C.bg1, 0, 21)
+TrCirc.BackgroundTransparency = 1
+MkStroke(TrCirc, C.brd2, 4, 0.6)
+Instance.new("UICorner", TrCirc).CornerRadius = UDim.new(1,0)
+
+local ArcCirc = MkFrame(SpinH, UDim2.new(1,0,1,0), UDim2.new(0,0,0,0), C.bg1, 0, 22)
+ArcCirc.BackgroundTransparency = 1
+local arcS = MkStroke(ArcCirc, C.acc, 4, 0)
+Instance.new("UICorner", ArcCirc).CornerRadius = UDim.new(1,0)
+local arcG = Instance.new("UIGradient", arcS)
+arcG.Transparency = NumberSequence.new{
+    NumberSequenceKeypoint.new(0,0),
+    NumberSequenceKeypoint.new(0.45,0.1),
+    NumberSequenceKeypoint.new(0.75,0.6),
+    NumberSequenceKeypoint.new(1,1),
+}
+TweenService:Create(SpinH,
+    TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, -1),
+    {Rotation=360}):Play()
+
+local LoadTxt = MkLbl(LoadOv, "Checking key",
+    isMobile and 14 or 15, C.txt, Enum.Font.GothamBold, Enum.TextXAlignment.Center)
+LoadTxt.Size = UDim2.new(1,0,0,22); LoadTxt.Position = UDim2.new(0,0,0.5,22); LoadTxt.ZIndex = 22
+
+local LoadSub = MkLbl(LoadOv, "Please wait a moment",
+    isMobile and 10 or 11, C.txt2, Enum.Font.Gotham, Enum.TextXAlignment.Center)
+LoadSub.Size = UDim2.new(1,0,0,16); LoadSub.Position = UDim2.new(0,0,0.5,48); LoadSub.ZIndex = 22
+
+task.spawn(function()
+    local base = "Checking key"; local d = 0
+    while LoadOv and LoadOv.Parent do
+        if LoadOv.Visible then
+            d = (d%3)+1
+            LoadTxt.Text = base..string.rep(".",d)
+        end
+        task.wait(0.5)
+    end
+end)
+
+local function ShowLoading(show, msg)
+    if msg then LoadTxt.Text = msg end
+    LoadOv.Visible = show
+end
+
+-- ════════════════════════════════════════════════════════
+-- SUCCESS OVERLAY
+-- ════════════════════════════════════════════════════════
+local function ShowSuccess(msg)
+    local Ov = MkFrame(Panel, UDim2.new(1,0,1,0), UDim2.new(0,0,0,0), C.bg1, 12, 30)
+    Ov.BackgroundTransparency = 1
+    Tw(Ov, 0.22, {BackgroundTransparency=0.05})
+
+    local cSz2 = 82
+    local Circ = MkFrame(Ov,
+        UDim2.new(0,cSz2,0,cSz2),
+        UDim2.new(0.5,-cSz2/2,0.5,-70),
+        C.grn, cSz2/2, 31)
+    Circ.BackgroundTransparency = 0.15
+    TwE(Circ, 0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out,
+        {Size=UDim2.new(0,90,0,90), Position=UDim2.new(0.5,-45,0.5,-74)})
+
+    local ckL = MkLbl(Circ, "v", 44, C.white, Enum.Font.GothamBold, Enum.TextXAlignment.Center)
+    ckL.TextSize = 0; ckL.ZIndex = 32
+    TwE(ckL, 0.3, Enum.EasingStyle.Back, Enum.EasingDirection.Out, {TextSize=48})
+
+    TwLoop(Circ, 0.9, Enum.EasingStyle.Sine, {Size=UDim2.new(0,92,0,92)})
+
+    local sT = MkLbl(Ov, msg or "Key Verified!",
+        isMobile and 17 or 19, C.grn, Enum.Font.GothamBold, Enum.TextXAlignment.Center)
+    sT.Size = UDim2.new(1,0,0,26); sT.Position = UDim2.new(0,0,0.5,30); sT.ZIndex = 31
+
+    local sS = MkLbl(Ov, "Starting FlareHUB...",
+        isMobile and 11 or 12, C.txt2, Enum.Font.Gotham, Enum.TextXAlignment.Center)
+    sS.Size = UDim2.new(1,0,0,16); sS.Position = UDim2.new(0,0,0.5,60); sS.ZIndex = 31
+
+    task.wait(1.3)
+end
+
+-- ════════════════════════════════════════════════════════
+-- ENTRANCE ANIMATION
+-- ════════════════════════════════════════════════════════
+Panel.BackgroundTransparency = 1
+Panel.Position = UDim2.new(0.5,0,0.5,36)
+TwE(Panel, 0.32, Enum.EasingStyle.Back, Enum.EasingDirection.Out,
+    {BackgroundTransparency=0, Position=UDim2.new(0.5,0,0.5,0)})
+Tw(Backdrop, 0.22, {BackgroundTransparency=0.35})
+
+-- ════════════════════════════════════════════════════════
+-- CLOSE FUNCTION
+-- ════════════════════════════════════════════════════════
+local function CloseUI()
+    getgenv().UI_CLOSED = true
+    local b = Lighting:FindFirstChild("ZXCHUB_KeyBlur")
+    Tw(Panel, 0.18, {BackgroundTransparency=1, Position=UDim2.new(0.5,0,0.5,28)})
+    Tw(Backdrop, 0.18, {BackgroundTransparency=1})
+    task.wait(0.20)
+    if b then b:Destroy() end
+    if GUI and GUI.Parent then GUI:Destroy() end
+end
+
+CloseBtn.MouseButton1Click:Connect(CloseUI)
+
+-- ════════════════════════════════════════════════════════
+-- GET KEY BUTTON
+-- ════════════════════════════════════════════════════════
+GKBtn.MouseButton1Click:Connect(function()
+    local link = "https://zxchub.online/getkey"
+    if setclipboard then
+        setclipboard(link)
+        SetStatus("Link copied! Paste it into your browser.", C.grn, 5)
+        gkLbl.Text = "Copied!"
+        task.delay(2.5, function() gkLbl.Text = "Get Key" end)
+    else
+        SetStatus("Get your key at: zxchub.online/getkey", C.txt, 6)
+    end
+end)
+
+-- ════════════════════════════════════════════════════════
+-- VERIFY KEY
+-- ════════════════════════════════════════════════════════
+local verifying = false
+
+local function DoVerify(rawKey)
+    if verifying then return end
+    local key = rawKey:gsub("%s+","")
+    if key == "" then
+        SetStatus("Please enter a key first.", C.acc, 3)
+        task.spawn(ShakeInput); return
+    end
+
+    verifying = true
+    vkLbl.Text = "Checking..."; VKBtn.Active = false
+
+    local result = Junkie.check_key(key)
+
+    if result and result.valid then
+        fsSave(key)
+        ShowLoading(false)
+        ShowSuccess(result.message == "KEYLESS" and "Keyless Mode!" or "Key Verified!")
+        getgenv().SCRIPT_KEY = key
+        verifying = false
+        CloseUI()
+    else
+        SetStatus("Invalid key. Try again or get a new one.", C.acc, 5)
+        task.spawn(ShakeInput)
+        Tw(InputWrap, 0.09, {BackgroundColor3=Color3.fromRGB(50,16,16)})
+        task.delay(0.38, function()
+            Tw(InputWrap, 0.18, {BackgroundColor3=C.bg2})
+        end)
+        Tw(inputStroke, 0.12, {Color=C.acc, Thickness=1.5, Transparency=0})
+        task.delay(1.2, function()
+            Tw(inputStroke, 0.18, {Color=C.brd2, Thickness=1, Transparency=0.25})
+        end)
+        vkLbl.Text = "Verify Key"; VKBtn.Active = true
+        verifying = false
+    end
+end
+
+VKBtn.MouseButton1Click:Connect(function() DoVerify(KeyInput.Text) end)
+KeyInput.FocusLost:Connect(function(enter)
+    if enter then DoVerify(KeyInput.Text) end
+end)
+
+task.spawn(function()
+    ShowLoading(true, "Checking verification")
+
+    local savedKey = fsLoad() or getgenv().SCRIPT_KEY
+    local result   = Junkie.check_key(savedKey)
+
+    if result and result.valid then
+        if result.message == "KEYLESS" then
+            ShowLoading(false)
+            ShowSuccess("Keyless Mode!")
+            getgenv().SCRIPT_KEY = "KEYLESS"
+            CloseUI(); return
+        end
+        if result.message == "KEY_VALID" then
+            ShowLoading(false)
+            ShowSuccess(savedKey and "Saved Key Verified!" or "Key Verified!")
+            getgenv().SCRIPT_KEY = savedKey
+            CloseUI(); return
+        end
+        if savedKey then fsClear() end
+    end
+
+    ShowLoading(false)
+end)
+
+while not getgenv().UI_CLOSED do
+    task.wait(0.1)
+end
